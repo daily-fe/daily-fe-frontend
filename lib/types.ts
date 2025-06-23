@@ -7,3 +7,9 @@ export interface Article {
 	readonly createdAt: Date | null;
 	readonly likes: number;
 }
+
+export interface AnalysisResult {
+	title: string;
+	summary: string;
+	tags: string[];
+}
