@@ -1,5 +1,6 @@
 export interface Article {
 	readonly id: string;
+	readonly url: string;
 	readonly title: string;
 	readonly summary: string;
 	readonly tags: string[];
@@ -10,6 +11,7 @@ export interface Article {
 }
 
 export interface AnalysisResult {
+	url: string;
 	title: string;
 	summary: string;
 	tags: string[];
