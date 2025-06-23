@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import type { Article } from '@/entities/article/model/types';
 import ArticleCard from '@/entities/article/ui/ArticleCard';
+import { ArticleIframeDialog } from '@/entities/article/ui/ArticleIframeDialog';
 import { AddArticleDialog } from '@/widgets/add-article-dialog/ui/AddArticleDialog';
 
 interface ArticleSectionProps {
@@ -11,9 +12,18 @@ interface ArticleSectionProps {
 
 export default function ArticleSection({ initialArticles }: ArticleSectionProps) {
 	const [articles, setArticles] = useState<Article[]>(initialArticles);
+	const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
 	const handleArticleAdded = (newArticle: Article) => {
 		setArticles((prevArticles) => [newArticle, ...prevArticles]);
+	};
+
+	const handleCardClick = (article: Article) => {
+		setSelectedArticle(article);
+	};
+
+	const handleDialogClose = () => {
+		setSelectedArticle(null);
 	};
 
 	return (
@@ -34,11 +44,21 @@ export default function ArticleSection({ initialArticles }: ArticleSectionProps)
 				) : (
 					<div className="flex flex-col gap-4">
 						{articles.map((article) => (
-							<ArticleCard key={article.id} article={article} />
+							<ArticleCard
+								key={article.id}
+								article={article}
+								onCardClick={() => handleCardClick(article)}
+							/>
 						))}
 					</div>
 				)}
 			</section>
+
+			<ArticleIframeDialog
+				article={selectedArticle}
+				open={!!selectedArticle}
+				onOpenChange={(open) => !open && handleDialogClose()}
+			/>
 		</>
 	);
 }
