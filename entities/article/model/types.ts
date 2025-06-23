@@ -1,3 +1,7 @@
+import { CATEGORIES } from './constants';
+
+export type Category = (typeof CATEGORIES)[number];
+
 export interface Article {
 	readonly id: string;
 	readonly url: string;
@@ -7,7 +11,7 @@ export interface Article {
 	readonly author: string | null;
 	readonly createdAt: Date | null;
 	readonly likes: number;
-	readonly category: string;
+	readonly category: Category;
 }
 
 export interface AnalysisResult {
@@ -18,5 +22,5 @@ export interface AnalysisResult {
 	createdAt: Date | null;
 	likes: number;
 	author: string | null;
-	category: string;
+	category: Category;
 }

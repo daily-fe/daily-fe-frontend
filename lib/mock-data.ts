@@ -8,6 +8,8 @@ export const MOCK_ANALYSIS_RESULT: AnalysisResult = {
 	createdAt: new Date('2024-01-15T10:00:00Z'),
 	likes: 150,
 	author: 'John Doe',
+	url: 'https://www.google.com',
+	category: 'Deep Dive',
 };
 
 export const MOCK_ARTICLES: Article[] = [
@@ -19,6 +21,8 @@ export const MOCK_ARTICLES: Article[] = [
 		author: 'John Doe',
 		createdAt: new Date('2024-01-15T10:00:00Z'),
 		likes: 150,
+		category: 'Deep Dive',
+		url: 'https://www.google.com',
 	},
 	{
 		id: '2',
@@ -28,5 +32,7 @@ export const MOCK_ARTICLES: Article[] = [
 		author: 'Jane Smith',
 		createdAt: new Date('2024-03-20T14:30:00Z'),
 		likes: 250,
+		category: 'Trends',
+		url: 'https://www.google.com',
 	},
 ];
