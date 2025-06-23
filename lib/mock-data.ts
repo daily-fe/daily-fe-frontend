@@ -9,6 +9,7 @@ export const mockArticles: Article[] = [
 		tags: ['Next.js', 'React', 'WebDev'],
 		author: 'Vercel',
 		createdAt: new Date('2023-10-27'),
+		likes: 120,
 	},
 	{
 		id: '2',
@@ -18,6 +19,7 @@ export const mockArticles: Article[] = [
 		tags: ['React', 'State Management', 'Zustand'],
 		author: 'Daishi Kato',
 		createdAt: new Date('2024-03-15'),
+		likes: 98,
 	},
 	{
 		id: '3',
@@ -27,5 +29,6 @@ export const mockArticles: Article[] = [
 		tags: ['TypeScript', 'JavaScript'],
 		author: null,
 		createdAt: new Date('2024-01-10'),
+		likes: 256,
 	},
 ];

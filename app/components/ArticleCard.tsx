@@ -1,21 +1,40 @@
+'use client';
+
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Article } from '@/lib/types';
+import { Button } from './ui/button';
+import { Icon } from './ui/Icon';
 
 interface ArticleCardProps {
 	article: Article;
 }
 
 export default function ArticleCard({ article }: ArticleCardProps) {
+	const [isLiked, setIsLiked] = useState(false);
+	const [likeCount, setLikeCount] = useState(article.likes);
+
+	const handleLike = () => {
+		setIsLiked((prev) => !prev);
+		setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
+	};
+
 	return (
 		<Card className="flex flex-col h-full">
-			<CardHeader>
+			<CardHeader className="flex flex-row justify-between items-center">
 				<CardTitle className="text-2xl">{article.title}</CardTitle>
+				<div className="flex items-center gap-1">
+					<span className="text-sm text-gray-600">{likeCount}</span>
+					<Button size="icon" variant="ghost" onClick={handleLike}>
+						<Icon name={isLiked ? 'heart-solid' : 'heart-outline'} />
+					</Button>
+				</div>
 			</CardHeader>
 			<CardContent className="flex-grow">
 				<p className="text-base text-muted-foreground">{article.summary}</p>
 			</CardContent>
-			<CardFooter className="flex justify-between">
+			<CardFooter className="flex justify-between items-center">
 				<div className="flex flex-wrap gap-2">
 					{article.tags.map((tag) => (
 						<Badge key={tag} variant="secondary">
@@ -23,10 +42,12 @@ export default function ArticleCard({ article }: ArticleCardProps) {
 						</Badge>
 					))}
 				</div>
-				<CardDescription className="text-[12px]">
-					{article.createdAt && new Date(article.createdAt).toLocaleDateString('ko-KR')}
-					<span className="text-gray-800">{article.author && ` ${article.author}`}</span>
-				</CardDescription>
+				<div className="flex items-center gap-4">
+					<CardDescription className="text-[12px]">
+						{article.createdAt && new Date(article.createdAt).toLocaleDateString('ko-KR')}
+						<span className="text-gray-800">{article.author && ` ${article.author}`}</span>
+					</CardDescription>
+				</div>
 			</CardFooter>
 		</Card>
 	);

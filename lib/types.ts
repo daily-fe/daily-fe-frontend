@@ -5,4 +5,5 @@ export interface Article {
 	readonly tags: string[];
 	readonly author: string | null;
 	readonly createdAt: Date | null;
+	readonly likes: number;
 }
