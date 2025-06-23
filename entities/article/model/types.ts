@@ -12,4 +12,7 @@ export interface AnalysisResult {
 	title: string;
 	summary: string;
 	tags: string[];
+	createdAt: Date | null;
+	likes: number;
+	author: string | null;
 }

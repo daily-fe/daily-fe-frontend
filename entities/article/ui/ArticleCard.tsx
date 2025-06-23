@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Article } from '@/domain/model/article';
-import { Button } from './ui/button';
-import { Icon } from './ui/Icon';
+import type { Article } from '@/entities/article/model/types';
+import { Badge } from '@/shared/ui/badge';
+import { Button } from '@/shared/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/ui/card';
+import { Icon } from '@/shared/ui/Icon';
 
 interface ArticleCardProps {
 	article: Article;

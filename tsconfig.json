@@ -20,11 +20,11 @@
 			}
 		],
 		"paths": {
-			"@/domain/*": ["./domain/*"],
-			"@/application/*": ["./application/*"],
-			"@/infrastructure/*": ["./infrastructure/*"],
-			"@/components/*": ["./app/components/*"],
-			"@/hooks/*": ["./app/hooks/*"],
+			"@/app/*": ["./app/*"],
+			"@/widgets/*": ["./widgets/*"],
+			"@/features/*": ["./features/*"],
+			"@/entities/*": ["./entities/*"],
+			"@/shared/*": ["./shared/*"],
 			"@/lib/*": ["./lib/*"]
 		}
 	},

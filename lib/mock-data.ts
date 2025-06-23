@@ -1,34 +1,32 @@
-import { Article } from './types';
+import type { AnalysisResult, Article } from '@/entities/article/model/types';
 
-export const mockArticles: Article[] = [
+export const MOCK_ANALYSIS_RESULT: AnalysisResult = {
+	title: 'Mock분석: AI가 소프트웨어 개발에 미치는 영향',
+	summary:
+		'이 아티클은 AI가 자동화된 테스트부터 코드 생성에 이르기까지 소프트웨어 개발 수명주기에 미치는 영향에 대해 논합니다.',
+	tags: ['AI', 'Software Development', 'Mock Data'],
+	createdAt: new Date('2024-01-15T10:00:00Z'),
+	likes: 150,
+	author: 'John Doe',
+};
+
+export const MOCK_ARTICLES: Article[] = [
 	{
 		id: '1',
-		title: 'Next.js 14의 새로운 기능',
-		summary:
-			'Next.js 14에서는 서버 액션이 안정화되었고, 부분적 사전 렌더링(Partial Prerendering)이라는 새로운 렌더링 방식이 도입되었습니다. 이를 통해 동적인 콘텐츠와 정적인 UI를 결합하여 최고의 성능을 제공합니다.',
-		tags: ['Next.js', 'React', 'WebDev'],
-		author: 'Vercel',
-		createdAt: new Date('2023-10-27'),
-		likes: 120,
+		title: 'AI First: How to Win in the Age of Artificial Intelligence',
+		summary: 'A deep dive into strategies for businesses to leverage AI.',
+		tags: ['AI', 'Business', 'Strategy'],
+		author: 'John Doe',
+		createdAt: new Date('2024-01-15T10:00:00Z'),
+		likes: 150,
 	},
 	{
 		id: '2',
-		title: 'React의 상태 관리 라이브러리 비교: Redux vs Zustand',
-		summary:
-			'React 애플리케이션의 상태 관리는 중요한 부분입니다. Redux는 오랫동안 표준처럼 사용되어 왔지만, Zustand는 더 가볍고 간결한 API로 최근 많은 주목을 받고 있습니다. 두 라이브러리의 장단점을 비교해봅니다.',
-		tags: ['React', 'State Management', 'Zustand'],
-		author: 'Daishi Kato',
-		createdAt: new Date('2024-03-15'),
-		likes: 98,
-	},
-	{
-		id: '3',
-		title: 'TypeScript 핸드북: 효과적인 타입 사용법',
-		summary:
-			'TypeScript는 JavaScript에 정적 타입을 추가하여 코드의 안정성을 높여줍니다. 이 핸드북에서는 제네릭, 유틸리티 타입, 타입 좁히기 등 TypeScript의 강력한 기능들을 효과적으로 사용하는 방법을 알아봅니다.',
-		tags: ['TypeScript', 'JavaScript'],
-		author: null,
-		createdAt: new Date('2024-01-10'),
-		likes: 256,
+		title: 'The Future of Frontend Development with Next.js 14',
+		summary: 'Exploring Server Components, Actions, and what they mean for developers.',
+		tags: ['Next.js', 'Frontend', 'WebDev'],
+		author: 'Jane Smith',
+		createdAt: new Date('2024-03-20T14:30:00Z'),
+		likes: 250,
 	},
 ];
