@@ -6,6 +6,7 @@ export interface Article {
 	readonly author: string | null;
 	readonly createdAt: Date | null;
 	readonly likes: number;
+	readonly category: string;
 }
 
 export interface AnalysisResult {
@@ -15,4 +16,5 @@ export interface AnalysisResult {
 	createdAt: Date | null;
 	likes: number;
 	author: string | null;
+	category: string;
 }
