@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Article } from '@/lib/types';
+import type { Article } from '@/domain/model/article';
 import { Button } from './ui/button';
 import { Icon } from './ui/Icon';
 
