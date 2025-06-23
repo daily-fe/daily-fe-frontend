@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { CATEGORY_COLORS } from '@/entities/article/model/constants';
 import type { Article } from '@/entities/article/model/types';
 import { Badge } from '@/shared/ui/badge';
 import { Button } from '@/shared/ui/button';
@@ -22,6 +23,8 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 		setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
 	};
 
+	const categoryColor = CATEGORY_COLORS[article.category] || CATEGORY_COLORS.default;
+
 	return (
 		<Card className="flex flex-col h-full cursor-pointer transition-colors hover:bg-gray-50" onClick={onCardClick}>
 			<CardHeader className="flex flex-row items-center justify-between">
@@ -38,6 +41,9 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 			</CardContent>
 			<CardFooter className="flex items-center justify-between">
 				<div className="flex flex-wrap gap-2">
+					<Badge className={`${categoryColor.bg} ${categoryColor.text} ${categoryColor.border}`}>
+						{article.category}
+					</Badge>
 					{article.tags.map((tag) => (
 						<Badge key={tag} variant="secondary">
 							{tag}
