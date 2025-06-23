@@ -32,7 +32,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
 				</div>
 			</CardHeader>
 			<CardContent className="flex-grow">
-				<p className="text-base text-muted-foreground">{article.summary}</p>
+				<p className="text-base text-muted-foreground whitespace-pre-wrap">{article.summary}</p>
 			</CardContent>
 			<CardFooter className="flex justify-between items-center">
 				<div className="flex flex-wrap gap-2">

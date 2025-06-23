@@ -19,7 +19,7 @@ export default function ArticleAnalysisResult({ result, onReset, onAddToList }: 
 					<CardTitle>{result.title}</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<CardDescription>{result.summary}</CardDescription>
+					<CardDescription className="whitespace-pre-wrap">{result.summary}</CardDescription>
 				</CardContent>
 				<CardFooter className="flex-col items-start gap-2">
 					<div className="flex gap-2">
