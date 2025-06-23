@@ -16,6 +16,13 @@ interface ArticleCardProps {
 export default function ArticleCard({ article, onCardClick }: ArticleCardProps) {
 	const [isLiked, setIsLiked] = useState(false);
 	const [likeCount, setLikeCount] = useState(article.likes);
+	const [hostname, _] = useState<string | null>(() => {
+		try {
+			return new URL(article.url).hostname.replace(/^www\./, '').split('.')?.[0] ?? null;
+		} catch {
+			return null;
+		}
+	});
 
 	const handleLike = (e: React.MouseEvent) => {
 		e.stopPropagation();
@@ -26,7 +33,15 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 	const categoryColor = CATEGORY_COLORS[article.category] || CATEGORY_COLORS.default;
 
 	return (
-		<Card className="flex flex-col h-full cursor-pointer transition-colors hover:bg-gray-50" onClick={onCardClick}>
+		<Card
+			className="flex flex-col h-full cursor-pointer transition-colors hover:bg-gray-50 relative overflow-hidden"
+			onClick={onCardClick}
+		>
+			{hostname && (
+				<div className="absolute top-0 left-0 border-r border-b border-gray-200 rounded-br-md bg-gray-700 px-2 py-0.5 flex overflow-hidden">
+					<span className="text-xs text-gray-100 font-medium">{hostname}</span>
+				</div>
+			)}
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle className="text-2xl">{article.title}</CardTitle>
 				<div className="flex items-center gap-1">
