@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import type { Article } from '@/entities/article/model/types';
-import ArticleCard from '@/entities/article/ui/ArticleCard';
-import { ArticleIframeDialog } from '@/entities/article/ui/ArticleIframeDialog';
+import ArticleCard from '@/features/article-view/ui/ArticleCard';
+import { ArticleIframeDialog } from '@/features/article-view/ui/ArticleIframeDialog';
 import { AddArticleDialog } from '@/widgets/add-article-dialog/ui/AddArticleDialog';
 
 interface ArticleSectionProps {

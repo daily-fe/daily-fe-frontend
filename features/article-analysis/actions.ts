@@ -2,9 +2,10 @@
 
 import { revalidatePath } from 'next/cache';
 import type { AnalysisResult } from '@/entities/article/model/types';
-import { articleAnalysisRepository } from '@/entities/article/repositories/ArticleAnalysisRepository';
-import { mockArticleAnalysisRepository } from '@/entities/article/repositories/MockArticleAnalysisRepository';
-import { analyzeArticleUseCase } from './usecases/analyzeArticle';
+import { articleAnalysisRepository } from '@/entities/article/repositories/article-analysis.repository';
+import { mockArticleAnalysisRepository } from '@/entities/article/repositories/mock-article-analysis.repository';
+
+import { analyzeArticleUseCase } from './usecases/analyze-article.usecase';
 
 const useMock = process.env.USE_MOCK === 'true';
 
