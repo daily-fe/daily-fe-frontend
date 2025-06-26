@@ -1,3 +1,5 @@
+'use client';
+
 import { useSession } from 'next-auth/react';
 import LoginButton from '@/shared/ui/LoginButton';
 import LogoutButton from '@/shared/ui/LogoutButton';
