@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { Article } from '@/entities/article/model/types';
 import ArticleCard from '@/features/article-view/ui/ArticleCard';
 import { ArticleIframeDialog } from '@/features/article-view/ui/ArticleIframeDialog';
+import { useIframeAllowed } from '@/shared/hooks/use-iframe-allowed';
 import { AddArticleDialog } from '@/widgets/add-article-dialog/ui/AddArticleDialog';
 
 interface ArticleSectionProps {
@@ -25,6 +26,22 @@ export default function ArticleSection({ initialArticles }: ArticleSectionProps)
 	const handleDialogClose = () => {
 		setSelectedArticle(null);
 	};
+
+	const { iframeAllowed } = useIframeAllowed(selectedArticle?.url ?? null);
+
+	const handleOpenInNewWindow = useCallback(() => {
+		if (selectedArticle?.url) {
+			window.open(selectedArticle.url, '_blank', 'noopener,noreferrer');
+		}
+	}, [selectedArticle]);
+
+	useEffect(() => {
+		console.log('iframeAllowed', iframeAllowed);
+		if (iframeAllowed === false) {
+			setSelectedArticle(null);
+			handleOpenInNewWindow();
+		}
+	}, [iframeAllowed, handleOpenInNewWindow]);
 
 	return (
 		<>
@@ -53,11 +70,14 @@ export default function ArticleSection({ initialArticles }: ArticleSectionProps)
 				)}
 			</section>
 
-			<ArticleIframeDialog
-				article={selectedArticle}
-				open={!!selectedArticle}
-				onOpenChange={(open) => !open && handleDialogClose()}
-			/>
+			{iframeAllowed !== null && (
+				<ArticleIframeDialog
+					article={selectedArticle}
+					open={!!selectedArticle}
+					onOpenChange={(open) => !open && handleDialogClose()}
+					iframeAllowed={iframeAllowed}
+				/>
+			)}
 		</>
 	);
 }

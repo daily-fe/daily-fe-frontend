@@ -1,4 +1,4 @@
-import { MOCK_ANALYSIS_RESULT } from '@/lib/mock-data';
+import { MOCK_ANALYSIS_RESULT } from '@/shared/lib/mock-data';
 import type { AnalysisResult } from '../model/types';
 
 class MockArticleAnalysisRepository {

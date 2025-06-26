@@ -1,6 +1,6 @@
 import type { Article } from '@/entities/article/model/types';
 import AuthActionButton from '@/features/auth/ui/AuthActionButton';
-import { MOCK_ARTICLES } from '@/lib/mock-data';
+import { MOCK_ARTICLES } from '@/shared/lib/mock-data';
 import { UserProfile } from '@/shared/ui/UserProfile';
 import ArticleSection from '../../features/article-view/ui/ArticleSection';
 

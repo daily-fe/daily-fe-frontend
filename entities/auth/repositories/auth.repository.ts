@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { apiClient } from '@/lib/api';
+import { apiClient } from '@/shared/lib/api';
 
 export interface SyncGithubUserParams {
 	githubId: string;
