@@ -3,7 +3,7 @@
 import { useLogout } from '../hooks/use-logout';
 import { Button } from './button';
 
-export function LogoutButton() {
+export default function LogoutButton() {
 	const { status, session, handleLogout } = useLogout();
 
 	if (status === 'loading' || !session) {

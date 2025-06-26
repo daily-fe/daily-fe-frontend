@@ -13,7 +13,7 @@ const AuthProviderLabel: Record<AuthProviderEnum, string> = {
 	[AuthProviderEnum.Github]: 'GitHub',
 };
 
-export function LoginButton({ providers = [AuthProviderEnum.Github] }: LoginButtonProps) {
+export default function LoginButton({ providers = [AuthProviderEnum.Github] }: LoginButtonProps) {
 	const { status, handleLogin } = useLogin();
 
 	if (status === 'loading') {
