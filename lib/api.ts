@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export const apiClient = axios.create({
-	baseURL: 'http://localhost:3000',
+	// TODO: 환경변수로 수정
+	baseURL: 'http://localhost:3001',
 	headers: {
 		'Content-Type': 'application/json',
 	},
