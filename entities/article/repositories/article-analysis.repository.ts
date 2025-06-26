@@ -3,7 +3,11 @@ import { apiClient } from '@/shared/lib/api';
 
 import type { AnalysisResult } from '../model/types';
 
-class ArticleAnalysisRepository {
+export abstract class ArticleAnalysisRepositoryImpl {
+	abstract analyze(url: string): Promise<AnalysisResult>;
+}
+
+class ArticleAnalysisRepository implements ArticleAnalysisRepositoryImpl {
 	async analyze(url: string): Promise<AnalysisResult> {
 		try {
 			const response = await apiClient.post<AnalysisResult>('/blog/analyze', { url });
