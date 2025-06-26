@@ -5,16 +5,20 @@ import type { AnalysisResult } from '../model/types';
 
 class ArticleAnalysisRepository {
 	async analyze(url: string): Promise<AnalysisResult> {
-		console.log(`[Repository] 실제 백엔드 API로 분석 요청 전송: ${url}`);
 		try {
 			const response = await apiClient.post<AnalysisResult>('/blog/analyze', { url });
 			return response.data;
 		} catch (error) {
-			console.error('실제 백엔드 API 호출 중 에러 발생:', error);
+			console.error('아티클 분석 중 오류가 발생했습니다:', error);
 			if (axios.isAxiosError(error)) {
-				throw new Error(`Real Backend API Error: ${error.response?.status}`);
+				if (error.response?.status === 401) {
+					throw new Error('인증이 필요합니다. 다시 로그인해주세요.');
+				}
+				const errorMessage =
+					error.response?.data?.message || error.message || '아티클 분석 중 서버 오류가 발생했습니다.';
+				throw new Error(errorMessage);
 			}
-			throw new Error('An unexpected error occurred while communicating with the real backend.');
+			throw new Error('아티클 분석 중 예상치 못한 오류가 발생했습니다.');
 		}
 	}
 }
