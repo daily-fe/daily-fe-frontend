@@ -10,7 +10,7 @@ export default function HomePage() {
 	return (
 		<main className="container mx-auto p-4">
 			<div className="flex justify-between items-center mb-6">
-				<h1 className="text-2xl font-bold">Daily FE</h1>
+				<h1 className="text-4xl font-bold">Daily FE Article</h1>
 				<AuthActionButton />
 			</div>
 			<div className="grid grid-cols-1 lg:grid-cols-4 gap-6">

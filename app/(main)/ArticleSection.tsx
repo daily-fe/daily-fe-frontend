@@ -29,7 +29,6 @@ export default function ArticleSection({ initialArticles }: ArticleSectionProps)
 	return (
 		<>
 			<header className="flex flex-col mb-6">
-				<h1 className="text-4xl font-bold">Daily FE Article</h1>
 				<div className="flex items-end justify-between gap-2">
 					<p className="text-gray-500">매일매일 공유되는 프론트엔드 개발자를 위한 아티클</p>
 					<AddArticleDialog onArticleAdded={handleArticleAdded} />
