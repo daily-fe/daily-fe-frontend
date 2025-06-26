@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import type { Article } from '@/entities/article/model/types';
-import ArticleCard from '@/features/article-view/ui/ArticleCard';
-import { ArticleIframeDialog } from '@/features/article-view/ui/ArticleIframeDialog';
+import ArticleCard from '@/features/article/ui/ArticleCard';
+import { ArticleIframeDialog } from '@/features/article/ui/ArticleIframeDialog';
 import { useIframeAllowed } from '@/shared/hooks/use-iframe-allowed';
 import { AddArticleDialog } from '@/widgets/add-article-dialog/ui/AddArticleDialog';
 

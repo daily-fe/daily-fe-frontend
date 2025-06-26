@@ -1,11 +1,8 @@
 import type { AnalysisResult } from '@/entities/article/model/types';
-
-interface IArticleAnalysisRepository {
-	analyze(url: string): Promise<AnalysisResult>;
-}
+import { ArticleAnalysisRepositoryImpl } from '@/entities/article/repositories/article-analysis.repository';
 
 interface Dependencies {
-	articleRepository: IArticleAnalysisRepository;
+	articleAnalysisRepository: ArticleAnalysisRepositoryImpl;
 }
 
 export async function analyzeArticleUseCase(url: string, deps: Dependencies): Promise<AnalysisResult> {
@@ -15,5 +12,5 @@ export async function analyzeArticleUseCase(url: string, deps: Dependencies): Pr
 		throw new Error('올바른 URL 형식이 아닙니다.');
 	}
 
-	return deps.articleRepository.analyze(url);
+	return deps.articleAnalysisRepository.analyze(url);
 }
