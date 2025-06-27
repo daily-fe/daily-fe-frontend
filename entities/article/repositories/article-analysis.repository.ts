@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiClient } from '@/shared/lib/api';
+import { serverApi } from '@/shared/lib/server/api';
 
 import type { AnalysisResult } from '../model/types';
 
@@ -10,7 +10,7 @@ export abstract class ArticleAnalysisRepositoryImpl {
 class ArticleAnalysisRepository implements ArticleAnalysisRepositoryImpl {
 	async analyze(url: string): Promise<AnalysisResult> {
 		try {
-			const response = await apiClient.post<AnalysisResult>('/blog/analyze', { url });
+			const response = await serverApi.post<AnalysisResult>('/blog/analyze', { url });
 			return response.data;
 		} catch (error) {
 			console.error('아티클 분석 중 오류가 발생했습니다:', error);
