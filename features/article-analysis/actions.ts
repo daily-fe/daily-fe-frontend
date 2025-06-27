@@ -25,7 +25,7 @@ export async function analyzeArticleAction(prevState: FormState, formData: FormD
 
 	try {
 		const result = await analyzeArticleUseCase(url, {
-			articleRepository: selectedRepository,
+			articleAnalysisRepository: selectedRepository,
 		});
 
 		revalidatePath('/');
