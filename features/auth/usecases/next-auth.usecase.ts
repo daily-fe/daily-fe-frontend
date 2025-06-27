@@ -14,21 +14,36 @@ export function createNextAuthOptions(authRepository: AuthRepositoryImpl): NextA
 			async jwt({ token, account, profile }) {
 				if (account && profile) {
 					try {
-						await authRepository.syncGithubUser({
+						const response = await authRepository.loginWithGithub({
 							githubId: account.providerAccountId,
 							username: profile?.name,
 							email: profile?.email,
 							avatarUrl: profile?.image,
 						});
+						token.accessToken = response.data.accessToken;
+						token.refreshToken = response.data.refreshToken;
 					} catch (e) {
 						console.error('next-auth callback error', e);
 					}
 				}
 				if (account) {
-					token.accessToken = account.access_token;
+					const response = await authRepository.loginWithGithub({
+						githubId: account.providerAccountId,
+					});
+					token.accessToken = response.data.accessToken;
+					token.refreshToken = response.data.refreshToken;
 				}
 				return token;
 			},
+			async session({ session, token }) {
+				session.accessToken = token.accessToken as string;
+				session.refreshToken = token.refreshToken as string;
+				return session;
+			},
 		},
+		// pages: {
+		// 	signIn: '/',
+		// 	error: '/',
+		// },
 	};
 }

@@ -1,21 +1,26 @@
 import { AxiosResponse } from 'axios';
-import { apiClient } from '@/shared/lib/api';
+import { clientApi } from '@/shared/lib/client/api';
 
-export interface SyncGithubUserParams {
+export interface LoginWithGithubParams {
 	githubId: string;
 	username?: string;
 	email?: string;
 	avatarUrl?: string;
 }
 
+export interface LoginWithGithubResponse {
+	accessToken: string;
+	refreshToken: string;
+}
+
 class AuthRepository implements AuthRepositoryImpl {
-	async syncGithubUser(params: SyncGithubUserParams) {
-		return await apiClient.post('/auth/github', params);
+	async loginWithGithub(params: LoginWithGithubParams) {
+		return await clientApi.post('/auth/login/github', params);
 	}
 }
 
 export abstract class AuthRepositoryImpl {
-	abstract syncGithubUser(params: SyncGithubUserParams): Promise<AxiosResponse<any, any>>;
+	abstract loginWithGithub(params: LoginWithGithubParams): Promise<AxiosResponse<any, any>>;
 }
 
 export const authRepository = new AuthRepository();
