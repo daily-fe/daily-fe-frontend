@@ -1,17 +1,18 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { serverApi } from '@/shared/lib/server/api';
-import type { Article } from '../model/types';
+import type { Article, ArticleCreateInput } from '../model/types';
 
 export abstract class ArticleRepositoryImpl {
 	abstract fetchArticleFrameHeadersOptions(url: string): Promise<{
 		xFrameOptions: string | null;
 		contentSecurityPolicy: string | null;
 	}>;
-	abstract analyze(id: string): Promise<Article>;
+	abstract analyze(url: string): Promise<Article>;
 	abstract like(id: string): Promise<void>;
 	abstract unlike(id: string): Promise<void>;
 	abstract get(id: string): Promise<Article>;
 	abstract getAll(): Promise<Article[]>;
+	abstract create(article: ArticleCreateInput): Promise<Article>;
 }
 
 class ArticleRepository implements ArticleRepositoryImpl {
@@ -26,9 +27,9 @@ class ArticleRepository implements ArticleRepositoryImpl {
 		};
 	}
 
-	async analyze(id: string): Promise<Article> {
+	async analyze(url: string): Promise<Article> {
 		try {
-			const response = await serverApi.post<Article>('/blog/analyze', { id });
+			const response = await serverApi.post<Article>('/blog/analyze', { url });
 			return response.data;
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
@@ -71,9 +72,19 @@ class ArticleRepository implements ArticleRepositoryImpl {
 	async getAll(): Promise<Article[]> {
 		try {
 			const response = await serverApi.get<Article[]>('/blog');
+			console.log('getAll', response.data);
 			return response.data;
 		} catch (error) {
 			throw new Error('아티클 목록 조회 중 오류가 발생했습니다.');
+		}
+	}
+
+	async create(article: ArticleCreateInput): Promise<Article> {
+		try {
+			const response = await serverApi.post<Article>('/blog', article);
+			return response.data;
+		} catch (error) {
+			throw new Error('아티클 추가 중 오류가 발생했습니다.');
 		}
 	}
 }
