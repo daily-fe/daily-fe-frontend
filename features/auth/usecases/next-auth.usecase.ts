@@ -1,15 +1,18 @@
-import { AxiosResponse } from 'axios';
-import type { Account, NextAuthOptions, Profile, Session } from 'next-auth';
+import type { NextAuthOptions, Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import GithubProvider from 'next-auth/providers/github';
-import { AuthRepositoryImpl } from '@/entities/auth/repositories/auth.repository';
+import {
+	AuthRepositoryImpl,
+	LoginWithGithubResponse,
+	RefreshTokenResponse,
+} from '@/entities/auth/repositories/auth.repository';
 
-function mergeTokenWithResponse(token: JWT, response: AxiosResponse) {
+function mergeTokenWithResponse(token: JWT, response: LoginWithGithubResponse | RefreshTokenResponse) {
 	return {
 		...token,
-		accessToken: response.data?.accessToken,
-		refreshToken: response.data?.refreshToken,
-		accessTokenExpires: response.data?.accessTokenExpires,
+		accessToken: response?.accessToken,
+		refreshToken: 'refreshToken' in response ? response.refreshToken : token.refreshToken,
+		accessTokenExpires: response?.accessTokenExpires,
 	};
 }
 
