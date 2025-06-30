@@ -7,9 +7,9 @@ import { AuthRepositoryImpl } from '@/entities/auth/repositories/auth.repository
 function mergeTokenWithResponse(token: JWT, response: AxiosResponse) {
 	return {
 		...token,
-		accessToken: response.data.accessToken,
-		refreshToken: response.data.refreshToken,
-		accessTokenExpires: response.data.accessTokenExpires,
+		accessToken: response.data?.accessToken,
+		refreshToken: response.data?.refreshToken,
+		accessTokenExpires: response.data?.accessTokenExpires,
 	};
 }
 
@@ -38,7 +38,7 @@ async function handleJwtCallback({ token, account, profile }: any, authRepositor
 			const refreshResponse = await authRepository.refreshToken({
 				refreshToken: token.refreshToken as string,
 			});
-			token = mergeTokenWithResponse(token, refreshResponse);
+			token = { ...token, ...mergeTokenWithResponse(token, refreshResponse), refreshToken: token.refreshToken };
 		} catch (e) {
 			token.accessToken = null;
 			token.refreshToken = null;
