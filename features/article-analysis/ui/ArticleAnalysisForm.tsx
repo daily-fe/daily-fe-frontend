@@ -3,10 +3,10 @@
 import { useActionState, useEffect } from 'react';
 import { useFormStatus } from 'react-dom';
 import type { AnalysisResult } from '@/entities/article/model/types';
+import { ArticleFormState } from '@/features/article/actions';
 import { Button } from '@/shared/ui/button';
 import { DialogFooter } from '@/shared/ui/dialog';
 import { Input } from '@/shared/ui/input';
-import type { analyzeArticleAction } from '../actions';
 
 const initialState = {
 	success: false,
@@ -24,7 +24,7 @@ function SubmitButton() {
 }
 
 interface ArticleAnalysisFormProps {
-	analyzeAction: typeof analyzeArticleAction;
+	analyzeAction: (prevState: ArticleFormState, formData: FormData) => Promise<ArticleFormState>;
 	onSuccess: (result: AnalysisResult) => void;
 }
 
