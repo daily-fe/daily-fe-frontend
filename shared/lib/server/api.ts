@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getServerSession } from 'next-auth';
+import { getToken } from 'next-auth/jwt';
 import { authRepository } from '@/entities/auth/repositories/auth.repository';
 import { createNextAuthOptions } from '@/features/auth/usecases/next-auth.usecase';
 

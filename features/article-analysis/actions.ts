@@ -24,7 +24,6 @@ export async function analyzeArticleAction(prevState: FormState, formData: FormD
 		});
 
 		revalidatePath('/');
-		console.log('result', result);
 		return { success: true, message: '분석에 성공했습니다.', data: result };
 	} catch (error) {
 		return { success: false, message: (error as Error).message };
