@@ -1,11 +1,12 @@
 import type { Article } from '@/entities/article/model/types';
+import { articleRepository } from '@/entities/article/repositories/article.repository';
 import ArticleSection from '@/features/article/ui/ArticleSection';
+import { getArticlesUseCase } from '@/features/article/usecases/article.usecase';
 import AuthActionButton from '@/features/auth/ui/AuthActionButton';
-import { MOCK_ARTICLES } from '@/shared/lib/mock-data';
 import { UserProfile } from '@/shared/ui/UserProfile';
 
-export default function HomePage() {
-	const articles: Article[] = MOCK_ARTICLES;
+export default async function HomePage() {
+	const articles: Article[] = await getArticlesUseCase({ articleRepository });
 
 	return (
 		<main className="container mx-auto p-4">
