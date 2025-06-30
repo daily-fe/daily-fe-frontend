@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import type { AnalysisResult as AnalysisResultType, Article } from '@/entities/article/model/types';
-import { analyzeArticleAction } from '@/features/article-analysis/actions';
+import type { AnalysisResult as AnalysisResultType, Article, ArticleCreateInput } from '@/entities/article/model/types';
+import { analyzeArticleAction, createArticleAction } from '@/features/article/actions';
 import { ArticleAnalysisForm } from '@/features/article-analysis/ui/ArticleAnalysisForm';
 import ArticleAnalysisResult from '@/features/article-analysis/ui/ArticleAnalysisResult';
 import { Button } from '@/shared/ui/button';
@@ -27,13 +27,20 @@ export function AddArticleDialog({ onArticleAdded }: AddArticleDialogProps) {
 		}
 	};
 
-	const handleAddToList = () => {
+	const handleAddArticle = async () => {
 		if (analysisResult) {
-			const newArticle: Article = {
-				id: crypto.randomUUID(),
-				...analysisResult,
+			const input: ArticleCreateInput = {
+				url: analysisResult.url,
+				title: analysisResult.title,
+				summary: analysisResult.summary,
+				tags: analysisResult.tags,
+				author: analysisResult.author,
+				category: analysisResult.category,
 			};
-			onArticleAdded(newArticle);
+			const newArticle = await createArticleAction(input);
+			if (newArticle) {
+				onArticleAdded(newArticle);
+			}
 		}
 		setIsDialogOpen(false);
 	};
@@ -51,7 +58,7 @@ export function AddArticleDialog({ onArticleAdded }: AddArticleDialogProps) {
 					<ArticleAnalysisResult
 						result={analysisResult}
 						onReset={handleReset}
-						onAddToList={handleAddToList}
+						onAddArticle={handleAddArticle}
 					/>
 				) : (
 					<ArticleAnalysisForm analyzeAction={analyzeArticleAction} onSuccess={setAnalysisResult} />

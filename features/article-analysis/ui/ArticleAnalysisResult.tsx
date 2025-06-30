@@ -8,10 +8,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 interface ArticleAnalysisResultProps {
 	result: AnalysisResult;
 	onReset: () => void;
-	onAddToList: () => void;
+	onAddArticle: () => void;
 }
 
-export default function ArticleAnalysisResult({ result, onReset, onAddToList }: ArticleAnalysisResultProps) {
+export default function ArticleAnalysisResult({ result, onReset, onAddArticle }: ArticleAnalysisResultProps) {
 	return (
 		<div>
 			<Card>
@@ -33,7 +33,7 @@ export default function ArticleAnalysisResult({ result, onReset, onAddToList }: 
 				<Button variant="outline" onClick={onReset}>
 					다시 분석
 				</Button>
-				<Button onClick={onAddToList}>리스트에 추가</Button>
+				<Button onClick={onAddArticle}>리스트에 추가</Button>
 			</div>
 		</div>
 	);
