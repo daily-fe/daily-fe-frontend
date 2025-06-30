@@ -1,18 +1,15 @@
+import { AxiosResponse } from 'axios';
 import type { NextAuthOptions, Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import GithubProvider from 'next-auth/providers/github';
-import {
-	AuthRepositoryImpl,
-	LoginWithGithubResponse,
-	RefreshTokenResponse,
-} from '@/entities/auth/repositories/auth.repository';
+import { AuthRepositoryImpl } from '@/entities/auth/repositories/auth.repository';
 
-function mergeTokenWithResponse(token: JWT, response: LoginWithGithubResponse | RefreshTokenResponse) {
+function mergeTokenWithResponse(token: JWT, response: AxiosResponse) {
 	return {
 		...token,
-		accessToken: response?.accessToken,
-		refreshToken: 'refreshToken' in response ? response.refreshToken : token.refreshToken,
-		accessTokenExpires: response?.accessTokenExpires,
+		accessToken: response.data.accessToken,
+		refreshToken: response.data.refreshToken,
+		accessTokenExpires: response.data.accessTokenExpires,
 	};
 }
 
@@ -41,7 +38,7 @@ async function handleJwtCallback({ token, account, profile }: any, authRepositor
 			const refreshResponse = await authRepository.refreshToken({
 				refreshToken: token.refreshToken as string,
 			});
-			token = { ...token, ...mergeTokenWithResponse(token, refreshResponse), refreshToken: token.refreshToken };
+			token = mergeTokenWithResponse(token, refreshResponse);
 		} catch (e) {
 			token.accessToken = null;
 			token.refreshToken = null;

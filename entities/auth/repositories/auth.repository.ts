@@ -1,4 +1,5 @@
-import serverApi from '@/shared/lib/server/api';
+import { AxiosResponse } from 'axios';
+import { clientApi } from '@/shared/lib/client/api';
 
 export interface LoginWithGithubParams {
 	githubId: string;
@@ -10,7 +11,6 @@ export interface LoginWithGithubParams {
 export interface LoginWithGithubResponse {
 	accessToken: string;
 	refreshToken: string;
-	accessTokenExpires: number;
 }
 
 export interface RefreshTokenParams {
@@ -19,24 +19,23 @@ export interface RefreshTokenParams {
 
 export interface RefreshTokenResponse {
 	accessToken: string;
+	refreshToken: string;
 	accessTokenExpires: number;
 }
 
 class AuthRepository implements AuthRepositoryImpl {
 	async loginWithGithub(params: LoginWithGithubParams) {
-		const response = await serverApi.post('/auth/login/github', params);
-		return response.data;
+		return await clientApi.post('/auth/login/github', params);
 	}
 
 	async refreshToken(params: RefreshTokenParams) {
-		const response = await serverApi.post('/auth/refresh', params);
-		return response.data;
+		return await clientApi.post('/auth/refresh', params);
 	}
 }
 
 export abstract class AuthRepositoryImpl {
-	abstract loginWithGithub(params: LoginWithGithubParams): Promise<LoginWithGithubResponse>;
-	abstract refreshToken(params: RefreshTokenParams): Promise<RefreshTokenResponse>;
+	abstract loginWithGithub(params: LoginWithGithubParams): Promise<AxiosResponse<LoginWithGithubResponse>>;
+	abstract refreshToken(params: RefreshTokenParams): Promise<AxiosResponse<RefreshTokenResponse>>;
 }
 
 export const authRepository = new AuthRepository();
