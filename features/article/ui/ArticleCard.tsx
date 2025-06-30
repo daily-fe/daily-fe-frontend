@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { CATEGORY_COLORS } from '@/entities/article/model/constants';
 import type { Article } from '@/entities/article/model/types';
+import { likeArticleAction, unlikeArticleAction } from '@/features/article/actions';
 import { Badge } from '@/shared/ui/badge';
 import { Button } from '@/shared/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/ui/card';
@@ -24,10 +25,22 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 		}
 	});
 
-	const handleLike = (e: React.MouseEvent) => {
+	const handleLike = async (e: React.MouseEvent) => {
 		e.stopPropagation();
-		setIsLiked((prev) => !prev);
-		setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
+		const nextLiked = !isLiked;
+		setIsLiked(nextLiked);
+		setLikeCount((prev) => (nextLiked ? prev + 1 : prev - 1));
+		try {
+			if (nextLiked) {
+				await likeArticleAction(article.id);
+			} else {
+				await unlikeArticleAction(article.id);
+			}
+		} catch (error) {
+			setIsLiked((prev) => !prev);
+			setLikeCount((prev) => (nextLiked ? prev - 1 : prev + 1));
+			alert('좋아요 처리 중 오류가 발생했습니다.');
+		}
 	};
 
 	const categoryColor = CATEGORY_COLORS[article.category] || CATEGORY_COLORS.default;
