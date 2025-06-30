@@ -15,7 +15,7 @@ interface ArticleCardProps {
 }
 
 export default function ArticleCard({ article, onCardClick }: ArticleCardProps) {
-	const [isLiked, setIsLiked] = useState(false);
+	const [isLiked, setIsLiked] = useState(article.likedByMe);
 	const [likeCount, setLikeCount] = useState(article.likes);
 	const [hostname, _] = useState<string | null>(() => {
 		try {
@@ -72,7 +72,7 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 					<Badge className={`${categoryColor.bg} ${categoryColor.text} ${categoryColor.border}`}>
 						{article.category}
 					</Badge>
-					{article.tags.map((tag) => (
+					{(article?.tags ?? []).map((tag) => (
 						<Badge key={tag} variant="secondary">
 							{tag}
 						</Badge>
