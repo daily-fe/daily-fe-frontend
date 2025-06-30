@@ -12,6 +12,7 @@ export interface Article {
 	readonly createdAt: Date | null;
 	readonly likes: number;
 	readonly category: Category;
+	readonly likedByMe: boolean;
 }
 
 export interface AnalysisResult {
@@ -23,4 +24,7 @@ export interface AnalysisResult {
 	likes: number;
 	author: string | null;
 	category: Category;
+	likedByMe: boolean;
 }
+
+export type ArticleCreateInput = Omit<Article, 'id' | 'likes' | 'createdAt' | 'likedByMe'>;
