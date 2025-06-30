@@ -46,6 +46,7 @@ export function createNextAuthOptions(authRepository: AuthRepositoryImpl): NextA
 				}
 
 				if (isTokenExpired(token.accessTokenExpires as number | null)) {
+					console.log('token expired');
 					try {
 						const refreshResponse = await authRepository.refreshToken({
 							refreshToken: token.refreshToken as string,

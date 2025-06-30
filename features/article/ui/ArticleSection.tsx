@@ -36,7 +36,6 @@ export default function ArticleSection({ initialArticles }: ArticleSectionProps)
 	}, [selectedArticle]);
 
 	useEffect(() => {
-		console.log('iframeAllowed', iframeAllowed);
 		if (iframeAllowed === false) {
 			setSelectedArticle(null);
 			handleOpenInNewWindow();

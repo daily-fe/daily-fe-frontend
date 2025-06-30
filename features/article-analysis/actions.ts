@@ -3,13 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import type { AnalysisResult } from '@/entities/article/model/types';
 import { articleAnalysisRepository } from '@/entities/article/repositories/article-analysis.repository';
-import { mockArticleAnalysisRepository } from '@/entities/article/repositories/mock-article-analysis.repository';
 
 import { analyzeArticleUseCase } from './usecases/analyze-article.usecase';
-
-const useMock = process.env.USE_MOCK === 'true';
-
-const selectedRepository = useMock ? mockArticleAnalysisRepository : articleAnalysisRepository;
 
 interface FormState {
 	success: boolean;
@@ -25,7 +20,7 @@ export async function analyzeArticleAction(prevState: FormState, formData: FormD
 
 	try {
 		const result = await analyzeArticleUseCase(url, {
-			articleAnalysisRepository: selectedRepository,
+			articleAnalysisRepository: articleAnalysisRepository,
 		});
 
 		revalidatePath('/');

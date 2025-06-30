@@ -10,7 +10,6 @@ export const serverApi = axios.create({
 
 serverApi.interceptors.request.use(async (config) => {
 	const session = await getServerSession(createNextAuthOptions(authRepository));
-	console.log('session', session);
 	if (session?.accessToken) {
 		config.headers.Authorization = `Bearer ${session.accessToken}`;
 	}
