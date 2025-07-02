@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { AnalysisResult as AnalysisResultType, Article, ArticleCreateInput } from '@/entities/article/model/types';
 import { analyzeArticleAction, createArticleAction } from '@/features/article/actions';
 import { ArticleAnalysisForm } from '@/features/article-analysis/ui/ArticleAnalysisForm';
@@ -17,9 +17,9 @@ export function AddArticleDialog({ onArticleAdded }: AddArticleDialogProps) {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const [analysisResult, setAnalysisResult] = useState<AnalysisResultType | null>(null);
 
-	const handleReset = () => {
+	const handleReset = useCallback(() => {
 		setAnalysisResult(null);
-	};
+	}, []);
 
 	const handleOpenChange = (open: boolean) => {
 		setIsDialogOpen(open);
@@ -45,6 +45,12 @@ export function AddArticleDialog({ onArticleAdded }: AddArticleDialogProps) {
 		}
 		setIsDialogOpen(false);
 	};
+
+	useEffect(() => {
+		if (isDialogOpen) {
+			handleReset();
+		}
+	}, [isDialogOpen, handleReset]);
 
 	return (
 		<Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
