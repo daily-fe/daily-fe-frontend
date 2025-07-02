@@ -1,13 +1,29 @@
+import { Suspense } from 'react';
 import type { Article } from '@/entities/article/model/types';
 import { articleRepository } from '@/entities/article/repositories/article.repository';
 import ArticleSection from '@/features/article/ui/ArticleSection';
 import { getArticlesUseCase } from '@/features/article/usecases/article.usecase';
 import AuthActionButton from '@/features/auth/ui/AuthActionButton';
-import { UserProfile } from '@/shared/ui/UserProfile';
+import { ApiError } from '@/shared/lib/errors/ApiError';
+import { Console } from '@/shared/lib/utils';
+import ErrorMessage from '@/shared/ui/ErrorMessage';
 
-export default async function HomePage() {
-	const articles: Article[] = await getArticlesUseCase({ articleRepository });
+async function ArticleSectionWithData() {
+	try {
+		const articles: Article[] = await getArticlesUseCase({ articleRepository });
+		return <ArticleSection initialArticles={articles} />;
+	} catch (error) {
+		const message = '아티클을 불러오는 중 오류가 발생했습니다.';
+		return (
+			<ErrorMessage
+				status={error instanceof ApiError ? error.status : undefined}
+				message={'아티클을 불러오는 중 오류가 발생했습니다.'}
+			/>
+		);
+	}
+}
 
+export default function HomePage() {
 	return (
 		<main className="container mx-auto p-4">
 			<div className="flex justify-between items-center mb-6">
@@ -16,7 +32,9 @@ export default async function HomePage() {
 			</div>
 			<div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
 				<div className="lg:col-span-3">
-					<ArticleSection initialArticles={articles} />
+					<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
+						<ArticleSectionWithData />
+					</Suspense>
 				</div>
 				{/* <div className="lg:col-span-1">
 					<UserProfile />
