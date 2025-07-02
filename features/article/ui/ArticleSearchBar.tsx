@@ -2,6 +2,9 @@
 import router from 'next/router';
 import { useCallback, useState } from 'react';
 import { CATEGORIES } from '@/entities/article/model/constants';
+import { Button } from '@/shared/ui/button';
+import { Input } from '@/shared/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/ui/select';
 
 export default function ArticleSearchBar() {
 	const [category, setCategory] = useState<string>('');
@@ -23,33 +26,35 @@ export default function ArticleSearchBar() {
 	);
 
 	return (
-		<div className="flex gap-2 items-center mt-2">
-			<select
-				className="border rounded px-2 py-1"
-				value={category}
-				onChange={(e) => handleCategoryChange(e.target.value)}
-			>
-				<option value="">전체 카테고리</option>
-				{CATEGORIES.map((cat) => (
-					<option key={cat} value={cat}>
-						{cat}
-					</option>
-				))}
-			</select>
-			<input
-				type="text"
-				placeholder="키워드 검색"
-				className="border rounded px-2 py-1"
-				value={keyword}
-				onChange={(e) => setKeyword(e.target.value)}
-			/>
-			<button
-				onClick={() => handleSearch(category, keyword)}
-				className="bg-blue-500 text-white rounded px-3 py-1 disabled:opacity-50"
-				type="button"
-			>
-				검색
-			</button>
+		<div className="w-full flex flex-col gap-2 mt-8 sm:flex-row sm:items-end">
+			<Select value={category} onValueChange={handleCategoryChange}>
+				<SelectTrigger className="w-40 h-10!" aria-label="카테고리">
+					<SelectValue placeholder="카테고리 선택" />
+				</SelectTrigger>
+				<SelectContent>
+					<SelectItem value={category}>전체 카테고리</SelectItem>
+					{CATEGORIES.map((cat) => (
+						<SelectItem key={cat} value={cat}>
+							{cat}
+						</SelectItem>
+					))}
+				</SelectContent>
+			</Select>
+			<div className="flex-1">
+				<Input
+					type="text"
+					placeholder="키워드 검색"
+					value={keyword}
+					onChange={(e) => setKeyword(e.target.value)}
+					className="w-full h-10"
+					aria-label="키워드"
+				/>
+			</div>
+			<div className="flex-shrink-0">
+				<Button onClick={() => handleSearch(category, keyword)} className="w-full h-10 px-6" type="button">
+					검색
+				</Button>
+			</div>
 		</div>
 	);
 }
