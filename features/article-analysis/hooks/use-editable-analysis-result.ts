@@ -1,7 +1,12 @@
 import { KeyboardEvent, useCallback, useState } from 'react';
-import type { AnalysisResult } from '@/entities/article/model/types';
+import type { AnalysisResult, ArticleCreateInput } from '@/entities/article/model/types';
 
-export function useEditableAnalysisResult(result: AnalysisResult) {
+interface UseEditableAnalysisResultProps {
+	result: AnalysisResult;
+	onAddArticle: (articleCreateInput: ArticleCreateInput) => void;
+}
+
+export function useEditableAnalysisResult({ result, onAddArticle }: UseEditableAnalysisResultProps) {
 	const [title, setTitle] = useState(result.title);
 	const [summary, setSummary] = useState(result.summary);
 	const [tags, setTags] = useState(result.tags);
@@ -29,6 +34,17 @@ export function useEditableAnalysisResult(result: AnalysisResult) {
 		[handleTagAdd],
 	);
 
+	const handleAddArticle = useCallback(() => {
+		onAddArticle({
+			title,
+			summary,
+			tags,
+			url: result.url,
+			author: result.author,
+			category: result.category,
+		});
+	}, [onAddArticle, title, summary, tags, result.url, result.author, result.category]);
+
 	return {
 		title,
 		setTitle,
@@ -41,5 +57,6 @@ export function useEditableAnalysisResult(result: AnalysisResult) {
 		handleTagRemove,
 		handleTagAdd,
 		handleTagInputKeyDown,
+		handleAddArticle,
 	};
 }

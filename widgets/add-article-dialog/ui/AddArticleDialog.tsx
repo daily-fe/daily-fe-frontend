@@ -28,17 +28,9 @@ export function AddArticleDialog({ onArticleAdded }: AddArticleDialogProps) {
 		}
 	};
 
-	const handleAddArticle = async () => {
+	const handleAddArticle = async (articleCreateInput: ArticleCreateInput) => {
 		if (analysisResult) {
-			const input: ArticleCreateInput = {
-				url: analysisResult.url,
-				title: analysisResult.title,
-				summary: analysisResult.summary,
-				tags: analysisResult.tags,
-				author: analysisResult.author,
-				category: analysisResult.category,
-			};
-			const newArticle = await createArticleAction(input);
+			const newArticle = await createArticleAction(articleCreateInput);
 			if (newArticle) {
 				onArticleAdded(newArticle);
 			}

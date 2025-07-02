@@ -1,6 +1,6 @@
 'use client';
 
-import type { AnalysisResult } from '@/entities/article/model/types';
+import type { AnalysisResult, ArticleCreateInput } from '@/entities/article/model/types';
 import { useEditableAnalysisResult } from '@/features/article-analysis/hooks/use-editable-analysis-result';
 import { EditableTags } from '@/features/article-analysis/ui/EditableTags';
 import { Button } from '@/shared/ui/button';
@@ -11,12 +11,12 @@ import { Textarea } from '@/shared/ui/textarea';
 interface ArticleAnalysisResultProps {
 	result: AnalysisResult;
 	onReset: () => void;
-	onAddArticle: () => void;
+	onAddArticle: (articleCreateInput: ArticleCreateInput) => void;
 }
 
 export default function ArticleAnalysisResult({ result, onReset, onAddArticle }: ArticleAnalysisResultProps) {
-	const { title, setTitle, summary, setSummary, tags, setTags, newTag, setNewTag } =
-		useEditableAnalysisResult(result);
+	const { title, setTitle, summary, setSummary, tags, setTags, newTag, setNewTag, handleAddArticle } =
+		useEditableAnalysisResult({ result, onAddArticle });
 
 	return (
 		<div>
@@ -50,7 +50,7 @@ export default function ArticleAnalysisResult({ result, onReset, onAddArticle }:
 				<Button variant="outline" onClick={onReset}>
 					다시 분석
 				</Button>
-				<Button onClick={onAddArticle}>리스트에 추가</Button>
+				<Button onClick={handleAddArticle}>리스트에 추가</Button>
 			</div>
 		</div>
 	);
