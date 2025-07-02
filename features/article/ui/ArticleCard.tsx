@@ -55,9 +55,9 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 					<span className="text-xs text-gray-100 font-medium">{hostname}</span>
 				</div>
 			)}
-			<CardHeader className="flex flex-row items-center justify-between pb-2">
-				<CardTitle className="text-2xl">{article.title}</CardTitle>
-				<div className="flex items-center">
+			<CardHeader className="flex flex-row items-center justify-between pb-2 gap-2">
+				<CardTitle className="text-2xl flex-1 min-w-0 truncate">{article.title}</CardTitle>
+				<div className="flex items-center flex-shrink-0 ml-2">
 					<span className="text-sm text-gray-600">{likeCount}</span>
 					<Button size="icon" variant="ghost" onClick={handleLike} className="w-8 h-6">
 						<Icon name={isLiked ? 'heart-solid' : 'heart-outline'} />
