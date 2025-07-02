@@ -23,12 +23,14 @@ export default async function Page({
 			articleRepository,
 		});
 		return (
-			<main className="container mx-auto">
-				<div className="sticky top-0 z-10 bg-white flex justify-between items-center py-2 px-2 sm:px-0">
-					<h1 className="text-xl font-bold sm:text-4xl">Daily FE Article</h1>
-					<AuthActionButton />
+			<main className="h-full w-full">
+				<div className="w-full sticky top-0 z-10 bg-white h-fit">
+					<div className="flex justify-between items-center py-2 px-2 sm:px-0 container mx-auto">
+						<h1 className="text-xl font-bold sm:text-4xl">Daily FE Article</h1>
+						<AuthActionButton />
+					</div>
 				</div>
-				<div className="flex flex-col gap-4 px-2 sm:px-0">
+				<div className="flex flex-col gap-4 px-2 sm:px-0 container mx-auto">
 					<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
 						<ArticleSection articles={articles} />
 					</Suspense>
