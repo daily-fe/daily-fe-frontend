@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import type { Article } from '@/entities/article/model/types';
 import ArticleCard from '@/features/article/ui/ArticleCard';
@@ -12,8 +13,19 @@ interface ArticleSectionProps {
 }
 
 export default function ArticleSection({ initialArticles }: ArticleSectionProps) {
+	const router = useRouter();
+	const searchParams = useSearchParams();
 	const [articles, setArticles] = useState<Article[]>(initialArticles);
 	const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+
+	// 쿼리스트링에서 articleId 읽어서 자동 오픈
+	useEffect(() => {
+		const articleId = searchParams.get('articleId');
+		if (articleId && articles.length > 0) {
+			const found = articles.find((a) => a.id === articleId);
+			if (found) setSelectedArticle(found);
+		}
+	}, [searchParams, articles]);
 
 	const handleArticleAdded = (newArticle: Article) => {
 		setArticles((prevArticles) => [newArticle, ...prevArticles]);
@@ -21,10 +33,16 @@ export default function ArticleSection({ initialArticles }: ArticleSectionProps)
 
 	const handleCardClick = (article: Article) => {
 		setSelectedArticle(article);
+		const params = new URLSearchParams(searchParams.toString());
+		params.set('articleId', article.id);
+		router.replace(`?${params.toString()}`);
 	};
 
 	const handleDialogClose = () => {
 		setSelectedArticle(null);
+		const params = new URLSearchParams(searchParams.toString());
+		params.delete('articleId');
+		router.replace(`?${params.toString()}`);
 	};
 
 	const { iframeAllowed } = useIframeAllowed(selectedArticle?.url ?? null);

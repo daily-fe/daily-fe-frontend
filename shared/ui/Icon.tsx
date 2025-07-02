@@ -24,7 +24,7 @@ export function Icon({ name, className, ...props }: IconProps) {
 
 	return (
 		<span
-			className={className}
+			className={`flex items-center justify-center w-5 h-5 ${className}`}
 			// biome-ignore lint/security/noDangerouslySetInnerHtml: We are loading trusted SVGs from our own server.
 			dangerouslySetInnerHTML={{ __html: icon }}
 			{...props}
