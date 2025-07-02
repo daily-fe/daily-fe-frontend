@@ -1,8 +1,10 @@
 'use client';
 
+import { CATEGORIES } from '@/entities/article/model/constants';
 import type { AnalysisResult, ArticleCreateInput } from '@/entities/article/model/types';
 import { useEditableAnalysisResult } from '@/features/article-analysis/hooks/use-editable-analysis-result';
 import { EditableTags } from '@/features/article-analysis/ui/EditableTags';
+import { Badge } from '@/shared/ui/badge';
 import { Button } from '@/shared/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/ui/card';
 import { Input } from '@/shared/ui/input';
@@ -15,8 +17,19 @@ interface ArticleAnalysisResultProps {
 }
 
 export default function ArticleAnalysisResult({ result, onReset, onAddArticle }: ArticleAnalysisResultProps) {
-	const { title, setTitle, summary, setSummary, tags, setTags, newTag, setNewTag, handleAddArticle } =
-		useEditableAnalysisResult({ result, onAddArticle });
+	const {
+		title,
+		setTitle,
+		summary,
+		setSummary,
+		tags,
+		setTags,
+		newTag,
+		setNewTag,
+		category,
+		setCategory,
+		handleAddArticle,
+	} = useEditableAnalysisResult({ result, onAddArticle });
 
 	return (
 		<div>
@@ -41,6 +54,17 @@ export default function ArticleAnalysisResult({ result, onReset, onAddArticle }:
 							placeholder="요약을 입력하세요"
 						/>
 					</CardDescription>
+					<div className="flex gap-2 mt-8 flex-wrap">
+						{CATEGORIES.map((cat) => (
+							<Badge
+								key={cat}
+								onClick={() => setCategory(cat)}
+								className={`cursor-pointer border transition-all ${cat === category ? 'ring-2 ring-offset-2 ring-gray-600 font-bold scale-105' : 'opacity-60 hover:opacity-100'}`}
+							>
+								{cat}
+							</Badge>
+						))}
+					</div>
 				</CardContent>
 				<CardFooter className="flex-col items-start gap-2">
 					<EditableTags tags={tags} onChange={setTags} newTag={newTag} onNewTagChange={setNewTag} />
