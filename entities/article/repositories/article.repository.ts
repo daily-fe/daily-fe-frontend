@@ -29,7 +29,7 @@ class ArticleRepository implements ArticleRepositoryImpl {
 
 	async analyze(url: string): Promise<Article> {
 		try {
-			const response = await serverApi.post<Article>('/blog/analyze', { url });
+			const response = await serverApi.post<Article>('/article/analyze', { url });
 			return response.data;
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
@@ -37,41 +37,41 @@ class ArticleRepository implements ArticleRepositoryImpl {
 					throw new Error('인증이 필요합니다. 다시 로그인해주세요.');
 				}
 				throw new Error(
-					error.response?.data?.message || error.message || '블로그 분석 중 서버 오류가 발생했습니다.',
+					error.response?.data?.message || error.message || '아티클 분석 중 서버 오류가 발생했습니다.',
 				);
 			}
-			throw new Error('블로그 분석 중 예상치 못한 오류가 발생했습니다.');
+			throw new Error('아티클 분석 중 예상치 못한 오류가 발생했습니다.');
 		}
 	}
 
 	async like(id: string): Promise<void> {
 		try {
-			await serverApi.post(`/blog/${id}/like`);
+			await serverApi.post(`/article/${id}/like`);
 		} catch (error) {
-			throw new Error('블로그 좋아요 처리 중 오류가 발생했습니다.');
+			throw new Error('아티클 좋아요 처리 중 오류가 발생했습니다.');
 		}
 	}
 
 	async unlike(id: string): Promise<void> {
 		try {
-			await serverApi.delete(`/blog/${id}/like`);
+			await serverApi.delete(`/article/${id}/like`);
 		} catch (error) {
-			throw new Error('블로그 좋아요 취소 중 오류가 발생했습니다.');
+			throw new Error('아티클 좋아요 취소 중 오류가 발생했습니다.');
 		}
 	}
 
 	async get(id: string): Promise<Article> {
 		try {
-			const response = await serverApi.get<Article>(`/blog/${id}`);
+			const response = await serverApi.get<Article>(`/article/${id}`);
 			return response.data;
 		} catch (error) {
-			throw new Error('블로그 정보 조회 중 오류가 발생했습니다.');
+			throw new Error('아티클 정보 조회 중 오류가 발생했습니다.');
 		}
 	}
 
 	async getAll(): Promise<Article[]> {
 		try {
-			const response = await serverApi.get<Article[]>('/blog');
+			const response = await serverApi.get<Article[]>('/article');
 			console.log('getAll', response.data);
 			return response.data;
 		} catch (error) {
@@ -81,7 +81,7 @@ class ArticleRepository implements ArticleRepositoryImpl {
 
 	async create(article: ArticleCreateInput): Promise<Article> {
 		try {
-			const response = await serverApi.post<Article>('/blog', article);
+			const response = await serverApi.post<Article>('/article', article);
 			return response.data;
 		} catch (error) {
 			throw new Error('아티클 추가 중 오류가 발생했습니다.');

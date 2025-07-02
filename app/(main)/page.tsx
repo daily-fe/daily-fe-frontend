@@ -18,9 +18,9 @@ export default async function HomePage() {
 				<div className="lg:col-span-3">
 					<ArticleSection initialArticles={articles} />
 				</div>
-				<div className="lg:col-span-1">
+				{/* <div className="lg:col-span-1">
 					<UserProfile />
-				</div>
+				</div> */}
 			</div>
 		</main>
 	);
