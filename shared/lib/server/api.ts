@@ -9,9 +9,11 @@ export const serverApi = axios.create({
 });
 
 serverApi.interceptors.request.use(async (config) => {
-	const session = await getServerSession(createNextAuthOptions(authRepository));
-	if (session?.accessToken) {
-		config.headers.Authorization = `Bearer ${session.accessToken}`;
+	if (!config.url?.startsWith('/auth')) {
+		const session = await getServerSession(createNextAuthOptions(authRepository));
+		if (session?.accessToken) {
+			config.headers.Authorization = `Bearer ${session.accessToken}`;
+		}
 	}
 	return config;
 });

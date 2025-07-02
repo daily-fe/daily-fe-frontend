@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { clientApi } from '@/shared/lib/client/api';
+import serverApi from '@/shared/lib/server/api';
 
 export interface LoginWithGithubParams {
 	githubId: string;
@@ -25,11 +25,11 @@ export interface RefreshTokenResponse {
 
 class AuthRepository implements AuthRepositoryImpl {
 	async loginWithGithub(params: LoginWithGithubParams) {
-		return await clientApi.post('/auth/login/github', params);
+		return await serverApi.post('/auth/login/github', params);
 	}
 
 	async refreshToken(params: RefreshTokenParams) {
-		return await clientApi.post('/auth/refresh', params);
+		return await serverApi.post('/auth/refresh', params);
 	}
 }
 
