@@ -21,8 +21,16 @@ export async function getArticleUseCase(id: string, deps: Dependencies): Promise
 	return deps.articleRepository.get(id);
 }
 
-export async function getArticlesUseCase(deps: Dependencies): Promise<Article[]> {
-	return deps.articleRepository.getAll();
+export async function getArticlesUseCase({
+	articleRepository,
+	category,
+	keyword,
+}: {
+	articleRepository: ArticleRepositoryImpl;
+	category?: string;
+	keyword?: string;
+}): Promise<Article[]> {
+	return articleRepository.getAll(category, keyword);
 }
 
 export async function createArticleUseCase(article: ArticleCreateInput, deps: Dependencies): Promise<Article> {

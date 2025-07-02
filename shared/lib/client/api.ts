@@ -32,6 +32,7 @@ export async function apiCall<T>(promise: Promise<T>, defaultMessage = 'API ì²˜ë
 			});
 			throw new ApiError(error as AxiosError, defaultMessage);
 		}
+		Console.error('API Error:', error);
 		throw new Error(defaultMessage);
 	}
 }
