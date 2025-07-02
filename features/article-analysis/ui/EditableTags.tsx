@@ -30,7 +30,7 @@ export function EditableTags({ tags, onChange, newTag, onNewTagChange }: Editabl
 	};
 
 	return (
-		<div className="flex items-baseline justify-between w-full">
+		<div className="flex items-baseline justify-between w-full sm:flex-row flex-col">
 			<div className="flex gap-2 flex-wrap">
 				{tags.map((tag) => (
 					<Badge key={tag} className="flex items-center gap-1 h-fit">

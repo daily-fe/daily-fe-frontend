@@ -25,7 +25,7 @@ export default function LoginButton({ providers = [AuthProviderEnum.Github] }: L
 			{providers.map((provider) => (
 				<Button key={provider} onClick={handleLogin(provider)} className="flex items-center gap-2">
 					<Icon name={provider} className="w-5 h-5" />
-					{AuthProviderLabel[provider]}로 로그인
+					<span className="hidden sm:block">{AuthProviderLabel[provider]}로 </span>로그인
 				</Button>
 			))}
 		</div>

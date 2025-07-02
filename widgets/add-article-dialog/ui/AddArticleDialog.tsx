@@ -11,9 +11,10 @@ import { Icon } from '@/shared/ui/Icon';
 
 interface AddArticleDialogProps {
 	onArticleAdded: (article: Article) => void;
+	children?: React.ReactNode;
 }
 
-export function AddArticleDialog({ onArticleAdded }: AddArticleDialogProps) {
+export function AddArticleDialog({ onArticleAdded, children }: AddArticleDialogProps) {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const [analysisResult, setAnalysisResult] = useState<AnalysisResultType | null>(null);
 
@@ -47,10 +48,14 @@ export function AddArticleDialog({ onArticleAdded }: AddArticleDialogProps) {
 	return (
 		<Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
 			<DialogTrigger asChild>
-				<Button variant="outline" className="flex items-center gap-1">
-					<Icon name="plus" className="w-4! h-4!" />
-					아티클 추가
-				</Button>
+				{children ? (
+					children
+				) : (
+					<Button variant="outline" className="flex items-center gap-1">
+						<Icon name="plus" className="w-4! h-4!" />
+						아티클 추가
+					</Button>
+				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-2xl">
 				<DialogHeader>

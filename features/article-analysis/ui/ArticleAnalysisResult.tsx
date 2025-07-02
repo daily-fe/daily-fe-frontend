@@ -33,7 +33,7 @@ export default function ArticleAnalysisResult({ result, onReset, onAddArticle }:
 
 	return (
 		<div>
-			<Card>
+			<Card className="overflow-y-auto max-h-[60dvh] sm:max-h-none">
 				<CardHeader>
 					<CardTitle>
 						<Input

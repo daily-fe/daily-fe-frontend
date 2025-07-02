@@ -15,10 +15,10 @@ export function LikeButton({ isLiked, likeCount, onClick, size = 'md', className
 	const textSize = size === 'sm' ? 'text-xs' : 'text-sm';
 	return (
 		<div className={`flex items-center gap-1 ${className ?? ''}`}>
-			<span className={`${textSize} text-gray-600`}>{likeCount}</span>
 			<Button size="icon" variant="ghost" onClick={onClick} className={iconSize}>
-				<Icon name={isLiked ? 'heart-solid' : 'heart-outline'} />
+				<Icon name={isLiked ? 'heart-solid' : 'heart-outline'} className="w-5! h-5!" />
 			</Button>
+			<span className={`${textSize} text-gray-600`}>{likeCount}</span>
 		</div>
 	);
 }

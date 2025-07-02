@@ -38,12 +38,12 @@ export function ArticleAnalysisForm({ analyzeAction, onSuccess }: ArticleAnalysi
 	}, [state, onSuccess]);
 
 	return (
-		<form action={formAction}>
-			<div className="flex flex-col gap-4">
+		<form action={formAction} className="w-full max-w-xl mx-auto p-2 sm:p-4">
+			<div className="flex flex-col gap-3 sm:gap-4">
 				<Input type="text" name="url" placeholder="아티클 주소를 입력해주세요." className="w-full" />
-				{!state.success && state.message && <p className="text-red-500 text-sm">{state.message}</p>}
+				{!state.success && state.message && <p className="text-red-500 text-xs sm:text-sm">{state.message}</p>}
 			</div>
-			<DialogFooter className="mt-4">
+			<DialogFooter className="mt-4 w-full flex justify-end">
 				<SubmitButton />
 			</DialogFooter>
 		</form>

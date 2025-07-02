@@ -12,7 +12,7 @@ export default function LogoutButton() {
 
 	return (
 		<div className="flex items-center gap-4">
-			<span className="text-sm text-gray-600">{session.user?.name}님 환영합니다!</span>
+			<span className="hidden sm:block text-sm text-gray-600">{session.user?.name}님 환영합니다!</span>
 			<Button variant="link" onClick={handleLogout} className="underline p-0!">
 				로그아웃
 			</Button>

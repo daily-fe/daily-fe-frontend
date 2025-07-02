@@ -8,6 +8,7 @@ import { useSelectedArticle } from '@/features/article/hooks/use-selected-articl
 import ArticleCard from '@/features/article/ui/ArticleCard';
 import { ArticleIframeDialog } from '@/features/article/ui/ArticleIframeDialog';
 import { useIframeAllowed } from '@/shared/hooks/use-iframe-allowed';
+import { Icon } from '@/shared/ui/Icon';
 import { AddArticleDialog } from '@/widgets/add-article-dialog/ui/AddArticleDialog';
 import ArticleSearchBar from './ArticleSearchBar';
 
@@ -46,7 +47,9 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 			<header className="flex flex-col mb-6 gap-2">
 				<div className="flex items-center justify-between gap-2">
 					<p className="text-gray-500">매일매일 공유되는 프론트엔드 개발자를 위한 아티클</p>
-					<AddArticleDialog onArticleAdded={handleArticleAdded} />
+					<div className="hidden sm:block">
+						<AddArticleDialog onArticleAdded={handleArticleAdded} />
+					</div>
 				</div>
 				<ArticleSearchBar
 					category={category}
@@ -63,7 +66,7 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 						<p>오른쪽 위의 '아티클 추가' 버튼을 눌러 시작해보세요.</p>
 					</div>
 				) : (
-					<div className="flex flex-col gap-4">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 						{articles.map((article) => (
 							<ArticleCard
 								key={article.id}
@@ -83,6 +86,21 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 					iframeAllowed={iframeAllowed}
 				/>
 			)}
+
+			{/* 모바일 전용 플로팅 +버튼 */}
+			<div className="sm:hidden">
+				<div className="fixed right-4 bottom-4 z-50">
+					<AddArticleDialog onArticleAdded={handleArticleAdded}>
+						<button
+							type="button"
+							className="bg-black text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
+							aria-label="아티클 추가"
+						>
+							<Icon name="plus" className="w-6 h-6" />
+						</button>
+					</AddArticleDialog>
+				</div>
+			</div>
 		</>
 	);
 }

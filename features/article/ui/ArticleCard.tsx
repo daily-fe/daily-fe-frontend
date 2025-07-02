@@ -30,22 +30,19 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 
 	return (
 		<Card
-			className="flex flex-col h-full cursor-pointer transition-colors hover:bg-gray-50 relative overflow-hidden"
+			className="flex flex-col h-full w-full min-w-0 cursor-pointer transition-colors hover:bg-gray-50 relative overflow-hidden"
 			onClick={onCardClick}
 		>
-			{hostname && (
+			{/* {hostname && (
 				<div className="absolute top-0 left-0 border-r border-b border-gray-200 rounded-br-md bg-gray-700 px-2 py-0.5 flex overflow-hidden">
-					<span className="text-xs text-gray-100 font-medium">{hostname}</span>
+					<span className="text-xs sm:text-sm text-gray-100 font-medium">{hostname}</span>
 				</div>
-			)}
+			)} */}
 			<CardHeader className="flex flex-row items-center justify-between pb-2 gap-2">
-				<CardTitle className="text-2xl flex-1 min-w-0 truncate">{article.title}</CardTitle>
-				<LikeButton isLiked={isLiked} likeCount={likeCount} onClick={handleLike} size="sm" />
+				<CardTitle className="text-lg sm:text-2xl flex-1">{article.title}</CardTitle>
 			</CardHeader>
-			<CardContent className="flex-grow">
-				<p className="text-base text-muted-foreground whitespace-pre-wrap">{article.summary}</p>
-			</CardContent>
-			<CardFooter className="flex items-end justify-between">
+			<CardContent className="flex flex-col gap-2 flex-grow">
+				<p className="text-sm sm:text-base text-muted-foreground whitespace-pre-wrap">{article.summary}</p>
 				<div className="flex flex-wrap gap-2">
 					<Badge className={`${categoryColor.bg} ${categoryColor.text} ${categoryColor.border}`}>
 						{article.category}
@@ -56,12 +53,13 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 						</Badge>
 					))}
 				</div>
-				<div className="flex items-center gap-4">
-					<CardDescription className="text-[12px] whitespace-nowrap flex-shrink-0">
-						{article.createdAt && new Date(article.createdAt).toLocaleDateString('ko-KR')}
-						<span className="text-gray-800">{article.author && ` ${article.author}`}</span>
-					</CardDescription>
-				</div>
+			</CardContent>
+			<CardFooter className="flex align-center justify-between gap-2 sm:gap-4">
+				<CardDescription className="text-[11px] sm:text-[12px]">
+					{article.createdAt && new Date(article.createdAt).toLocaleDateString('ko-KR')}
+					<span className="text-gray-800">{article.author && ` ${article.author}`}</span>
+				</CardDescription>
+				<LikeButton isLiked={isLiked} likeCount={likeCount} onClick={handleLike} size="sm" />
 			</CardFooter>
 		</Card>
 	);

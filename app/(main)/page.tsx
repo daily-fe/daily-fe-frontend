@@ -24,11 +24,11 @@ export default async function Page({
 		});
 		return (
 			<main className="container mx-auto">
-				<div className="sticky top-0 z-10 bg-white flex justify-between items-center py-2">
-					<h1 className="text-4xl font-bold">Daily FE Article</h1>
+				<div className="sticky top-0 z-10 bg-white flex justify-between items-center py-2 px-2 sm:px-0">
+					<h1 className="text-xl font-bold sm:text-4xl">Daily FE Article</h1>
 					<AuthActionButton />
 				</div>
-				<div className="flex flex-col gap-4">
+				<div className="flex flex-col gap-4 px-2 sm:px-0">
 					<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
 						<ArticleSection articles={articles} />
 					</Suspense>
@@ -41,7 +41,6 @@ export default async function Page({
 	} catch (error) {
 		return (
 			<main className="container mx-auto">
-				{' '}
 				<ErrorMessage
 					status={error instanceof ApiError ? error.status : undefined}
 					message={'아티클을 불러오는 중 오류가 발생했습니다.'}
