@@ -67,7 +67,7 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 			<CardContent className="flex-grow">
 				<p className="text-base text-muted-foreground whitespace-pre-wrap">{article.summary}</p>
 			</CardContent>
-			<CardFooter className="flex items-center justify-between">
+			<CardFooter className="flex items-end justify-between">
 				<div className="flex flex-wrap gap-2">
 					<Badge className={`${categoryColor.bg} ${categoryColor.text} ${categoryColor.border}`}>
 						{article.category}
@@ -79,7 +79,7 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 					))}
 				</div>
 				<div className="flex items-center gap-4">
-					<CardDescription className="text-[12px]">
+					<CardDescription className="text-[12px] whitespace-nowrap flex-shrink-0">
 						{article.createdAt && new Date(article.createdAt).toLocaleDateString('ko-KR')}
 						<span className="text-gray-800">{article.author && ` ${article.author}`}</span>
 					</CardDescription>
