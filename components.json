@@ -10,6 +10,9 @@
 		"cssVariables": true,
 		"prefix": ""
 	},
-	"aliases": {},
+	"aliases": {
+		"components": "@/shared/ui",
+		"utils": "@/shared/lib/utils"
+	},
 	"iconLibrary": "lucide"
 }
