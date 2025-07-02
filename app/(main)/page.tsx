@@ -23,17 +23,15 @@ export default async function Page({
 			articleRepository,
 		});
 		return (
-			<main className="container mx-auto p-4">
+			<main className="container mx-auto px-24 py-8">
 				<div className="flex justify-between items-center mb-2">
 					<h1 className="text-4xl font-bold">Daily FE Article</h1>
 					<AuthActionButton />
 				</div>
-				<div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-					<div className="lg:col-span-3">
-						<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
-							<ArticleSection articles={articles} />
-						</Suspense>
-					</div>
+				<div className="flex flex-col gap-4">
+					<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
+						<ArticleSection articles={articles} />
+					</Suspense>
 					{/* <div className="lg:col-span-1">
 						<UserProfile />
 					</div> */}
@@ -42,7 +40,8 @@ export default async function Page({
 		);
 	} catch (error) {
 		return (
-			<main className="container mx-auto p-4">
+			<main className="container mx-auto px-24 py-8">
+				{' '}
 				<ErrorMessage
 					status={error instanceof ApiError ? error.status : undefined}
 					message={'아티클을 불러오는 중 오류가 발생했습니다.'}
