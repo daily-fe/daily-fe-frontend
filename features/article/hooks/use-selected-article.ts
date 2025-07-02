@@ -38,7 +38,7 @@ export function useSelectedArticle(articles: Article[]) {
 			setSelectedArticle(article);
 			const params = new URLSearchParams(searchParams.toString());
 			params.set('articleId', article.id);
-			router.replace(`?${params.toString()}`);
+			router.replace(`?${params.toString()}`, { scroll: false });
 		},
 		[searchParams, router],
 	);
@@ -47,7 +47,7 @@ export function useSelectedArticle(articles: Article[]) {
 		setSelectedArticle(null);
 		const params = new URLSearchParams(searchParams.toString());
 		params.delete('articleId');
-		router.replace(`?${params.toString()}`);
+		router.replace(`?${params.toString()}`, { scroll: false });
 	}, [searchParams, router]);
 
 	useEffect(() => {
