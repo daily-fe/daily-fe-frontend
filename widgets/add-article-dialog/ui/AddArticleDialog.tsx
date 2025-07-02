@@ -7,6 +7,7 @@ import { ArticleAnalysisForm } from '@/features/article-analysis/ui/ArticleAnaly
 import ArticleAnalysisResult from '@/features/article-analysis/ui/ArticleAnalysisResult';
 import { Button } from '@/shared/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/shared/ui/dialog';
+import { Icon } from '@/shared/ui/Icon';
 
 interface AddArticleDialogProps {
 	onArticleAdded: (article: Article) => void;
@@ -48,7 +49,10 @@ export function AddArticleDialog({ onArticleAdded }: AddArticleDialogProps) {
 	return (
 		<Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
 			<DialogTrigger asChild>
-				<Button variant="default">아티클 추가</Button>
+				<Button variant="outline" className="flex items-center gap-1">
+					<Icon name="plus" className="w-4! h-4!" />
+					아티클 추가
+				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-2xl">
 				<DialogHeader>

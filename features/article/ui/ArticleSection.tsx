@@ -7,6 +7,9 @@ import type { Article, Category } from '@/entities/article/model/types';
 import ArticleCard from '@/features/article/ui/ArticleCard';
 import { ArticleIframeDialog } from '@/features/article/ui/ArticleIframeDialog';
 import { useIframeAllowed } from '@/shared/hooks/use-iframe-allowed';
+import { Button } from '@/shared/ui/button';
+import { Input } from '@/shared/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/ui/select';
 import { AddArticleDialog } from '@/widgets/add-article-dialog/ui/AddArticleDialog';
 
 const ALL_CATEGORY = 'ALL' as const;
@@ -21,8 +24,15 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 	const searchParams = useSearchParams();
 	const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
-	const [category, setCategory] = useState<CategoryFilter>(ALL_CATEGORY);
-	const [keyword, setKeyword] = useState<string>('');
+	const [category, setCategory] = useState<CategoryFilter>(() => {
+		const categoryParam = searchParams.get('category');
+		return categoryParam && CATEGORIES.includes(categoryParam as Category)
+			? (categoryParam as Category)
+			: ALL_CATEGORY;
+	});
+	const [keyword, setKeyword] = useState<string>(() => {
+		return searchParams.get('keyword') ?? '';
+	});
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
@@ -81,39 +91,40 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 	return (
 		<>
 			<header className="flex flex-col mb-6 gap-2">
-				<div className="flex items-end justify-between gap-2">
+				<div className="flex items-center justify-between gap-2">
 					<p className="text-gray-500">매일매일 공유되는 프론트엔드 개발자를 위한 아티클</p>
 					<AddArticleDialog onArticleAdded={handleArticleAdded} />
 				</div>
 				{/* 검색 UI */}
-				<div className="flex gap-2 items-center mt-2">
-					<select
-						className="border rounded px-2 py-1"
-						value={category}
-						onChange={(e) => setCategory(e.target.value as CategoryFilter)}
-					>
-						<option value={ALL_CATEGORY}>전체 카테고리</option>
-						{CATEGORIES.map((cat) => (
-							<option key={cat} value={cat}>
-								{cat}
-							</option>
-						))}
-					</select>
-					<input
-						type="text"
-						placeholder="키워드 검색"
-						className="border rounded px-2 py-1"
-						value={keyword}
-						onChange={(e) => setKeyword(e.target.value)}
-					/>
-					<button
-						onClick={handleSearch}
-						className="bg-blue-500 text-white rounded px-3 py-1 disabled:opacity-50"
-						disabled={loading}
-						type="button"
-					>
-						검색
-					</button>
+				<div className="w-full flex flex-col gap-2 mt-8 sm:flex-row sm:items-end">
+					<Select value={category} onValueChange={(value) => setCategory(value as CategoryFilter)}>
+						<SelectTrigger className="w-40 h-10!" aria-label="카테고리">
+							<SelectValue placeholder="카테고리 선택" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectItem value={ALL_CATEGORY}>전체 카테고리</SelectItem>
+							{CATEGORIES.map((cat) => (
+								<SelectItem key={cat} value={cat}>
+									{cat}
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
+					<div className="flex-1">
+						<Input
+							type="text"
+							placeholder="키워드 검색"
+							value={keyword}
+							onChange={(e) => setKeyword(e.target.value)}
+							className="w-full h-10"
+							aria-label="키워드"
+						/>
+					</div>
+					<div className="flex-shrink-0">
+						<Button onClick={handleSearch} disabled={loading} className="w-full h-10 px-6" type="button">
+							검색
+						</Button>
+					</div>
 				</div>
 			</header>
 			<section>
