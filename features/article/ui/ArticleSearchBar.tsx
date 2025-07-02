@@ -1,38 +1,33 @@
 'use client';
-import router from 'next/router';
-import { useCallback, useState } from 'react';
 import { CATEGORIES } from '@/entities/article/model/constants';
+import { CategorySearch } from '@/entities/article/model/types';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/ui/select';
 
-export default function ArticleSearchBar() {
-	const [category, setCategory] = useState<string>('');
-	const [keyword, setKeyword] = useState<string>('');
+interface ArticleSearchBarProps {
+	category: CategorySearch;
+	keyword: string;
+	onChangeCategory: (category: CategorySearch) => void;
+	onChangeKeyword: (keyword: string) => void;
+	onSubmitSearch: (category: CategorySearch, keyword: string) => void;
+}
 
-	const handleSearch = useCallback(async (category: string, keyword: string) => {
-		const params = new URLSearchParams();
-		if (category) params.set('category', category);
-		if (keyword) params.set('keyword', keyword);
-		router.replace(`?${params.toString()}`);
-	}, []);
-
-	const handleCategoryChange = useCallback(
-		async (newCategory: string) => {
-			setCategory(newCategory);
-			handleSearch(newCategory, keyword);
-		},
-		[handleSearch, keyword],
-	);
-
+export default function ArticleSearchBar({
+	category,
+	keyword,
+	onChangeCategory,
+	onChangeKeyword,
+	onSubmitSearch,
+}: ArticleSearchBarProps) {
 	return (
 		<div className="w-full flex flex-col gap-2 mt-8 sm:flex-row sm:items-end">
-			<Select value={category} onValueChange={handleCategoryChange}>
+			<Select value={category} onValueChange={onChangeCategory}>
 				<SelectTrigger className="w-40 h-10!" aria-label="카테고리">
 					<SelectValue placeholder="카테고리 선택" />
 				</SelectTrigger>
 				<SelectContent>
-					<SelectItem value={category}>전체 카테고리</SelectItem>
+					<SelectItem value="all">전체 카테고리</SelectItem>
 					{CATEGORIES.map((cat) => (
 						<SelectItem key={cat} value={cat}>
 							{cat}
@@ -45,13 +40,19 @@ export default function ArticleSearchBar() {
 					type="text"
 					placeholder="키워드 검색"
 					value={keyword}
-					onChange={(e) => setKeyword(e.target.value)}
+					onChange={(e) => onChangeKeyword(e.target.value)}
 					className="w-full h-10"
 					aria-label="키워드"
+					onKeyDown={(e) => {
+						if (e.key === 'Enter') {
+							e.preventDefault();
+							onSubmitSearch(category, keyword);
+						}
+					}}
 				/>
 			</div>
 			<div className="flex-shrink-0">
-				<Button onClick={() => handleSearch(category, keyword)} className="w-full h-10 px-6" type="button">
+				<Button onClick={() => onSubmitSearch(category, keyword)} className="w-full h-10 px-6" type="button">
 					검색
 				</Button>
 			</div>

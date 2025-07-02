@@ -1,8 +1,10 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import type { Article } from '@/entities/article/model/types';
+import { useOpenInNewWindow } from '@/features/article/hooks/use-open-in-new-window';
+import { useSelectedArticle } from '@/features/article/hooks/use-selected-article';
 import ArticleCard from '@/features/article/ui/ArticleCard';
 import { ArticleIframeDialog } from '@/features/article/ui/ArticleIframeDialog';
 import { useIframeAllowed } from '@/shared/hooks/use-iframe-allowed';
@@ -14,50 +16,30 @@ interface ArticleSectionProps {
 }
 
 export default function ArticleSection({ articles }: ArticleSectionProps) {
+	const {
+		selectedArticle,
+		handleCardClick,
+		handleDialogClose,
+		handleSearch,
+		handleCategoryChange,
+		handleKeywordChange,
+		category,
+		keyword,
+	} = useSelectedArticle(articles);
+	const { iframeAllowed } = useIframeAllowed(selectedArticle?.url ?? null);
+	const openInNewWindow = useOpenInNewWindow(selectedArticle?.url);
 	const router = useRouter();
-	const searchParams = useSearchParams();
-	const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-
-	useEffect(() => {
-		const articleId = searchParams.get('articleId');
-		if (articleId && articles.length > 0) {
-			const found = articles.find((a) => a.id === articleId);
-			if (found) setSelectedArticle(found);
-		}
-	}, [searchParams, articles]);
 
 	const handleArticleAdded = () => {
 		router.refresh();
 	};
 
-	const handleCardClick = (article: Article) => {
-		setSelectedArticle(article);
-		const params = new URLSearchParams(searchParams.toString());
-		params.set('articleId', article.id);
-		router.replace(`?${params.toString()}`);
-	};
-
-	const handleDialogClose = () => {
-		setSelectedArticle(null);
-		const params = new URLSearchParams(searchParams.toString());
-		params.delete('articleId');
-		router.replace(`?${params.toString()}`);
-	};
-
-	const { iframeAllowed } = useIframeAllowed(selectedArticle?.url ?? null);
-
-	const handleOpenInNewWindow = useCallback(() => {
-		if (selectedArticle?.url) {
-			window.open(selectedArticle.url, '_blank', 'noopener,noreferrer');
-		}
-	}, [selectedArticle]);
-
 	useEffect(() => {
 		if (iframeAllowed === false) {
-			setSelectedArticle(null);
-			handleOpenInNewWindow();
+			handleDialogClose();
+			openInNewWindow();
 		}
-	}, [iframeAllowed, handleOpenInNewWindow]);
+	}, [iframeAllowed, handleDialogClose, openInNewWindow]);
 
 	return (
 		<>
@@ -66,7 +48,13 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 					<p className="text-gray-500">매일매일 공유되는 프론트엔드 개발자를 위한 아티클</p>
 					<AddArticleDialog onArticleAdded={handleArticleAdded} />
 				</div>
-				<ArticleSearchBar />
+				<ArticleSearchBar
+					category={category}
+					keyword={keyword}
+					onChangeCategory={handleCategoryChange}
+					onChangeKeyword={handleKeywordChange}
+					onSubmitSearch={handleSearch}
+				/>
 			</header>
 			<section>
 				{articles.length === 0 ? (

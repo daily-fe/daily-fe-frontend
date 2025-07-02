@@ -1,6 +1,7 @@
 import { CATEGORIES } from './constants';
 
 export type Category = (typeof CATEGORIES)[number];
+export type CategorySearch = Category | 'all';
 
 export interface Article {
 	readonly id: string;
