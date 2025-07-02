@@ -8,6 +8,8 @@ import { Badge } from '@/shared/ui/badge';
 import { Button } from '@/shared/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/ui/card';
 import { Icon } from '@/shared/ui/Icon';
+import { useLikeArticle } from '../hooks/use-like-article';
+import { LikeButton } from './LikeButton';
 
 interface ArticleCardProps {
 	article: Article;
@@ -15,8 +17,7 @@ interface ArticleCardProps {
 }
 
 export default function ArticleCard({ article, onCardClick }: ArticleCardProps) {
-	const [isLiked, setIsLiked] = useState(article.likedByMe);
-	const [likeCount, setLikeCount] = useState(article.likes);
+	const { isLiked, likeCount, handleLike } = useLikeArticle(article);
 	const [hostname, _] = useState<string | null>(() => {
 		try {
 			return new URL(article.url).hostname.replace(/^www\./, '').split('.')?.[0] ?? null;
@@ -24,24 +25,6 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 			return null;
 		}
 	});
-
-	const handleLike = async (e: React.MouseEvent) => {
-		e.stopPropagation();
-		const nextLiked = !isLiked;
-		setIsLiked(nextLiked);
-		setLikeCount((prev) => (nextLiked ? prev + 1 : prev - 1));
-		try {
-			if (nextLiked) {
-				await likeArticleAction(article.id);
-			} else {
-				await unlikeArticleAction(article.id);
-			}
-		} catch (error) {
-			setIsLiked((prev) => !prev);
-			setLikeCount((prev) => (nextLiked ? prev - 1 : prev + 1));
-			alert('좋아요 처리 중 오류가 발생했습니다.');
-		}
-	};
 
 	const categoryColor = CATEGORY_COLORS[article.category] || CATEGORY_COLORS.default;
 
@@ -57,12 +40,7 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 			)}
 			<CardHeader className="flex flex-row items-center justify-between pb-2 gap-2">
 				<CardTitle className="text-2xl flex-1 min-w-0 truncate">{article.title}</CardTitle>
-				<div className="flex items-center flex-shrink-0 ml-2">
-					<span className="text-sm text-gray-600">{likeCount}</span>
-					<Button size="icon" variant="ghost" onClick={handleLike} className="w-8 h-6">
-						<Icon name={isLiked ? 'heart-solid' : 'heart-outline'} />
-					</Button>
-				</div>
+				<LikeButton isLiked={isLiked} likeCount={likeCount} onClick={handleLike} size="sm" />
 			</CardHeader>
 			<CardContent className="flex-grow">
 				<p className="text-base text-muted-foreground whitespace-pre-wrap">{article.summary}</p>
