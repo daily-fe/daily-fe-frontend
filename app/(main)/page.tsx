@@ -23,8 +23,8 @@ export default async function Page({
 			articleRepository,
 		});
 		return (
-			<main className="container mx-auto px-24 py-8">
-				<div className="flex justify-between items-center mb-2">
+			<main className="container mx-auto">
+				<div className="sticky top-0 z-10 bg-white flex justify-between items-center py-2">
 					<h1 className="text-4xl font-bold">Daily FE Article</h1>
 					<AuthActionButton />
 				</div>
@@ -40,7 +40,7 @@ export default async function Page({
 		);
 	} catch (error) {
 		return (
-			<main className="container mx-auto px-24 py-8">
+			<main className="container mx-auto">
 				{' '}
 				<ErrorMessage
 					status={error instanceof ApiError ? error.status : undefined}
