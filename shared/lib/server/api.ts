@@ -4,7 +4,7 @@ import { authRepository } from '@/entities/auth/repositories/auth.repository';
 import { createNextAuthOptions } from '@/features/auth/usecases/next-auth.usecase';
 
 export const serverApi = axios.create({
-	baseURL: 'http://localhost:3001',
+	baseURL: process.env.API_HOST,
 	withCredentials: true,
 });
 

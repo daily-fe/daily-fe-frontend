@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getSession, signOut } from 'next-auth/react';
 
 export const clientApi = axios.create({
-	baseURL: 'http://localhost:3001',
+	baseURL: process.env.API_HOST,
 	withCredentials: true,
 });
 
