@@ -24,6 +24,7 @@ export default function ArticleSectionHeader({
 }: ArticleSectionHeaderProps) {
 	const searchParams = useSearchParams();
 	const searchParamsKeyword = searchParams.get('keyword') ?? '';
+
 	return (
 		<header className="flex flex-col gap-2">
 			<div className="flex items-center justify-between gap-2">
@@ -32,7 +33,7 @@ export default function ArticleSectionHeader({
 					<AddArticleDialog onArticleAdded={onArticleAdded} />
 				</div>
 			</div>
-			<div className="flex flex-col sm:hidden mt-2 gap-2">
+			<div className="flex flex-col sm:hidden mt-2 gap-4">
 				{searchParamsKeyword && (
 					<ArticleKeywordSearch
 						keyword={keyword}

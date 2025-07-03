@@ -1,20 +1,17 @@
 'use client';
 
 import { useCallback, useEffect, useRef } from 'react';
-import { CATEGORIES } from '@/entities/article/model/constants';
-import { Badge } from '@/shared/ui/badge';
 import IconButton from '@/shared/ui/IconButton';
 import SearchInput from '../../../shared/ui/SearchInput';
 import { useArticleSearch } from '../hooks/use-article-search';
 import CategoryBadgeList from './CategoryBadgeList';
-import { categoryBadgeClass } from './utils/categoryBadgeClass';
 
 export default function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { category, keyword, handleCategoryChange, handleKeywordChange, handleSearch } = useArticleSearch();
 
-	const onSubmit = useCallback(() => {
-		handleSearch(category, keyword);
+	const onSubmit = useCallback(async () => {
+		await handleSearch(category, keyword);
 		onClose();
 	}, [category, keyword, handleSearch, onClose]);
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
+import SearchInput from '@/shared/ui/SearchInput';
 
 interface ArticleKeywordSearchProps {
 	keyword: string;
@@ -18,14 +19,15 @@ export default function ArticleKeywordSearch({ keyword, onChangeKeyword, onSubmi
 
 	return (
 		<div className="flex w-full gap-2">
-			<Input
-				type="text"
+			<SearchInput
 				placeholder="키워드 검색"
 				value={keyword}
 				onChange={(e) => onChangeKeyword(e.target.value)}
 				className="w-full h-10"
+				inputClassName="w-full h-10"
 				aria-label="키워드"
 				onKeyDown={handleKeyDown}
+				onClear={() => onChangeKeyword('')}
 			/>
 			<Button onClick={onSubmit} className="h-10 px-6" type="button">
 				검색

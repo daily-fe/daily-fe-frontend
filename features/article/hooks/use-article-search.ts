@@ -1,5 +1,5 @@
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { CategorySearch } from '@/entities/article/model/dto';
 import type { Category } from '@/entities/article/model/types';
 
@@ -7,8 +7,16 @@ export function useArticleSearch() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 
-	const [category, setCategory] = useState<CategorySearch>((searchParams.get('category') as Category) ?? 'all');
-	const [keyword, setKeyword] = useState<string>(searchParams.get('keyword') ?? '');
+	const [category, setCategory] = useState<CategorySearch>('all');
+	const [keyword, setKeyword] = useState<string>('');
+
+	useEffect(() => {
+		const categoryParam = searchParams.get('category') as Category;
+		const keywordParam = searchParams.get('keyword');
+
+		setCategory(categoryParam ?? 'all');
+		setKeyword(keywordParam ?? '');
+	}, [searchParams]);
 
 	const handleKeywordChange = useCallback((newKeyword: string) => {
 		setKeyword(newKeyword);
@@ -19,8 +27,7 @@ export function useArticleSearch() {
 			const params = new URLSearchParams();
 			if (category && category !== 'all') params.set('category', category);
 			if (keyword) params.set('keyword', keyword);
-			const hash = typeof window !== 'undefined' ? window.location.hash : '';
-			router.replace(`?${params.toString()}${hash}`);
+			router.replace(`?${params.toString()}`);
 		},
 		[router],
 	);
