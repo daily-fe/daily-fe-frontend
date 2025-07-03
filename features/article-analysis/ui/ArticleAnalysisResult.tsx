@@ -34,7 +34,7 @@ export default function ArticleAnalysisResult({ result, onReset, onAddArticle }:
 	return (
 		<div>
 			<Card className="overflow-y-auto max-h-[60dvh] sm:max-h-none">
-				<CardHeader>
+				<CardHeader className="p-2">
 					<CardTitle>
 						<Input
 							type="text"
@@ -45,16 +45,16 @@ export default function ArticleAnalysisResult({ result, onReset, onAddArticle }:
 						/>
 					</CardTitle>
 				</CardHeader>
-				<CardContent>
+				<CardContent className="p-2">
 					<CardDescription className="whitespace-pre-wrap">
 						<Textarea
 							value={summary}
 							onChange={(e) => setSummary(e.target.value)}
-							className="w-full min-h-[80px] border-0 border-b border-gray-400 focus:border-gray-800! focus-visible:ring-0! bg-transparent rounded-none shadow-none outline-none px-0 resize-y"
+							className="w-full border-0 border-b border-gray-400 focus:border-gray-800! focus-visible:ring-0! bg-transparent rounded-none shadow-none outline-none px-0 resize-none"
 							placeholder="요약을 입력하세요"
 						/>
 					</CardDescription>
-					<div className="flex gap-2 mt-8 flex-wrap">
+					<div className="flex gap-2 mt-6 flex-wrap">
 						{CATEGORIES.map((cat) => (
 							<Badge
 								key={cat}
@@ -66,7 +66,7 @@ export default function ArticleAnalysisResult({ result, onReset, onAddArticle }:
 						))}
 					</div>
 				</CardContent>
-				<CardFooter className="flex-col items-start gap-2">
+				<CardFooter className="flex-col items-start gap-2 p-2">
 					<EditableTags tags={tags} onChange={setTags} newTag={newTag} onNewTagChange={setNewTag} />
 				</CardFooter>
 			</Card>

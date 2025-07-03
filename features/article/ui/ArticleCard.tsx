@@ -41,7 +41,7 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 			<CardHeader className="flex flex-row items-center justify-between pb-2 gap-2">
 				<CardTitle className="text-lg sm:text-2xl flex-1">{article.title}</CardTitle>
 			</CardHeader>
-			<CardContent className="flex flex-col gap-2 flex-grow">
+			<CardContent className="flex flex-col gap-2 flex-grow pb-4">
 				<p className="text-sm sm:text-base text-muted-foreground whitespace-pre-wrap">{article.summary}</p>
 				<div className="flex flex-wrap gap-2">
 					<Badge className={`${categoryColor.bg} ${categoryColor.text} ${categoryColor.border}`}>
