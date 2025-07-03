@@ -33,7 +33,7 @@ export function ArticleIframeDialog({ article, open, onOpenChange, iframeAllowed
 			<DialogContent className="sm:max-w-none sm:w-[90vw]! sm:h-[90vh]! p-0 overflow-hidden flex flex-col max-w-full max-h-full w-full h-full sm:rounded-lg rounded-none">
 				<DialogHeader className="p-4 border-b flex flex-row items-center justify-between pr-12">
 					<div className="flex flex-row items-center gap-2">
-						<DialogTitle>{article.title}</DialogTitle>
+						<DialogTitle className="truncate max-w-[60vw]">{article.title}</DialogTitle>
 						<Button variant="ghost" onClick={handleShare} title="공유하기" className="w-6! h-6!">
 							<Icon name="clipboard" className="text-gray-700" />
 						</Button>
