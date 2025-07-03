@@ -45,19 +45,23 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 	return (
 		<>
 			<header className="flex flex-col mb-6 gap-2">
-				<div className="flex items-center justify-between gap-2">
+				<div className="flex items-center justify-between gap-2 mt-2">
 					<p className="text-gray-500">매일매일 공유되는 프론트엔드 개발자를 위한 아티클</p>
 					<div className="hidden sm:block">
 						<AddArticleDialog onArticleAdded={handleArticleAdded} />
 					</div>
 				</div>
-				<ArticleSearchBar
-					category={category}
-					keyword={keyword}
-					onChangeCategory={handleCategoryChange}
-					onChangeKeyword={handleKeywordChange}
-					onSubmitSearch={handleSearch}
-				/>
+				<div className="w-full">
+					<div className="hidden sm:block">
+						<ArticleSearchBar
+							category={category}
+							keyword={keyword}
+							onChangeCategory={handleCategoryChange}
+							onChangeKeyword={handleKeywordChange}
+							onSubmitSearch={handleSearch}
+						/>
+					</div>
+				</div>
 			</header>
 			<section>
 				{articles.length === 0 ? (

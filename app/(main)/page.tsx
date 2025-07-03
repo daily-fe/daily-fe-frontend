@@ -1,9 +1,9 @@
-import SearchButton from 'components/SearchButton';
 import { Suspense } from 'react';
 import type { Article } from '@/entities/article/model/types';
 import { articleRepository } from '@/entities/article/repositories/article.repository';
 import ArticleSection from '@/features/article/ui/ArticleSection';
 import { getArticlesUseCase } from '@/features/article/usecases/article.usecase';
+import SearchButton from '@/features/article-search/ui/SearchButton';
 import AuthActionButton from '@/features/auth/ui/AuthActionButton';
 import { ApiError } from '@/shared/lib/errors/ApiError';
 import ErrorMessage from '@/shared/ui/ErrorMessage';
