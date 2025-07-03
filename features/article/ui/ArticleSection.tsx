@@ -37,7 +37,7 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 
 	return (
 		<>
-			<header className="flex flex-col mb-6 gap-2">
+			<header className="flex flex-col sm:mb-6 mt-2 gap-2">
 				<div className="flex items-center justify-between gap-2">
 					<p className="text-gray-500">매일매일 공유되는 프론트엔드 개발자를 위한 아티클</p>
 					<div className="hidden sm:block">
@@ -53,11 +53,6 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 							onChangeKeyword={search.handleKeywordChange}
 							onSubmitSearch={search.handleSearch}
 						/>
-					</div>
-					<div className="sm:hidden flex justify-end">
-						<button type="button" className="p-2" aria-label="검색" onClick={() => router.push('/search')}>
-							<Icon name="search" className="w-6 h-6" />
-						</button>
 					</div>
 				</div>
 			</header>
