@@ -6,6 +6,7 @@ import { Badge } from '@/shared/ui/badge';
 import IconButton from '@/shared/ui/IconButton';
 import SearchInput from '../../../shared/ui/SearchInput';
 import { useArticleSearch } from '../hooks/use-article-search';
+import CategoryBadgeList from './CategoryBadgeList';
 import { categoryBadgeClass } from './utils/categoryBadgeClass';
 
 export default function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -50,23 +51,7 @@ export default function SearchOverlay({ open, onClose }: { open: boolean; onClos
 				<IconButton icon="magnifying-glass" onClick={onSubmit} className="w-6 h-6" />
 			</div>
 			<div className="flex-1 overflow-y-auto p-4 mt-2">
-				<div className="flex gap-2 flex-wrap">
-					<Badge
-						onClick={() => handleCategoryChange('all')}
-						className={categoryBadgeClass(category === 'all')}
-					>
-						all
-					</Badge>
-					{CATEGORIES.map((cat) => (
-						<Badge
-							key={cat}
-							onClick={() => handleCategoryChange(cat)}
-							className={categoryBadgeClass(cat === category)}
-						>
-							{cat}
-						</Badge>
-					))}
-				</div>
+				<CategoryBadgeList category={category} onChange={handleCategoryChange} />
 			</div>
 		</div>
 	);

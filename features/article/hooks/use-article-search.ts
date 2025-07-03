@@ -26,7 +26,7 @@ export function useArticleSearch() {
 	);
 
 	const handleCategoryChange = useCallback(
-		async (newCategory: CategorySearch) => {
+		(newCategory: CategorySearch) => {
 			setCategory(newCategory);
 			handleSearch(newCategory, keyword);
 		},
