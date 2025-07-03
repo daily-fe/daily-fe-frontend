@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { CATEGORIES } from '@/entities/article/model/constants';
 import { Badge } from '@/shared/ui/badge';
 import IconButton from '@/shared/ui/IconButton';
@@ -11,6 +11,11 @@ import { categoryBadgeClass } from './utils/categoryBadgeClass';
 export default function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { category, keyword, handleCategoryChange, handleKeywordChange, handleSearch } = useArticleSearch();
+
+	const onSubmit = useCallback(() => {
+		handleSearch(category, keyword);
+		onClose();
+	}, [category, keyword, handleSearch, onClose]);
 
 	useEffect(() => {
 		if (open) {
@@ -33,18 +38,16 @@ export default function SearchOverlay({ open, onClose }: { open: boolean; onClos
 						value={keyword}
 						onChange={(e) => handleKeywordChange(e.target.value)}
 						onClear={() => handleKeywordChange('')}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter') {
+								onSubmit();
+							}
+						}}
 						placeholder="검색어를 입력하세요"
 						inputClassName="text-base border-none outline-none focus-visible:ring-0"
 					/>
 				</div>
-				<IconButton
-					icon="magnifying-glass"
-					onClick={() => {
-						handleSearch(category, keyword);
-						onClose();
-					}}
-					className="w-6 h-6"
-				/>
+				<IconButton icon="magnifying-glass" onClick={onSubmit} className="w-6 h-6" />
 			</div>
 			<div className="flex-1 overflow-y-auto p-4 mt-2">
 				<div className="flex gap-2 flex-wrap">
