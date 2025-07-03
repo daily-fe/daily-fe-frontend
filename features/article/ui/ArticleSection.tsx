@@ -40,14 +40,13 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 
 	return (
 		<>
-			<header className="flex flex-col sm:mb-6 mt-2 gap-2">
+			<header className="flex flex-col sm:mb-6 gap-2">
 				<div className="flex items-center justify-between gap-2">
 					<p className="text-gray-500">매일매일 공유되는 프론트엔드 개발자를 위한 아티클</p>
 					<div className="hidden sm:block">
 						<AddArticleDialog onArticleAdded={handleArticleAdded} />
 					</div>
 				</div>
-				{/* 카테고리 뱃지 영역 */}
 				<div className="flex gap-2 flex-wrap mt-2">
 					<Badge
 						onClick={() => search.handleCategoryChange('all')}
@@ -80,8 +79,8 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 			<section>
 				{articles.length === 0 ? (
 					<div className="text-center text-gray-500 py-20">
-						<p className="text-lg">아직 추가된 아티클이 없습니다.</p>
-						<p>오른쪽 위의 '아티클 추가' 버튼을 눌러 시작해보세요.</p>
+						<p>아직 추가된 아티클이 없습니다.</p>
+						<p>아티클을 추가해 보세요.</p>
 					</div>
 				) : (
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -105,7 +104,6 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 				/>
 			)}
 
-			{/* 모바일 전용 플로팅 +버튼 */}
 			<div className="sm:hidden">
 				<div className="fixed right-4 bottom-4 z-50">
 					<AddArticleDialog onArticleAdded={handleArticleAdded}>
