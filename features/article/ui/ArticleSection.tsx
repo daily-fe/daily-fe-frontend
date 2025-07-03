@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { CATEGORIES } from '@/entities/article/model/constants';
 import type { Article } from '@/entities/article/model/types';
 import { useArticleDialog } from '@/features/article/hooks/use-article-dialog';
 import { useArticleSearch } from '@/features/article/hooks/use-article-search';
@@ -9,9 +10,11 @@ import { useOpenInNewWindow } from '@/features/article/hooks/use-open-in-new-win
 import ArticleCard from '@/features/article/ui/ArticleCard';
 import { ArticleIframeDialog } from '@/features/article/ui/ArticleIframeDialog';
 import { useIframeAllowed } from '@/shared/hooks/use-iframe-allowed';
+import { Badge } from '@/shared/ui/badge';
 import { Icon } from '@/shared/ui/Icon';
 import { AddArticleDialog } from '@/widgets/add-article-dialog/ui/AddArticleDialog';
 import ArticleSearchBar from './ArticleSearchBar';
+import { categoryBadgeClass } from './utils/categoryBadgeClass';
 
 interface ArticleSectionProps {
 	articles: Article[];
@@ -43,6 +46,24 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 					<div className="hidden sm:block">
 						<AddArticleDialog onArticleAdded={handleArticleAdded} />
 					</div>
+				</div>
+				{/* 카테고리 뱃지 영역 */}
+				<div className="flex gap-2 flex-wrap mt-2">
+					<Badge
+						onClick={() => search.handleCategoryChange('all')}
+						className={categoryBadgeClass(search.category === 'all')}
+					>
+						all
+					</Badge>
+					{CATEGORIES.map((cat) => (
+						<Badge
+							key={cat}
+							onClick={() => search.handleCategoryChange(cat)}
+							className={categoryBadgeClass(cat === search.category)}
+						>
+							{cat}
+						</Badge>
+					))}
 				</div>
 				<div className="w-full">
 					<div className="hidden sm:block">
