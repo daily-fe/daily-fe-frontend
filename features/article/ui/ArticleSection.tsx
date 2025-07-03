@@ -3,8 +3,9 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import type { Article } from '@/entities/article/model/types';
+import { useArticleDialog } from '@/features/article/hooks/use-article-dialog';
+import { useArticleSearch } from '@/features/article/hooks/use-article-search';
 import { useOpenInNewWindow } from '@/features/article/hooks/use-open-in-new-window';
-import { useSelectedArticle } from '@/features/article/hooks/use-selected-article';
 import ArticleCard from '@/features/article/ui/ArticleCard';
 import { ArticleIframeDialog } from '@/features/article/ui/ArticleIframeDialog';
 import { useIframeAllowed } from '@/shared/hooks/use-iframe-allowed';
@@ -17,18 +18,10 @@ interface ArticleSectionProps {
 }
 
 export default function ArticleSection({ articles }: ArticleSectionProps) {
-	const {
-		selectedArticle,
-		handleCardClick,
-		handleDialogClose,
-		handleSearch,
-		handleCategoryChange,
-		handleKeywordChange,
-		category,
-		keyword,
-	} = useSelectedArticle(articles);
-	const { iframeAllowed } = useIframeAllowed(selectedArticle?.url ?? null);
-	const openInNewWindow = useOpenInNewWindow(selectedArticle?.url);
+	const search = useArticleSearch();
+	const dialog = useArticleDialog(articles);
+	const { iframeAllowed } = useIframeAllowed(dialog.selectedArticle?.url ?? null);
+	const openInNewWindow = useOpenInNewWindow(dialog.selectedArticle?.url);
 	const router = useRouter();
 
 	const handleArticleAdded = () => {
@@ -37,15 +30,15 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 
 	useEffect(() => {
 		if (iframeAllowed === false) {
-			handleDialogClose();
+			dialog.handleDialogClose();
 			openInNewWindow();
 		}
-	}, [iframeAllowed, handleDialogClose, openInNewWindow]);
+	}, [iframeAllowed, dialog, openInNewWindow]);
 
 	return (
 		<>
 			<header className="flex flex-col mb-6 gap-2">
-				<div className="flex items-center justify-between gap-2 mt-2">
+				<div className="flex items-center justify-between gap-2">
 					<p className="text-gray-500">매일매일 공유되는 프론트엔드 개발자를 위한 아티클</p>
 					<div className="hidden sm:block">
 						<AddArticleDialog onArticleAdded={handleArticleAdded} />
@@ -54,12 +47,17 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 				<div className="w-full">
 					<div className="hidden sm:block">
 						<ArticleSearchBar
-							category={category}
-							keyword={keyword}
-							onChangeCategory={handleCategoryChange}
-							onChangeKeyword={handleKeywordChange}
-							onSubmitSearch={handleSearch}
+							category={search.category}
+							keyword={search.keyword}
+							onChangeCategory={search.handleCategoryChange}
+							onChangeKeyword={search.handleKeywordChange}
+							onSubmitSearch={search.handleSearch}
 						/>
+					</div>
+					<div className="sm:hidden flex justify-end">
+						<button type="button" className="p-2" aria-label="검색" onClick={() => router.push('/search')}>
+							<Icon name="search" className="w-6 h-6" />
+						</button>
 					</div>
 				</div>
 			</header>
@@ -75,7 +73,7 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 							<ArticleCard
 								key={article.id}
 								article={article}
-								onCardClick={() => handleCardClick(article)}
+								onCardClick={() => dialog.handleCardClick(article)}
 							/>
 						))}
 					</div>
@@ -84,9 +82,9 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 
 			{iframeAllowed !== null && (
 				<ArticleIframeDialog
-					article={selectedArticle}
-					open={!!selectedArticle}
-					onOpenChange={(open) => !open && handleDialogClose()}
+					article={dialog.selectedArticle}
+					open={!!dialog.selectedArticle}
+					onOpenChange={(open) => !open && dialog.handleDialogClose()}
 					iframeAllowed={iframeAllowed}
 				/>
 			)}

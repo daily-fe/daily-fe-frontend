@@ -1,37 +1,11 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import type { CategorySearch } from '@/entities/article/model/dto';
-import type { Article, Category } from '@/entities/article/model/types';
+import type { Article } from '@/entities/article/model/types';
 
-export function useSelectedArticle(articles: Article[]) {
+export function useArticleDialog(articles: Article[]) {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-
-	const [category, setCategory] = useState<CategorySearch>((searchParams.get('category') as Category) ?? 'all');
-	const [keyword, setKeyword] = useState<string>(searchParams.get('keyword') ?? '');
-
-	const handleKeywordChange = useCallback((newKeyword: string) => {
-		setKeyword(newKeyword);
-	}, []);
-
-	const handleSearch = useCallback(
-		async (category: CategorySearch, keyword: string) => {
-			const params = new URLSearchParams();
-			if (category && category !== 'all') params.set('category', category);
-			if (keyword) params.set('keyword', keyword);
-			router.replace(`?${params.toString()}`);
-		},
-		[router],
-	);
-
-	const handleCategoryChange = useCallback(
-		async (newCategory: CategorySearch) => {
-			setCategory(newCategory);
-			handleSearch(newCategory, keyword);
-		},
-		[handleSearch, keyword],
-	);
 
 	const handleCardClick = useCallback(
 		(article: Article) => {
@@ -62,10 +36,5 @@ export function useSelectedArticle(articles: Article[]) {
 		selectedArticle,
 		handleCardClick,
 		handleDialogClose,
-		handleSearch,
-		handleCategoryChange,
-		handleKeywordChange,
-		category,
-		keyword,
 	};
 }
