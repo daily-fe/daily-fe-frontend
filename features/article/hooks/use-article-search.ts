@@ -19,7 +19,8 @@ export function useArticleSearch() {
 			const params = new URLSearchParams();
 			if (category && category !== 'all') params.set('category', category);
 			if (keyword) params.set('keyword', keyword);
-			router.replace(`?${params.toString()}`);
+			const hash = typeof window !== 'undefined' ? window.location.hash : '';
+			router.replace(`?${params.toString()}${hash}`);
 		},
 		[router],
 	);
