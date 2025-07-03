@@ -37,11 +37,11 @@ export default function SearchOverlay({ open, onClose }: { open: boolean; onClos
 						inputClassName="text-base border-none outline-none focus-visible:ring-0"
 					/>
 				</div>
-				{/* 검색 실행 */}
 				<IconButton
 					icon="magnifying-glass"
 					onClick={() => {
-						/* 검색 실행 로직 */
+						handleSearch(category, keyword);
+						onClose();
 					}}
 					className="w-6 h-6"
 				/>
