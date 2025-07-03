@@ -1,8 +1,9 @@
 import { toast } from 'sonner';
 import type { Article } from '@/entities/article/model/types';
 import { Button } from '@/shared/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/shared/ui/dialog';
+import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from '@/shared/ui/dialog';
 import { Icon } from '@/shared/ui/Icon';
+import IconButton from '@/shared/ui/IconButton';
 import { useLikeArticle } from '../hooks/use-like-article';
 import { LikeButton } from './LikeButton';
 
@@ -30,8 +31,14 @@ export function ArticleIframeDialog({ article, open, onOpenChange, iframeAllowed
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent className="sm:max-w-none sm:w-[90vw]! sm:h-[90vh]! p-0 overflow-hidden flex flex-col max-w-full max-h-full w-full h-full sm:rounded-lg rounded-none">
-				<DialogHeader className="p-4 border-b flex flex-row items-center justify-between pr-12">
+			<DialogContent
+				showCloseButton={false}
+				className="sm:max-w-none sm:w-[90vw]! sm:h-[90vh]! p-0 overflow-hidden flex flex-col max-w-full max-h-full w-full h-full sm:rounded-lg rounded-none"
+			>
+				<DialogClose className="absolute top-2! right-2!">
+					<IconButton icon="x-mark" className="w-6 h-6" />
+				</DialogClose>
+				<DialogHeader className="px-4 py-2 border-b flex flex-row items-center justify-between pr-12">
 					<div className="flex flex-row items-center gap-2">
 						<DialogTitle className="truncate max-w-[60vw]">{article.title}</DialogTitle>
 						<Button variant="ghost" onClick={handleShare} title="공유하기" className="w-6! h-6!">
