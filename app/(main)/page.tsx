@@ -1,3 +1,4 @@
+import SearchButton from 'components/SearchButton';
 import { Suspense } from 'react';
 import type { Article } from '@/entities/article/model/types';
 import { articleRepository } from '@/entities/article/repositories/article.repository';
@@ -24,16 +25,22 @@ export default async function Page({
 		});
 		return (
 			<main className="h-full w-full">
-				<div className="w-full sticky top-0 z-10 bg-white h-fit">
+				<div className="w-full sticky top-0 z-10 bg-white h-fit border-b border-gray-200">
 					<div className="flex justify-between items-center py-2 px-2 sm:px-0 container mx-auto">
 						<h1 className="text-xl font-bold sm:text-4xl">Daily FE Article</h1>
-						<AuthActionButton />
+						<div className="hidden sm:block">
+							<AuthActionButton />
+						</div>
+						<div className="block sm:hidden">
+							<SearchButton />
+						</div>
 					</div>
 				</div>
 				<div className="flex flex-col gap-4 px-2 sm:px-0 container mx-auto">
 					<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
 						<ArticleSection articles={articles} />
 					</Suspense>
+					{/* // TODO */}
 					{/* <div className="lg:col-span-1">
 						<UserProfile />
 					</div> */}
