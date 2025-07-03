@@ -25,7 +25,7 @@ export default function SearchOverlay({ open, onClose }: { open: boolean; onClos
 	if (!open) return null;
 	return (
 		<div className="fixed inset-0 z-50 bg-white flex flex-col min-h-screen w-full">
-			<div className="flex items-center p-2 border-b gap-2 sticky top-0 bg-white z-10 h-11">
+			<div className="flex items-center p-4 border-b sticky top-0 bg-white z-10 h-11">
 				<IconButton icon="arrow-left" onClick={onClose} className="w-6 h-6" />
 				<div className="relative flex-1">
 					<SearchInput
@@ -46,7 +46,7 @@ export default function SearchOverlay({ open, onClose }: { open: boolean; onClos
 					className="w-6 h-6"
 				/>
 			</div>
-			<div className="flex-1 overflow-y-auto p-2 mt-2">
+			<div className="flex-1 overflow-y-auto p-4 mt-2">
 				<div className="flex gap-2 flex-wrap">
 					<Badge
 						onClick={() => handleCategoryChange('all')}

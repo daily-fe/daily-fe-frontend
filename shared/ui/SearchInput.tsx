@@ -32,7 +32,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
 					value={value}
 					onChange={onChange}
 					placeholder={placeholder}
-					className={`pr-8 ${inputClassName}`}
+					className={inputClassName}
 					{...props}
 				/>
 				{value && onClear && (

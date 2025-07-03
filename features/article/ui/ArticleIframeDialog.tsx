@@ -30,7 +30,7 @@ export function ArticleIframeDialog({ article, open, onOpenChange, iframeAllowed
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent className="sm:max-w-none sm:w-[90vw]! sm:h-[90vh]! p-0 overflow-hidden flex flex-col max-w-full max-h-full w-full h-full">
+			<DialogContent className="sm:max-w-none sm:w-[90vw]! sm:h-[90vh]! p-0 overflow-hidden flex flex-col max-w-full max-h-full w-full h-full sm:rounded-lg rounded-none">
 				<DialogHeader className="p-4 border-b flex flex-row items-center justify-between pr-12">
 					<div className="flex flex-row items-center gap-2">
 						<DialogTitle>{article.title}</DialogTitle>

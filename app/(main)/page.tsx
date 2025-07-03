@@ -26,7 +26,7 @@ export default async function Page({
 		return (
 			<main className="h-full w-full">
 				<div className="w-full sticky top-0 z-10 bg-white h-fit border-b border-gray-200">
-					<div className="flex justify-between items-center py-2 px-2 sm:px-0 container mx-auto">
+					<div className="flex justify-between items-center px-4 py-2 sm:px-0 container mx-auto">
 						<h1 className="text-xl font-bold sm:text-4xl">Daily FE Article</h1>
 						<div className="hidden sm:block">
 							<AuthActionButton />
@@ -36,7 +36,7 @@ export default async function Page({
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-col gap-4 px-2 sm:px-0 container mx-auto">
+				<div className="flex flex-col gap-4 p-4 sm:px-0 container mx-auto">
 					<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
 						<ArticleSection articles={articles} />
 					</Suspense>
