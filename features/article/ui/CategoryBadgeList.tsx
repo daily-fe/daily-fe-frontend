@@ -11,7 +11,7 @@ interface CategoryBadgeListProps {
 
 export default function CategoryBadgeList({ category, onChange, className = '' }: CategoryBadgeListProps) {
 	return (
-		<div className={`flex gap-2 flex-wrap mt-2 ${className}`}>
+		<div className={`flex gap-2 flex-wrap ${className}`}>
 			<Badge onClick={() => onChange('all')} className={categoryBadgeClass(category === 'all')}>
 				all
 			</Badge>
