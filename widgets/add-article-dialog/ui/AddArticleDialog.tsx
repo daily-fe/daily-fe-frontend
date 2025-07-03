@@ -57,7 +57,7 @@ export function AddArticleDialog({ onArticleAdded, children }: AddArticleDialogP
 					</Button>
 				)}
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-2xl">
+			<DialogContent className="p-3 sm:p-6 sm:max-w-2xl">
 				<DialogHeader>
 					<DialogTitle>아티클 추가</DialogTitle>
 				</DialogHeader>
