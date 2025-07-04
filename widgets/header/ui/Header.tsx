@@ -1,11 +1,15 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+import { useMemo } from 'react';
 import SearchButton from '@/features/article/ui/SearchButton';
 import AuthActionButton from '@/features/auth/ui/AuthActionButton';
 import { Icon } from '@/shared/ui/Icon';
 import { SidebarTrigger } from '@/shared/ui/sidebar';
 
 export default function Header() {
+	const pathname = usePathname();
+	const showSearchButton = useMemo(() => pathname === '/', [pathname]);
 	return (
 		<header className="w-full sticky top-0 z-10 bg-white h-fit border-b border-gray-200">
 			<div className="flex justify-between items-center px-4 py-2 sm:px-0 container mx-auto">
@@ -18,9 +22,11 @@ export default function Header() {
 				<div className="hidden sm:block">
 					<AuthActionButton />
 				</div>
-				<div className="block sm:hidden">
-					<SearchButton />
-				</div>
+				{showSearchButton && (
+					<div className="block sm:hidden">
+						<SearchButton />
+					</div>
+				)}
 			</div>
 		</header>
 	);
