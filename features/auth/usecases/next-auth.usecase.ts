@@ -18,7 +18,10 @@ function isTokenExpired(accessTokenExpires: number | null): boolean {
 	return Date.now() > accessTokenExpires;
 }
 
-async function handleJwtCallback({ token, account, profile }: any, authRepository: AuthRepositoryImpl): Promise<JWT> {
+async function handleJwtCallback(
+	{ token, account, profile, trigger, session }: any,
+	authRepository: AuthRepositoryImpl,
+): Promise<JWT> {
 	if (account && profile) {
 		try {
 			const response = await authRepository.loginWithGithub({
@@ -28,9 +31,18 @@ async function handleJwtCallback({ token, account, profile }: any, authRepositor
 				avatarUrl: profile?.image,
 			});
 			token = mergeTokenWithResponse(token, response);
+			token.name = response.data.user.nickname;
+			token.email = response.data.user.email;
+			token.image = response.data.user.avatarUrl;
+			console.log('token', response.data.user.avatarUrl);
 		} catch (e) {
 			console.error('next-auth callback error', e);
 		}
+	}
+
+	if (trigger === 'update' && session) {
+		token.name = session.name;
+		token.image = session.image;
 	}
 
 	if (isTokenExpired(token.accessTokenExpires as number | null)) {
@@ -51,19 +63,24 @@ async function handleJwtCallback({ token, account, profile }: any, authRepositor
 		accessToken: token.accessToken as string,
 		refreshToken: token.refreshToken as string,
 		accessTokenExpires: token.accessTokenExpires as number,
+		name: token.name as string,
+		email: token.email as string,
+		image: token.image as string,
 	};
 }
 
 function handleSessionCallback({ session, token }: { session: Session; token: JWT }): Session {
-	const accessToken = typeof token.accessToken === 'string' ? token.accessToken : undefined;
-	const refreshToken = typeof token.refreshToken === 'string' ? token.refreshToken : undefined;
-	const accessTokenExpires = typeof token.accessTokenExpires === 'number' ? token.accessTokenExpires : undefined;
-
 	return {
 		...session,
-		accessToken,
-		refreshToken,
-		accessTokenExpires,
+		user: {
+			...session.user,
+			name: token.name ?? session.user?.name,
+			email: token.email ?? session.user?.email,
+			image: (token.image as string) ?? session.user?.image,
+		},
+		accessToken: token.accessToken as string,
+		refreshToken: token.refreshToken as string,
+		accessTokenExpires: token.accessTokenExpires as number,
 	};
 }
 
