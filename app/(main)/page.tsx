@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import type { Article } from '@/entities/article/model/types';
 import { articleRepository } from '@/entities/article/repositories/article.repository';
 import ArticleSection from '@/features/article/ui/ArticleSection';
+import ArticleSectionHeader from '@/features/article/ui/ArticleSectionHeader';
 import { getArticlesUseCase } from '@/features/article/usecases/article.usecase';
 import { ApiError } from '@/shared/lib/errors/ApiError';
 import ErrorMessage from '@/shared/ui/ErrorMessage';
@@ -26,6 +27,7 @@ export default async function Page({
 		return (
 			<main className="h-full w-full">
 				<div className="flex flex-col gap-4 px-4 py-2 sm:px-0 container mx-auto">
+					<ArticleSectionHeader />
 					<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
 						<ArticleSection articles={articles} />
 					</Suspense>
