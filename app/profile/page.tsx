@@ -18,7 +18,7 @@ import { Button } from '@/shared/ui/button';
 import { Card } from '@/shared/ui/card';
 
 export default function MyPage() {
-	const { data: session, status, update: updateSession } = useSession();
+	const { data: session, update: updateSession } = useSession();
 	const user = session?.user;
 	const nameInputId = useId();
 	const emailInputId = useId();
@@ -50,15 +50,15 @@ export default function MyPage() {
 		}
 	}, [user]);
 
-	if (!session) {
-		return <div>로그인이 필요합니다.</div>;
-	}
+	// if (!session) {
+	// 	return <div>로그인이 필요합니다.</div>;
+	// }
 
-	const handleSubmit = async (formData: FormData) => {
+	const handleSubmit = (formData: FormData) => {
 		const nickname = formData.get('nickname') as string;
 		const profileImageUrl = previewRef.current || imageUrl;
 		try {
-			await runUpdateUser({ nickname, profileImageUrl });
+			runUpdateUser({ nickname, profileImageUrl });
 			toast.success('프로필이 저장되었습니다.');
 		} catch {
 			toast.error('프로필 저장에 실패했습니다.');
@@ -74,7 +74,7 @@ export default function MyPage() {
 					</BreadcrumbItem>
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
-						<BreadcrumbLink href="/mypage">마이페이지</BreadcrumbLink>
+						<BreadcrumbLink href="/mypage">내 프로필</BreadcrumbLink>
 					</BreadcrumbItem>
 				</BreadcrumbList>
 			</Breadcrumb>
