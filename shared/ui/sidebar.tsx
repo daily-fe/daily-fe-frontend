@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import React, { createContext, useContext, useState } from 'react';
 import { cn } from '../lib/utils';
 import { Button } from './button';
@@ -16,6 +17,7 @@ const SidebarContext = createContext<SidebarContextProps | null>(null);
 export function SidebarProvider({ children }: { children: React.ReactNode }) {
 	const [open, setOpen] = useState(false);
 	const toggleSidebar = () => setOpen((prev) => !prev);
+
 	return <SidebarContext.Provider value={{ open, setOpen, toggleSidebar }}>{children}</SidebarContext.Provider>;
 }
 
@@ -79,14 +81,21 @@ export function SidebarMenu({ children }: { children: React.ReactNode }) {
 	return <ul className="flex flex-col gap-2">{children}</ul>;
 }
 
-export function SidebarMenuItem({ children }: { children: React.ReactNode }) {
+export function SidebarMenuItem({ href, children }: { href: string; children: React.ReactNode }) {
+	const router = useRouter();
 	const { setOpen } = useSidebar();
+
+	const handleClick = () => {
+		router.push(href);
+		setOpen(false);
+	};
 
 	return (
 		<Button
 			variant="ghost"
 			className="px-2 py-1 rounded hover:bg-gray-100 cursor-pointer text-left justify-start w-full"
-			onClick={() => setOpen(false)}
+			onClick={handleClick}
+			type="button"
 		>
 			{children}
 		</Button>

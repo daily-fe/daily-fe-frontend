@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import AuthActionButton from '@/features/auth/ui/AuthActionButton';
 import { Sidebar, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuItem } from '@/shared/ui/sidebar';
 
@@ -8,12 +7,8 @@ const SidebarPanel = () => (
 			<h1 className="text-xl font-bold">Daily FE Article</h1>
 		</SidebarHeader>
 		<SidebarMenu>
-			<SidebarMenuItem>
-				<Link href="/">홈</Link>
-			</SidebarMenuItem>
-			<SidebarMenuItem>
-				<Link href="/profile">프로필</Link>
-			</SidebarMenuItem>
+			<SidebarMenuItem href="/">홈</SidebarMenuItem>
+			<SidebarMenuItem href="/profile">프로필</SidebarMenuItem>
 		</SidebarMenu>
 		<SidebarFooter>
 			<AuthActionButton />
