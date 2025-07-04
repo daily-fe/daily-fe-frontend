@@ -2,7 +2,7 @@ import Link from 'next/link';
 import AuthActionButton from '@/features/auth/ui/AuthActionButton';
 import { Sidebar, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuItem } from '@/shared/ui/sidebar';
 
-const SidebarMenuContent = () => (
+const SidebarPanel = () => (
 	<Sidebar>
 		<SidebarHeader>
 			<h1 className="text-xl font-bold">Daily FE Article</h1>
@@ -21,4 +21,4 @@ const SidebarMenuContent = () => (
 	</Sidebar>
 );
 
-export default SidebarMenuContent;
+export default SidebarPanel;
