@@ -30,10 +30,10 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
 	if (!open) return null;
 	return (
 		<div className="fixed inset-0 z-50 bg-black/20 flex">
-			<aside className="bg-white w-64 h-full shadow-lg p-4 flex flex-col">
+			<aside className="bg-white w-64 h-full shadow-lg py-2 px-4 flex flex-col">
 				<IconButton
-					icon="x-mark"
-					className="self-end mb-4"
+					icon="chevron-left"
+					className="mb-4"
 					onClick={() => setOpen(false)}
 					aria-label="사이드바 닫기"
 				>
@@ -80,7 +80,17 @@ export function SidebarMenu({ children }: { children: React.ReactNode }) {
 }
 
 export function SidebarMenuItem({ children }: { children: React.ReactNode }) {
-	return <li className="px-2 py-1 rounded hover:bg-gray-100 cursor-pointer">{children}</li>;
+	const { setOpen } = useSidebar();
+
+	return (
+		<Button
+			variant="ghost"
+			className="px-2 py-1 rounded hover:bg-gray-100 cursor-pointer text-left justify-start w-full"
+			onClick={() => setOpen(false)}
+		>
+			{children}
+		</Button>
+	);
 }
 
 export function SidebarFooter({ children }: { children: React.ReactNode }) {
