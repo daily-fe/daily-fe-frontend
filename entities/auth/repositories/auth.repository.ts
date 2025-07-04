@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { UserUpdateResponse } from '@/entities/user/repositories/user.repository';
 import serverApi from '@/shared/lib/server/api';
 
 export interface LoginWithGithubParams {
@@ -11,6 +12,7 @@ export interface LoginWithGithubParams {
 export interface LoginWithGithubResponse {
 	accessToken: string;
 	refreshToken: string;
+	user: UserUpdateResponse;
 }
 
 export interface RefreshTokenParams {
