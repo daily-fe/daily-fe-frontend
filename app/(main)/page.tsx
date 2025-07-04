@@ -2,9 +2,7 @@ import { Suspense } from 'react';
 import type { Article } from '@/entities/article/model/types';
 import { articleRepository } from '@/entities/article/repositories/article.repository';
 import ArticleSection from '@/features/article/ui/ArticleSection';
-import SearchButton from '@/features/article/ui/SearchButton';
 import { getArticlesUseCase } from '@/features/article/usecases/article.usecase';
-import AuthActionButton from '@/features/auth/ui/AuthActionButton';
 import { ApiError } from '@/shared/lib/errors/ApiError';
 import ErrorMessage from '@/shared/ui/ErrorMessage';
 
@@ -25,17 +23,6 @@ export default async function Page({
 		});
 		return (
 			<main className="h-full w-full">
-				<div className="w-full sticky top-0 z-10 bg-white h-fit border-b border-gray-200">
-					<div className="flex justify-between items-center px-4 py-2 sm:px-0 container mx-auto">
-						<h1 className="text-xl font-bold sm:text-4xl">Daily FE Article</h1>
-						<div className="hidden sm:block">
-							<AuthActionButton />
-						</div>
-						<div className="block sm:hidden">
-							<SearchButton />
-						</div>
-					</div>
-				</div>
 				<div className="flex flex-col gap-4 px-4 py-2 sm:px-0 container mx-auto">
 					<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
 						<ArticleSection articles={articles} />
