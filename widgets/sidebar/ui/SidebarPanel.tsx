@@ -9,6 +9,7 @@ const SidebarPanel = () => (
 		<SidebarMenu>
 			<SidebarMenuItem href="/">홈</SidebarMenuItem>
 			<SidebarMenuItem href="/profile">프로필</SidebarMenuItem>
+			<SidebarMenuItem href="/article/liked">좋아요한 글</SidebarMenuItem>
 		</SidebarMenu>
 		<SidebarFooter>
 			<AuthActionButton />
