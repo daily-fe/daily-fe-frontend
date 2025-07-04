@@ -1,9 +1,14 @@
-import { User } from '@/entities/user/model/types';
 import { Input } from '@/shared/ui/input';
 import { Label } from '@/shared/ui/label';
 
 interface ProfileFormFieldsProps {
-	user: User;
+	user:
+		| {
+				name?: string | null;
+				email?: string | null;
+				image?: string | null;
+		  }
+		| undefined;
 	nameInputId: string;
 	emailInputId: string;
 }
