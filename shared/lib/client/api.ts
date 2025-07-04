@@ -1,10 +1,10 @@
 import axios, { AxiosError } from 'axios';
-import { getSession, signOut } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { ApiError } from '@/shared/lib/errors/ApiError';
 import { Console } from '@/shared/lib/utils';
 
 export const clientApi = axios.create({
-	baseURL: process.env.API_HOST,
+	baseURL: 'http://localhost:3001',
 	withCredentials: true,
 });
 

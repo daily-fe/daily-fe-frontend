@@ -1,8 +1,12 @@
 'use client';
 
-import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { toast } from 'sonner';
+import { updateUserAction } from '@/features/user/action';
+import ProfileFormFields from '@/features/user/ui/ProfileFormFields';
+import ProfileImageInput from '@/features/user/ui/ProfileImageInput';
+import { useAsyncAction } from '@/shared/hooks/use-async-action';
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -12,40 +16,37 @@ import {
 } from '@/shared/ui/breadcrumb';
 import { Button } from '@/shared/ui/button';
 import { Card } from '@/shared/ui/card';
-import { Icon } from '@/shared/ui/Icon';
-import { Input } from '@/shared/ui/input';
-import { Label } from '@/shared/ui/label';
 
 export default function MyPage() {
-	const { data: session, status } = useSession();
+	const { data: session, status, update: updateSession } = useSession();
 	const user = session?.user;
-	const [name, setName] = useState('');
-	const [image, setImage] = useState('');
-	const [preview, setPreview] = useState<string | null>(null);
-	const [loading, setLoading] = useState(false);
 	const nameInputId = useId();
 	const emailInputId = useId();
+	const formRef = useRef<HTMLFormElement>(null);
+	const previewRef = useRef<string | null>(null);
+
+	type UpdateUserPayload = { nickname: string; profileImageUrl: string };
+	const [state, runUpdateUser] = useAsyncAction(async ({ nickname, profileImageUrl }: UpdateUserPayload) => {
+		const response = await updateUserAction({ nickname, profileImageUrl });
+		if (!response) throw new Error('저장 실패');
+		await updateSession({ name: response?.nickname, image: response?.avatarUrl });
+		return response;
+	});
+
+	const [imageUrl, setImageUrl] = useState(user?.image || '');
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
-			setPreview(URL.createObjectURL(file));
+			const url = URL.createObjectURL(file);
+			previewRef.current = url;
+			setImageUrl(url);
 		}
-	};
-
-	const handleSave = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setLoading(true);
-		setTimeout(() => {
-			setLoading(false);
-			alert('프로필이 저장되었습니다. (API 연동 필요)');
-		}, 1000);
 	};
 
 	useEffect(() => {
 		if (user) {
-			setName(user.name || '');
-			setImage(user.image || '');
+			setImageUrl(user.image || '');
 		}
 	}, [user]);
 
@@ -55,6 +56,17 @@ export default function MyPage() {
 	if (!session) {
 		return <div>로그인이 필요합니다.</div>;
 	}
+
+	const handleSubmit = async (formData: FormData) => {
+		const nickname = formData.get('nickname') as string;
+		const profileImageUrl = previewRef.current || imageUrl;
+		try {
+			await runUpdateUser({ nickname, profileImageUrl });
+			toast.success('프로필이 저장되었습니다.');
+		} catch {
+			toast.error('프로필 저장에 실패했습니다.');
+		}
+	};
 
 	return (
 		<main className="max-w-md mx-auto py-8 container flex flex-col gap-4 px-4">
@@ -70,61 +82,15 @@ export default function MyPage() {
 				</BreadcrumbList>
 			</Breadcrumb>
 			<Card className="p-6 flex flex-col gap-6">
-				<form onSubmit={handleSave} className="flex flex-col gap-4">
-					<div className="flex flex-col items-center gap-2">
-						<div className="relative w-24 h-24">
-							<div className="rounded-full object-cover border border-gray-200 w-24 h-24 flex items-center justify-center">
-								{preview || image ? (
-									<Image
-										src={preview || image}
-										alt="프로필 이미지"
-										width={30}
-										height={30}
-										className="rounded-full object-cover w-full h-full"
-									/>
-								) : (
-									<Icon name="plus" className="size-10" />
-								)}
-								<input
-									type="file"
-									accept="image/*"
-									className="absolute inset-0 opacity-0 cursor-pointer"
-									onChange={handleImageChange}
-									title="프로필 이미지 변경"
-								/>
-							</div>
-						</div>
-						<span className="text-xs text-gray-500">이미지를 클릭해 변경</span>
-					</div>
-					<div className="flex flex-col gap-4">
-						<div>
-							<Label htmlFor={nameInputId} className="block mb-1 font-medium">
-								이름
-							</Label>
-							<Input
-								id={nameInputId}
-								value={name}
-								onChange={(e) => setName(e.target.value)}
-								placeholder="이름을 입력하세요"
-								required
-							/>
-						</div>
-						<div>
-							<Label htmlFor={emailInputId} className="block mb-1 font-medium">
-								이메일
-							</Label>
-							{user?.email && (
-								<Input
-									id={emailInputId}
-									value={user?.email || ''}
-									readOnly
-									className="cursor-not-allowed bg-gray-100"
-								/>
-							)}
-						</div>
-					</div>
-					<Button type="submit" disabled={loading} className="mt-2 w-full">
-						{loading ? '저장 중...' : '저장'}
+				<form ref={formRef} action={handleSubmit} className="flex flex-col gap-4">
+					<ProfileImageInput
+						imageUrl={imageUrl}
+						previewRef={previewRef}
+						handleImageChange={handleImageChange}
+					/>
+					<ProfileFormFields user={user} nameInputId={nameInputId} emailInputId={emailInputId} />
+					<Button type="submit" disabled={state.pending} className="mt-2 w-full">
+						{state.pending ? '저장 중...' : '저장'}
 					</Button>
 				</form>
 			</Card>
