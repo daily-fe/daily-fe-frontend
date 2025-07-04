@@ -23,7 +23,7 @@ export default async function LikedArticlesPage() {
 		return (
 			<main className="h-full w-full">
 				<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
-					<Breadcrumb>
+					<Breadcrumb className="sm:hidden">
 						<BreadcrumbList className="gap-1!">
 							<BreadcrumbItem>
 								<BreadcrumbLink href="/">홈</BreadcrumbLink>

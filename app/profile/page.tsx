@@ -67,7 +67,7 @@ export default function MyPage() {
 
 	return (
 		<main className="flex flex-col gap-4 sm:px-0 container mx-auto">
-			<Breadcrumb>
+			<Breadcrumb className="sm:hidden">
 				<BreadcrumbList className="gap-1!">
 					<BreadcrumbItem>
 						<BreadcrumbLink href="/">홈</BreadcrumbLink>
