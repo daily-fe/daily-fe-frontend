@@ -13,6 +13,7 @@ export abstract class ArticleRepositoryImpl {
 	abstract get(id: string): Promise<Article>;
 	abstract getAll(category?: string, keyword?: string): Promise<Article[]>;
 	abstract create(article: ArticleCreateInput): Promise<Article>;
+	abstract getAllLiked(): Promise<Article[]>;
 }
 
 class ArticleRepository implements ArticleRepositoryImpl {
@@ -60,6 +61,14 @@ class ArticleRepository implements ArticleRepositoryImpl {
 		const response = await apiCall(
 			serverApi.get<Article[]>(`/article${query}`),
 			'아티클 목록 조회 중 오류가 발생했습니다.',
+		);
+		return response.data;
+	}
+
+	async getAllLiked(): Promise<Article[]> {
+		const response = await apiCall(
+			serverApi.get<Article[]>('/article/liked'),
+			'좋아요한 아티클 목록 조회 중 오류가 발생했습니다.',
 		);
 		return response.data;
 	}
