@@ -16,11 +16,13 @@ export default async function Page({
 	const keywordParam = Array.isArray(keyword) ? keyword[0] : keyword;
 
 	try {
-		const articles: Article[] = await getArticlesUseCase({
-			category: categoryParam,
-			keyword: keywordParam,
-			articleRepository,
-		});
+		const articles: Article[] = await getArticlesUseCase(
+			{ articleRepository },
+			{
+				category: categoryParam,
+				keyword: keywordParam,
+			},
+		);
 		return (
 			<main className="h-full w-full">
 				<div className="flex flex-col gap-4 px-4 py-2 sm:px-0 container mx-auto">
