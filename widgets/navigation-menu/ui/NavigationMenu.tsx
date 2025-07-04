@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { navigationMenuLinks } from '@/shared/constants/navigationMenuLinks.constant';
-import { cn } from '../lib/utils';
+import { cn } from '@/shared/lib/utils';
 
 export default function NavigationMenu() {
 	const pathname = usePathname();
