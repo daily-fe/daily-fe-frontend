@@ -50,9 +50,6 @@ export default function MyPage() {
 		}
 	}, [user]);
 
-	if (status === 'loading') {
-		return <div>로딩 중...</div>;
-	}
 	if (!session) {
 		return <div>로그인이 필요합니다.</div>;
 	}
