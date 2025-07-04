@@ -35,7 +35,7 @@ export function ArticleIframeDialog({ article, open, onOpenChange, iframeAllowed
 				showCloseButton={false}
 				className="sm:max-w-none sm:w-[90vw]! sm:h-[90vh]! p-0 overflow-hidden flex flex-col max-w-full max-h-full w-full h-full sm:rounded-lg rounded-none"
 			>
-				<DialogClose className="absolute top-2! right-2!">
+				<DialogClose className="absolute top-2! right-2!" asChild>
 					<IconButton icon="x-mark" className="w-6 h-6" />
 				</DialogClose>
 				<DialogHeader className="px-4 py-2 border-b flex flex-row items-center justify-between pr-12">
