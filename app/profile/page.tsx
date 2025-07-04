@@ -79,16 +79,24 @@ export default function MyPage() {
 				</BreadcrumbList>
 			</Breadcrumb>
 			<Card className="p-6 flex flex-col gap-6">
-				<form ref={formRef} action={handleSubmit} className="flex flex-col gap-4">
-					<ProfileImageInput
-						imageUrl={imageUrl}
-						previewRef={previewRef}
-						handleImageChange={handleImageChange}
-					/>
-					<ProfileFormFields user={user} nameInputId={nameInputId} emailInputId={emailInputId} />
-					<Button type="submit" disabled={state.pending} className="mt-2 w-full">
-						{state.pending ? '저장 중...' : '저장'}
-					</Button>
+				<form
+					ref={formRef}
+					action={handleSubmit}
+					className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-8"
+				>
+					<div className="sm:w-48 sm:flex-shrink-0">
+						<ProfileImageInput
+							imageUrl={imageUrl}
+							previewRef={previewRef}
+							handleImageChange={handleImageChange}
+						/>
+					</div>
+					<div className="flex-1 flex flex-col gap-4">
+						<ProfileFormFields user={user} nameInputId={nameInputId} emailInputId={emailInputId} />
+						<Button type="submit" disabled={state.pending} className="mt-2 w-full sm:w-auto">
+							{state.pending ? '저장 중...' : '저장'}
+						</Button>
+					</div>
 				</form>
 			</Card>
 		</main>
