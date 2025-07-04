@@ -26,7 +26,7 @@ export default async function Page({
 		);
 		return (
 			<main className="h-full w-full">
-				<div className="flex flex-col gap-4 px-4 py-2 sm:px-0 container mx-auto">
+				<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
 					<ArticleSectionHeader />
 					<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
 						<ArticleSection articles={articles} />

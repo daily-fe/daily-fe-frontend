@@ -22,7 +22,7 @@ export default async function LikedArticlesPage() {
 		});
 		return (
 			<main className="h-full w-full">
-				<div className="flex flex-col gap-4 px-4 py-2 sm:px-0 container mx-auto">
+				<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
 					<Breadcrumb>
 						<BreadcrumbList className="gap-1!">
 							<BreadcrumbItem>

@@ -66,7 +66,7 @@ export default function MyPage() {
 	};
 
 	return (
-		<main className="max-w-md mx-auto container flex flex-col gap-4 py-2 px-4">
+		<main className="flex flex-col gap-4 sm:px-0 container mx-auto">
 			<Breadcrumb>
 				<BreadcrumbList className="gap-1!">
 					<BreadcrumbItem>
