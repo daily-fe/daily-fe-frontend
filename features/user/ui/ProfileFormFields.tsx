@@ -1,9 +1,9 @@
-import React from 'react';
+import { User } from '@/entities/user/model/types';
 import { Input } from '@/shared/ui/input';
 import { Label } from '@/shared/ui/label';
 
 interface ProfileFormFieldsProps {
-	user: any;
+	user: User;
 	nameInputId: string;
 	emailInputId: string;
 }
