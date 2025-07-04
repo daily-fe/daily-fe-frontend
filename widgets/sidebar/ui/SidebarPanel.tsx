@@ -1,4 +1,5 @@
 import AuthActionButton from '@/features/auth/ui/AuthActionButton';
+import { navigationMenuLinks } from '@/shared/constants/navigationMenuLinks.constant';
 import { Sidebar, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuItem } from '@/shared/ui/sidebar';
 
 const SidebarPanel = () => (
@@ -7,9 +8,11 @@ const SidebarPanel = () => (
 			<h1 className="text-xl font-bold">Daily FE Article</h1>
 		</SidebarHeader>
 		<SidebarMenu>
-			<SidebarMenuItem href="/">홈</SidebarMenuItem>
-			<SidebarMenuItem href="/profile">프로필</SidebarMenuItem>
-			<SidebarMenuItem href="/article/liked">좋아요한 글</SidebarMenuItem>
+			{navigationMenuLinks.map((item) => (
+				<SidebarMenuItem key={item.href} href={item.href}>
+					{item.text}
+				</SidebarMenuItem>
+			))}
 		</SidebarMenu>
 		<SidebarFooter>
 			<AuthActionButton />
