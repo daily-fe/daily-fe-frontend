@@ -11,24 +11,22 @@ import {
 
 export default function FeedPage() {
 	return (
-		<main className="h-full w-full">
-			<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
-				<Breadcrumb className="sm:hidden">
-					<BreadcrumbList className="gap-1!">
-						<BreadcrumbItem>
-							<BreadcrumbLink href="/">홈</BreadcrumbLink>
-						</BreadcrumbItem>
-						<BreadcrumbSeparator />
-						<BreadcrumbItem>
-							<BreadcrumbLink href="/feed">기술 블로그 피드</BreadcrumbLink>
-						</BreadcrumbItem>
-					</BreadcrumbList>
-				</Breadcrumb>
-				<h1 className="text-2xl font-bold hidden sm:block">최신 기술 블로그 피드</h1>
-				<Suspense fallback={<FeedList articles={[]} loading />}>
-					<FeedListSection />
-				</Suspense>
-			</div>
-		</main>
+		<>
+			<Breadcrumb className="sm:hidden">
+				<BreadcrumbList className="gap-1!">
+					<BreadcrumbItem>
+						<BreadcrumbLink href="/">홈</BreadcrumbLink>
+					</BreadcrumbItem>
+					<BreadcrumbSeparator />
+					<BreadcrumbItem>
+						<BreadcrumbLink href="/feed">기술 블로그 피드</BreadcrumbLink>
+					</BreadcrumbItem>
+				</BreadcrumbList>
+			</Breadcrumb>
+			<h1 className="text-2xl font-bold hidden sm:block">최신 기술 블로그 피드</h1>
+			<Suspense fallback={<FeedList articles={[]} loading />}>
+				<FeedListSection />
+			</Suspense>
+		</>
 	);
 }

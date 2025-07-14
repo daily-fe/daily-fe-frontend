@@ -66,7 +66,7 @@ export default function MyPage() {
 	};
 
 	return (
-		<main className="flex flex-col gap-4 sm:px-0 container mx-auto">
+		<>
 			<Breadcrumb className="sm:hidden">
 				<BreadcrumbList className="gap-1!">
 					<BreadcrumbItem>
@@ -99,6 +99,6 @@ export default function MyPage() {
 					</div>
 				</form>
 			</Card>
-		</main>
+		</>
 	);
 }
