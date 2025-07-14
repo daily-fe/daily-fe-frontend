@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { apiCall } from '@/shared/lib/client/api';
+import { apiCall } from '@/shared/lib/api-call';
 import serverApi from '@/shared/lib/server/api';
 import type { UserUpdateInput } from '../model/types';
 

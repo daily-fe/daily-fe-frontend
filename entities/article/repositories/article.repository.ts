@@ -1,4 +1,4 @@
-import { apiCall } from '@/shared/lib/client/api';
+import { apiCall } from '@/shared/lib/api-call';
 import { serverApi } from '@/shared/lib/server/api';
 import type { Article, ArticleCreateInput } from '../model/types';
 

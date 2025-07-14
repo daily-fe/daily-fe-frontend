@@ -1,5 +1,5 @@
 import { Feed } from '@/entities/feed/model/types';
-import { apiCall } from '@/shared/lib/client/api';
+import { apiCall } from '@/shared/lib/api-call';
 import { serverApi } from '@/shared/lib/server/api';
 
 export abstract class FeedRepositoryImpl {
