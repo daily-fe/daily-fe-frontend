@@ -16,7 +16,7 @@ export function FeedCard({ article }: { article: Feed }) {
 				{article.title}
 			</Link>
 			<div className="flex items-center justify-between gap-2 text-sm text-gray-500">
-				<Badge>{article.site}</Badge>
+				<Badge>{article?.site ?? 'Others'}</Badge>
 				<span>{formatDateToKorean(article.publishedAt)}</span>
 			</div>
 		</Card>
