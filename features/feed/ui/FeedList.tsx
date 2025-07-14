@@ -1,11 +1,11 @@
-import { ArticleFeed } from '@/entities/article/model/types';
+import { Feed } from '@/entities/feed/model/types';
 import { Skeleton } from '@/shared/ui/skeleton';
 import { FeedCard } from './FeedCard';
 
 const GRID_CLASS = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4';
 
 interface FeedListProps {
-	articles: ArticleFeed[];
+	articles: Feed[];
 	loading?: boolean;
 }
 
