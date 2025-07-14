@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React, { createContext, useContext, useState } from 'react';
-import { cn } from '../lib/utils';
+import { cn } from '@/shared/lib/utils/class-name';
 import { Button } from './button';
 import IconButton from './IconButton';
 
