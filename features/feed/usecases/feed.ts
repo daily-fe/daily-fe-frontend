@@ -5,6 +5,6 @@ interface Dependencies {
 	feedRepository: FeedRepositoryImpl;
 }
 
-export async function fetchFeed(deps: Dependencies): Promise<Feed[]> {
+export async function getFeedsUsecase(deps: Dependencies): Promise<Feed[]> {
 	return deps.feedRepository.getAll();
 }

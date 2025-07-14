@@ -5,6 +5,7 @@ import ArticleSection from '@/features/article/ui/ArticleSection';
 import ArticleSectionHeader from '@/features/article/ui/ArticleSectionHeader';
 import { getArticlesUseCase } from '@/features/article/usecases/article.usecase';
 import { ApiError } from '@/shared/lib/errors/ApiError';
+import ApiErrorNotice from '@/shared/ui/ApiErrorNotice';
 import ErrorMessage from '@/shared/ui/ErrorMessage';
 
 export default async function Page({
@@ -41,9 +42,9 @@ export default async function Page({
 	} catch (error) {
 		return (
 			<main className="container mx-auto">
-				<ErrorMessage
+				<ApiErrorNotice
 					status={error instanceof ApiError ? error.status : undefined}
-					message={'아티클을 불러오는 중 오류가 발생했습니다.'}
+					message={error instanceof ApiError ? error.message : '아티클을 불러오는 중 오류가 발생했습니다.'}
 				/>
 			</main>
 		);
