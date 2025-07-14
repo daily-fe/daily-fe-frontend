@@ -28,4 +28,6 @@ export interface AnalysisResult {
 	likedByMe: boolean;
 }
 
+// ArticleFeed 제거됨
+
 export type ArticleCreateInput = Omit<Article, 'id' | 'likes' | 'createdAt' | 'likedByMe'>;
