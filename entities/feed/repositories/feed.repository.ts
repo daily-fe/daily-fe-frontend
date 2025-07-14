@@ -8,7 +8,7 @@ export abstract class FeedRepositoryImpl {
 
 class FeedRepository implements FeedRepositoryImpl {
 	async getAll(): Promise<Feed[]> {
-		const response = await apiCall(serverApi.get('/scraper/latest-articles'), '피드 불러오기 실패');
+		const response = await apiCall(serverApi.get('/feeds'), '피드 불러오기 실패');
 		return response.data;
 	}
 }

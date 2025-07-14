@@ -13,7 +13,7 @@ export function FeedList({ articles, loading }: FeedListProps) {
 	if (loading) {
 		return (
 			<div className={GRID_CLASS}>
-				{Array.from({ length: 4 }).map((_, i) => (
+				{Array.from({ length: 12 }).map((_, i) => (
 					<Skeleton key={`skeleton-${i}`} className="h-24" />
 				))}
 			</div>
