@@ -28,7 +28,7 @@ export default async function ArticlePage({
 			<main className="h-full w-full">
 				<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
 					<ArticleSectionHeader />
-					<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
+					<Suspense fallback={<ArticleSection articles={[]} loading />}>
 						<ArticleSection articles={articles} />
 					</Suspense>
 					{/* // TODO */}

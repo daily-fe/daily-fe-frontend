@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 			articleRepository: articleRepository,
 		});
 		return NextResponse.json({ iframeAllowed, reason });
-	} catch (e) {
+	} catch {
 		return NextResponse.json({ error: 'Failed to check iframe permission' }, { status: 500 });
 	}
 }
