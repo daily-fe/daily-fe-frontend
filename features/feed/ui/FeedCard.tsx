@@ -6,7 +6,7 @@ import { Card } from '@/shared/ui/card';
 
 export function FeedCard({ article }: { article: Feed }) {
 	return (
-		<Card className="flex flex-col justify-between gap-2 p-4">
+		<Card className="flex flex-col justify-between gap-2 p-4 h-full">
 			<Link
 				href={article.url}
 				target="_blank"
