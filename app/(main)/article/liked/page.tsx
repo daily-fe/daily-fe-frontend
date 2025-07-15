@@ -1,5 +1,3 @@
-'use server';
-
 import { Suspense } from 'react';
 import { Article } from '@/entities/article/model/types';
 import { articleRepository } from '@/entities/article/repositories/article.repository';
@@ -34,7 +32,7 @@ export default async function LikedArticlesPage() {
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>
-					<Suspense fallback={<div>아티클 목록을 불러오는 중...</div>}>
+					<Suspense fallback={<ArticleSection articles={[]} loading />}>
 						<ArticleSection articles={articles} />
 					</Suspense>
 				</div>

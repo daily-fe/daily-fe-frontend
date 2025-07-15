@@ -6,7 +6,6 @@ import ArticleSectionHeader from '@/features/article/ui/ArticleSectionHeader';
 import { getArticlesUseCase } from '@/features/article/usecases/article.usecase';
 import { ApiError } from '@/shared/lib/errors/ApiError';
 import ApiErrorNotice from '@/shared/ui/ApiErrorNotice';
-import ErrorMessage from '@/shared/ui/ErrorMessage';
 
 export default async function Page({
 	searchParams,
