@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { Feed } from '@/entities/feed/model/types';
 import { feedRepositoryWithClient } from '@/entities/feed/repositories/feed.repository';
 import { getFeedsUsecase } from '@/features/feed/usecases/feed.usecase';
+import { CursorPaginationRequestDto } from '@/shared/lib/dto/cursor-pagination.dto';
 import { Skeleton } from '@/shared/ui/skeleton';
 import { useCursorPagination } from '../../../shared/hooks/use-cursor-pagination';
 import { FeedCard } from './FeedCard';
@@ -21,20 +22,19 @@ export function FeedList({ initialFeeds, initialCursor, loading }: FeedListProps
 	const { ref, inView } = useInView();
 
 	const limit = 10;
-	const cursor = initialCursor;
+	const order = 'DESC';
 
-	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useCursorPagination<Feed>(
-		['feeds'],
+	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useCursorPagination<
+		Feed,
+		CursorPaginationRequestDto & { order: string }
+	>(
+		['feeds', limit, order],
 		async (params) => {
-			const res = await getFeedsUsecase(
-				{ feedRepository: feedRepositoryWithClient },
-				params.cursor,
-				params.limit,
-			);
+			const res = await getFeedsUsecase({ feedRepository: feedRepositoryWithClient }, params);
 			return res;
 		},
-		limit,
-		cursor,
+		{ limit, order },
+		initialCursor,
 	);
 
 	const fetchedFeeds = data ? data.pages.flatMap((page) => page.data) : [];

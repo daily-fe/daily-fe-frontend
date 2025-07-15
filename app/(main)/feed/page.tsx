@@ -16,9 +16,15 @@ import {
 
 export default async function FeedPage() {
 	try {
-		const initialFeeds: CursorPaginationResponseDto<Feed> = await getFeedsUsecase({
-			feedRepository: feedRepositoryWithServer,
-		});
+		const initialFeeds: CursorPaginationResponseDto<Feed> = await getFeedsUsecase(
+			{
+				feedRepository: feedRepositoryWithServer,
+			},
+			{
+				limit: 10,
+				order: 'DESC',
+			},
+		);
 		return (
 			<>
 				<Breadcrumb className="sm:hidden">
