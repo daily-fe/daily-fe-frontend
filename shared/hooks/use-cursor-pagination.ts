@@ -1,15 +1,15 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { CursorPaginationRequestDto, CursorPaginationResponseDto } from '../lib/dto/cursor-pagination.dto';
+import { CursorPaginationResponseDto } from '../lib/dto/cursor-pagination.dto';
 
-export function useCursorPagination<T>(
+export function useCursorPagination<TResponse, TRequest>(
 	queryKey: readonly unknown[],
-	fetchFn: (params: CursorPaginationRequestDto) => Promise<CursorPaginationResponseDto<T>>,
-	limit: number = 10,
+	fetchFn: (params: TRequest) => Promise<CursorPaginationResponseDto<TResponse>>,
+	requestData: TRequest,
 	initialCursor: string | null = null,
 ) {
-	return useInfiniteQuery<CursorPaginationResponseDto<T>>({
+	return useInfiniteQuery<CursorPaginationResponseDto<TResponse>>({
 		queryKey: ['infinite', ...queryKey],
-		queryFn: (context) => fetchFn({ cursor: context.pageParam as string | null, limit }),
+		queryFn: ({ pageParam }) => fetchFn({ cursor: pageParam as string | null, ...requestData }),
 		getNextPageParam: (lastPage) => lastPage.nextCursor,
 		initialPageParam: initialCursor,
 	});
