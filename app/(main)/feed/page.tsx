@@ -1,8 +1,9 @@
 import { Suspense } from 'react';
 import { Feed } from '@/entities/feed/model/types';
-import { feedRepository } from '@/entities/feed/repositories/feed.repository';
+import { feedRepositoryWithServer } from '@/entities/feed/repositories/feed.repository';
 import { FeedList } from '@/features/feed/ui/FeedList';
-import { getFeedsUsecase } from '@/features/feed/usecases/feed';
+import { getFeedsUsecase } from '@/features/feed/usecases/feed.usecase';
+import { CursorPaginationResponseDto } from '@/shared/lib/dto/cursor-pagination.dto';
 import { ApiError } from '@/shared/lib/errors/ApiError';
 import ApiErrorNotice from '@/shared/ui/ApiErrorNotice';
 import {
@@ -15,7 +16,9 @@ import {
 
 export default async function FeedPage() {
 	try {
-		const articles: Feed[] = await getFeedsUsecase({ feedRepository });
+		const initialFeeds: CursorPaginationResponseDto<Feed> = await getFeedsUsecase({
+			feedRepository: feedRepositoryWithServer,
+		});
 		return (
 			<>
 				<Breadcrumb className="sm:hidden">
@@ -30,8 +33,8 @@ export default async function FeedPage() {
 					</BreadcrumbList>
 				</Breadcrumb>
 				<h1 className="text-2xl font-bold hidden sm:block">최신 기술 블로그 피드</h1>
-				<Suspense fallback={<FeedList articles={[]} loading />}>
-					<FeedList articles={articles} />
+				<Suspense fallback={<FeedList initialFeeds={[]} loading />}>
+					<FeedList initialFeeds={initialFeeds.data} cursor={initialFeeds.nextCursor} />
 				</Suspense>
 			</>
 		);
