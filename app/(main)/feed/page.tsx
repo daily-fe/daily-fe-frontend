@@ -34,7 +34,7 @@ export default async function FeedPage() {
 				</Breadcrumb>
 				<h1 className="text-2xl font-bold hidden sm:block">최신 기술 블로그 피드</h1>
 				<Suspense fallback={<FeedList initialFeeds={[]} loading />}>
-					<FeedList initialFeeds={initialFeeds.data} cursor={initialFeeds.nextCursor} />
+					<FeedList initialFeeds={initialFeeds.data} initialCursor={initialFeeds.nextCursor} />
 				</Suspense>
 			</>
 		);

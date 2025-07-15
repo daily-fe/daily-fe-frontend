@@ -13,12 +13,15 @@ const GRID_CLASS = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4';
 
 interface FeedListProps {
 	initialFeeds: Feed[];
-	cursor?: string | null;
+	initialCursor?: string | null;
 	loading?: boolean;
 }
 
-export function FeedList({ initialFeeds, cursor, loading }: FeedListProps) {
+export function FeedList({ initialFeeds, initialCursor, loading }: FeedListProps) {
 	const { ref, inView } = useInView();
+
+	const limit = 10;
+	const cursor = initialCursor;
 
 	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useCursorPagination<Feed>(
 		['feeds'],
@@ -30,10 +33,15 @@ export function FeedList({ initialFeeds, cursor, loading }: FeedListProps) {
 			);
 			return res;
 		},
-		10,
+		limit,
+		cursor,
 	);
 
-	const feeds = data ? data.pages.flatMap((page) => page.data) : initialFeeds;
+	const fetchedFeeds = data ? data.pages.flatMap((page) => page.data) : [];
+	const feeds =
+		initialFeeds && initialFeeds.length > 0
+			? [...initialFeeds, ...fetchedFeeds.filter((feed) => !initialFeeds.some((f) => f.url === feed.url))]
+			: fetchedFeeds;
 
 	// inView가 true일 때 fetchNextPage 호출
 	useEffect(() => {
