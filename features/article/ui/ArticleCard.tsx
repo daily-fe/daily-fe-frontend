@@ -3,11 +3,8 @@
 import { useState } from 'react';
 import { CATEGORY_COLORS } from '@/entities/article/model/constants';
 import type { Article } from '@/entities/article/model/types';
-import { likeArticleAction, unlikeArticleAction } from '@/features/article/actions';
 import { Badge } from '@/shared/ui/badge';
-import { Button } from '@/shared/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/ui/card';
-import { Icon } from '@/shared/ui/Icon';
 import { useLikeArticle } from '../hooks/use-like-article';
 import { LikeButton } from './LikeButton';
 

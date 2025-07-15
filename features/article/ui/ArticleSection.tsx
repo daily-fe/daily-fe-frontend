@@ -10,9 +10,10 @@ import ArticleList from './ArticleList';
 
 interface ArticleSectionProps {
 	articles: Article[];
+	loading?: boolean;
 }
 
-export default function ArticleSection({ articles }: ArticleSectionProps) {
+export default function ArticleSection({ articles, loading }: ArticleSectionProps) {
 	const dialog = useArticleDialog(articles);
 	const { iframeAllowed } = useIframeAllowed(dialog.selectedArticle?.url ?? null);
 	const openInNewWindow = useOpenInNewWindow(dialog.selectedArticle?.url);
@@ -24,7 +25,7 @@ export default function ArticleSection({ articles }: ArticleSectionProps) {
 
 	return (
 		<>
-			<ArticleList articles={articles} onCardClick={dialog.handleCardClick} />
+			<ArticleList articles={articles} onCardClick={dialog.handleCardClick} loading={loading} />
 			<ArticleDialogLayer
 				iframeAllowed={iframeAllowed}
 				selectedArticle={dialog.selectedArticle}
