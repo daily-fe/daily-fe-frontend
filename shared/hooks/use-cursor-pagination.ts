@@ -1,21 +1,12 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-
-interface FetchFnParams {
-	cursor?: string | null;
-	limit?: number;
-}
-
-interface PageResponse<T> {
-	items: T[];
-	nextCursor: string | null;
-}
+import { CursorPaginationRequestDto, CursorPaginationResponseDto } from '../lib/dto/cursor-pagination.dto';
 
 export function useCursorPagination<T>(
 	queryKey: readonly unknown[],
-	fetchFn: (params: FetchFnParams) => Promise<PageResponse<T>>,
+	fetchFn: (params: CursorPaginationRequestDto) => Promise<CursorPaginationResponseDto<T>>,
 	limit: number = 10,
 ) {
-	return useInfiniteQuery<PageResponse<T>>({
+	return useInfiniteQuery<CursorPaginationResponseDto<T>>({
 		queryKey,
 		queryFn: (context) => fetchFn({ cursor: context.pageParam as string | null, limit }),
 		getNextPageParam: (lastPage) => lastPage.nextCursor,

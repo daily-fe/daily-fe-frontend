@@ -1,5 +1,5 @@
 export class CursorPaginationRequestDto {
-	cursor?: string;
+	cursor?: string | null;
 	limit: number = 10;
 }
 
