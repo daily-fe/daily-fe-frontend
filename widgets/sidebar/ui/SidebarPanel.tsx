@@ -5,7 +5,7 @@ import { Sidebar, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuItem } f
 const SidebarPanel = () => (
 	<Sidebar>
 		<SidebarHeader>
-			<h1 className="text-xl font-bold">Daily FE Article</h1>
+			<h1 className="text-xl font-bold">DEV-ing</h1>
 		</SidebarHeader>
 		<SidebarMenu>
 			{navigationMenuLinks.map((item) => (

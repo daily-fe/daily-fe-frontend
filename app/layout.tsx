@@ -11,8 +11,8 @@ import { Providers } from './providers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'Daily Frontend Article',
-	description: 'Daily Frontend Article',
+	title: 'DEV-ing',
+	description: '개발자를 위한 아티클과 테크 소식이 매일 공유되는 피드 플랫폼',
 	icons: [
 		{ rel: 'icon', url: '/favicon.ico' },
 		{ rel: 'icon', type: 'image/png', sizes: '32x32', url: '/favicon-32x32.png' },

@@ -17,7 +17,7 @@ export default function Header() {
 					<SidebarTrigger className="sm:hidden">
 						<Icon name="bars-3" className="w-full h-full" />
 					</SidebarTrigger>
-					<h1 className="text-xl font-bold sm:text-4xl">Daily FE Article</h1>
+					<h1 className="text-xl font-bold sm:text-4xl">DEV-ing</h1>
 				</div>
 				<div className="hidden sm:block">
 					<AuthActionButton />
