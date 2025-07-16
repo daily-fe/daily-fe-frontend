@@ -1,5 +1,5 @@
 import { CATEGORIES } from '@/entities/article/model/constants';
-import type { CategorySearch } from '@/entities/article/model/dto';
+import type { CategorySearch } from '@/entities/article/model/types';
 import { Badge } from '@/shared/ui/badge';
 import { categoryBadgeClass } from './utils/categoryBadgeClass';
 

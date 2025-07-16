@@ -1,7 +1,6 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import type { CategorySearch } from '@/entities/article/model/dto';
-import type { Category } from '@/entities/article/model/types';
+import type { Category, CategorySearch } from '@/entities/article/model/types';
 
 export function useArticleSearch() {
 	const router = useRouter();
