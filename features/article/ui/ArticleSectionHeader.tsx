@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { AddArticleDialog } from '@/widgets/add-article-dialog/ui/AddArticleDialog';
+import { AddArticleDialog } from '@/features/article/ui/AddArticleDialog';
 import { useArticleSearch } from '../hooks/use-article-search';
 import ArticleKeywordSearch from './ArticleKeywordSearch';
 import ArticleSearchBar from './ArticleSearchBar';

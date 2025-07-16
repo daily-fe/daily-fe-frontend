@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { AnalysisResult as AnalysisResultType, Article, ArticleCreateInput } from '@/entities/article/model/types';
 import { analyzeArticleAction, createArticleAction } from '@/features/article/actions';
+import { useUpdateArticleListQuery } from '@/features/article/hooks/use-update-article-list-query';
 import { ArticleAnalysisForm } from '@/features/article-analysis/ui/ArticleAnalysisForm';
 import ArticleAnalysisResult from '@/features/article-analysis/ui/ArticleAnalysisResult';
 import { Button } from '@/shared/ui/button';
@@ -17,6 +18,7 @@ interface AddArticleDialogProps {
 export function AddArticleDialog({ onArticleAdded, children }: AddArticleDialogProps) {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const [analysisResult, setAnalysisResult] = useState<AnalysisResultType | null>(null);
+	const updateArticleListQuery = useUpdateArticleListQuery();
 
 	const handleReset = useCallback(() => {
 		setAnalysisResult(null);
@@ -34,6 +36,7 @@ export function AddArticleDialog({ onArticleAdded, children }: AddArticleDialogP
 			const newArticle = await createArticleAction(articleCreateInput);
 			if (newArticle) {
 				onArticleAdded(newArticle);
+				updateArticleListQuery();
 			}
 		}
 		setIsDialogOpen(false);

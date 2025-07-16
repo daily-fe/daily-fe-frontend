@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import type { Article } from '@/entities/article/model/types';
+import { AddArticleDialog } from '@/features/article/ui/AddArticleDialog';
 import { Icon } from '@/shared/ui/Icon';
-import { AddArticleDialog } from '@/widgets/add-article-dialog/ui/AddArticleDialog';
 import { ArticleIframeDialog } from './ArticleIframeDialog';
 
 interface ArticleDialogLayerProps {
