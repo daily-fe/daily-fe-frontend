@@ -29,10 +29,7 @@ export default async function ArticlePage({
 				<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
 					<ArticleSectionHeader />
 					<Suspense fallback={<ArticleSection initialArticles={[]} loading />}>
-						<ArticleSection
-							initialArticles={initialArticles.data}
-							initialCursor={initialArticles.nextCursor}
-						/>
+						<ArticleSection initialArticles={initialArticles.data} />
 					</Suspense>
 					{/* // TODO */}
 					{/* <div className="lg:col-span-1">

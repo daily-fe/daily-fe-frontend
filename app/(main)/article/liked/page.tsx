@@ -37,11 +37,7 @@ export default async function LikedArticlesPage() {
 						</BreadcrumbList>
 					</Breadcrumb>
 					<Suspense fallback={<ArticleSection initialArticles={[]} loading />}>
-						<ArticleSection
-							initialArticles={initialArticles.data}
-							initialCursor={initialArticles.nextCursor}
-							onlyLiked={true}
-						/>
+						<ArticleSection initialArticles={initialArticles.data} onlyLiked />
 					</Suspense>
 				</div>
 			</main>
