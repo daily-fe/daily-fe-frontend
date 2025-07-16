@@ -11,11 +11,10 @@ import ArticleList from './ArticleList';
 interface ArticleSectionProps {
 	initialArticles: Article[];
 	loading?: boolean;
-	initialCursor?: string;
 	onlyLiked?: boolean;
 }
 
-export default function ArticleSection({ initialArticles, loading, initialCursor, onlyLiked }: ArticleSectionProps) {
+export default function ArticleSection({ initialArticles, loading, onlyLiked }: ArticleSectionProps) {
 	const dialog = useArticleDialog(initialArticles);
 	const { iframeAllowed } = useIframeAllowed(dialog.selectedArticle?.url ?? null);
 	const openInNewWindow = useOpenInNewWindow(dialog.selectedArticle?.url);
@@ -30,7 +29,6 @@ export default function ArticleSection({ initialArticles, loading, initialCursor
 			<ArticleList
 				onCardClick={dialog.handleCardClick}
 				initialArticles={initialArticles}
-				initialCursor={initialCursor}
 				loading={loading}
 				onlyLiked={onlyLiked}
 			/>

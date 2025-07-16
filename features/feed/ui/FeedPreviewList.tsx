@@ -19,7 +19,7 @@ export function FeedPreviewList({ initialFeeds, loading }: FeedListProps) {
 	return (
 		<Card className="flex w-full p-4 overflow-y-scroll h-40 gap-4 scrollbar-hide">
 			{initialFeeds.map((feed: Feed) => (
-				<div key={feed.url} className="min-w-80 h-full w-full">
+				<div key={feed.url} className="min-w-70 h-full w-full">
 					<FeedPreviewCard article={feed} />
 				</div>
 			))}

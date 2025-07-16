@@ -6,21 +6,13 @@ import ArticleCard from './ArticleCard';
 interface ArticleListProps {
 	onCardClick: (article: Article) => void;
 	initialArticles: Article[];
-	initialCursor?: string | null;
 	loading?: boolean;
 	onlyLiked?: boolean;
 }
 
-export default function ArticleList({
-	initialArticles,
-	initialCursor,
-	loading,
-	onCardClick,
-	onlyLiked,
-}: ArticleListProps) {
+export default function ArticleList({ initialArticles, loading, onCardClick, onlyLiked }: ArticleListProps) {
 	const { articles, ref, hasNextPage, isFetchingNextPage, isFetching } = useArticleInfiniteList({
 		initialArticles,
-		initialCursor,
 		onlyLiked,
 	});
 

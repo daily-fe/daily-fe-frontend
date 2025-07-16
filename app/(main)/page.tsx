@@ -50,10 +50,7 @@ export default async function HomePage({
 					</div>
 					<ArticleSectionHeader />
 					<Suspense fallback={<ArticleSection initialArticles={[]} loading />}>
-						<ArticleSection
-							initialArticles={initialArticles.data}
-							initialCursor={initialArticles.nextCursor}
-						/>
+						<ArticleSection initialArticles={initialArticles.data} />
 					</Suspense>
 					{/* // TODO */}
 					{/* <div className="lg:col-span-1">

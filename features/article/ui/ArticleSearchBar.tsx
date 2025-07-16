@@ -25,19 +25,6 @@ export default function ArticleSearchBar({
 }: ArticleSearchBarProps) {
 	return (
 		<div className="w-full flex flex-col gap-2 sm:flex-row sm:items-end">
-			<Select value={series} onValueChange={onChangeSeries}>
-				<SelectTrigger className="w-40 h-10!" aria-label="시리즈">
-					<SelectValue placeholder="시리즈 선택" />
-				</SelectTrigger>
-				<SelectContent>
-					<SelectItem value="all">전체 시리즈</SelectItem>
-					{SERIES_LIST.map((ser: Series) => (
-						<SelectItem key={ser} value={ser}>
-							{ser}
-						</SelectItem>
-					))}
-				</SelectContent>
-			</Select>
 			<Select value={category} onValueChange={onChangeCategory}>
 				<SelectTrigger className="w-40 h-10!" aria-label="카테고리">
 					<SelectValue placeholder="카테고리 선택" />
@@ -47,6 +34,19 @@ export default function ArticleSearchBar({
 					{CATEGORY_LIST.map((cat: Category) => (
 						<SelectItem key={cat} value={cat}>
 							{cat}
+						</SelectItem>
+					))}
+				</SelectContent>
+			</Select>
+			<Select value={series} onValueChange={onChangeSeries}>
+				<SelectTrigger className="w-40 h-10!" aria-label="시리즈">
+					<SelectValue placeholder="시리즈 선택" />
+				</SelectTrigger>
+				<SelectContent>
+					<SelectItem value="all">전체 시리즈</SelectItem>
+					{SERIES_LIST.map((ser: Series) => (
+						<SelectItem key={ser} value={ser}>
+							{ser}
 						</SelectItem>
 					))}
 				</SelectContent>

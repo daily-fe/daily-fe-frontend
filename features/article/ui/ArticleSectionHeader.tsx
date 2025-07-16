@@ -36,7 +36,7 @@ export default function ArticleSectionHeader() {
 						onSubmit={() => handleSearch(series, category, keyword)}
 					/>
 				)}
-				<div className="flex flex-col gap-2">
+				<div className="flex flex-col gap-3">
 					<CategoryBadgeList category={category} onChange={handleCategoryChange} />
 					<SeriesBadgeList series={series} onChange={handleSeriesChange} />
 				</div>

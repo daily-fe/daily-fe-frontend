@@ -11,7 +11,7 @@ interface CategoryBadgeListProps {
 
 export default function CategoryBadgeList({ category, onChange, className = '' }: CategoryBadgeListProps) {
 	return (
-		<div className={`flex gap-2 flex-wrap ${className}`}>
+		<div className={`flex gap-x-2 gap-y-1 flex-wrap ${className}`}>
 			<Badge variant="outline" onClick={() => onChange('all')} className={selectBadgeClass(category === 'all')}>
 				전체 카테고리
 			</Badge>

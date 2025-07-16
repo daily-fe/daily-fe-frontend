@@ -11,7 +11,7 @@ interface SeriesBadgeListProps {
 
 export default function SeriesBadgeList({ series, onChange, className = '' }: SeriesBadgeListProps) {
 	return (
-		<div className={`flex gap-2 flex-wrap ${className}`}>
+		<div className={`flex gap-x-2 gap-y-1 flex-wrap ${className}`}>
 			<Badge variant="outline" onClick={() => onChange('all')} className={selectBadgeClass(series === 'all')}>
 				전체 시리즈
 			</Badge>

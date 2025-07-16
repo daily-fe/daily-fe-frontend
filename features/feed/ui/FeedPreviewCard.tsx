@@ -11,7 +11,7 @@ export function FeedPreviewCard({ article }: { article: Feed }) {
 				href={article.url}
 				target="_blank"
 				rel="noopener noreferrer"
-				className="font-semibold text-lg hover:underline line-clamp-2"
+				className="font-semibold text-base hover:underline line-clamp-2"
 			>
 				{article.title}
 			</Link>
