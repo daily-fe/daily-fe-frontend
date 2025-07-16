@@ -20,6 +20,15 @@ export default function ArticleList({ initialArticles, loading, onCardClick, onl
 	const showSkeleton = loading || isFetchingNextPage || isFetching;
 	const showEmpty = !loading && !hasNextPage && !isFetching && articles.length === 0;
 
+	if (showEmpty) {
+		return (
+			<div className="text-center text-gray-500 py-20">
+				<p>아직 추가된 아티클이 없습니다.</p>
+				<p>아티클을 추가해 보세요.</p>
+			</div>
+		);
+	}
+
 	return (
 		<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 			{articles.map((article) => (
@@ -27,12 +36,7 @@ export default function ArticleList({ initialArticles, loading, onCardClick, onl
 			))}
 			{showSkeleton &&
 				skeletonItems.map((_, i) => <Skeleton key={`skeleton-${i}`} className="min-h-92 h-full" />)}
-			{showEmpty && (
-				<div className="text-center text-gray-500 py-20">
-					<p>아직 추가된 아티클이 없습니다.</p>
-					<p>아티클을 추가해 보세요.</p>
-				</div>
-			)}
+
 			{hasNextPage && <div ref={ref} />}
 		</div>
 	);

@@ -21,7 +21,6 @@ export function FeedList({ initialFeeds, initialCursor, loading }: FeedListProps
 
 	const skeletonItems = Array.from({ length: initialFeeds ? 3 : 12 });
 	const showSkeleton = loading || isFetchingNextPage || isFetching;
-	const showEmpty = !loading && !hasNextPage && !isFetching && feeds.length === 0;
 
 	return (
 		<div className={GRID_CLASS}>
@@ -32,7 +31,6 @@ export function FeedList({ initialFeeds, initialCursor, loading }: FeedListProps
 			))}
 			{showSkeleton &&
 				skeletonItems.map((_, i) => <Skeleton key={`skeleton-${i}`} className="min-h-24 h-full" />)}
-			{showEmpty && <div className="text-center py-8 text-gray-400 col-span-full">피드가 없습니다.</div>}
 			{hasNextPage && <div ref={ref} className="col-span-full" />}
 		</div>
 	);
