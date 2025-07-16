@@ -51,9 +51,9 @@ export default function SearchOverlay({ open, onClose }: { open: boolean; onClos
 				<IconButton icon="magnifying-glass" onClick={onSubmit} className="w-6 h-6" />
 			</div>
 			<div className="flex-1 overflow-y-auto p-4 mt-2">
-				<div className="flex flex-col gap-2">
-					<SeriesBadgeList series={series} onChange={handleSeriesChange} />
+				<div className="flex flex-col gap-3">
 					<CategoryBadgeList category={category} onChange={setCategory} />
+					<SeriesBadgeList series={series} onChange={handleSeriesChange} />
 				</div>
 			</div>
 		</div>

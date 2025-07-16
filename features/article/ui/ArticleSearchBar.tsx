@@ -11,7 +11,7 @@ interface ArticleSearchBarProps {
 	keyword: string;
 	onChangeSeries: (series: SeriesSearch) => void;
 	onChangeKeyword: (keyword: string) => void;
-	onSubmitSearch: (series: SeriesSearch, keyword: string) => void;
+	onSubmitSearch: (series: SeriesSearch, category: CategorySearch, keyword: string) => void;
 }
 
 export default function ArticleSearchBar({
@@ -55,7 +55,7 @@ export default function ArticleSearchBar({
 				<ArticleKeywordSearch
 					keyword={keyword}
 					onChangeKeyword={onChangeKeyword}
-					onSubmit={() => onSubmitSearch(series, keyword)}
+					onSubmit={() => onSubmitSearch(series, category, keyword)}
 				/>
 			</div>
 		</div>
