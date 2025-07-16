@@ -15,13 +15,13 @@ interface ArticleCardProps {
 
 export default function ArticleCard({ article, onCardClick }: ArticleCardProps) {
 	const { isLiked, likeCount, handleLike } = useLikeArticle(article);
-	const [hostname, _] = useState<string | null>(() => {
-		try {
-			return new URL(article.url).hostname.replace(/^www\./, '').split('.')?.[0] ?? null;
-		} catch {
-			return null;
-		}
-	});
+	// const [hostname, _] = useState<string | null>(() => {
+	// 	try {
+	// 		return new URL(article.url).hostname.replace(/^www\./, '').split('.')?.[0] ?? null;
+	// 	} catch {
+	// 		return null;
+	// 	}
+	// });
 
 	const seriesColor = SERIES_COLORS[article.series] || SERIES_COLORS.default;
 
