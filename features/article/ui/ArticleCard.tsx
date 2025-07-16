@@ -41,9 +41,12 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 			<CardContent className="flex flex-col gap-2 flex-grow pb-4 justify-between">
 				<p className="text-sm sm:text-base text-muted-foreground whitespace-pre-wrap">{article.summary}</p>
 				<div className="flex flex-wrap gap-2">
-					<Badge className={`${seriesColor.bg} ${seriesColor.text} ${seriesColor.border}`}>
-						{article.series}
-					</Badge>
+					<Badge variant="default">{article.category}</Badge>
+					{article.series !== 'Others' && (
+						<Badge className={`${seriesColor.bg} ${seriesColor.text} ${seriesColor.border}`}>
+							{article.series}
+						</Badge>
+					)}
 					{(article?.tags ?? []).map((tag) => (
 						<Badge key={tag} variant="secondary">
 							{tag}

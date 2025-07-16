@@ -5,13 +5,16 @@ import { AddArticleDialog } from '@/widgets/add-article-dialog/ui/AddArticleDial
 import { useArticleSearch } from '../hooks/use-article-search';
 import ArticleKeywordSearch from './ArticleKeywordSearch';
 import ArticleSearchBar from './ArticleSearchBar';
+import CategoryBadgeList from './CategoryBadgeList';
 import SeriesBadgeList from './SeriesBadgeList';
 
 export default function ArticleSectionHeader() {
 	const searchParams = useSearchParams();
 	const searchParamsKeyword = searchParams.get('keyword') ?? '';
 
-	const { series, keyword, handleKeywordChange, handleSearch, handleSeriesChange } = useArticleSearch();
+	const { series, category, keyword, handleKeywordChange, handleSearch, handleSeriesChange, handleCategoryChange } =
+		useArticleSearch();
+
 	const router = useRouter();
 	const handleArticleAdded = () => {
 		router.refresh();
@@ -30,19 +33,24 @@ export default function ArticleSectionHeader() {
 					<ArticleKeywordSearch
 						keyword={keyword}
 						onChangeKeyword={handleKeywordChange}
-						onSubmit={() => handleSearch(series, keyword)}
+						onSubmit={() => handleSearch(series, category, keyword)}
 					/>
 				)}
-				<SeriesBadgeList series={series} onChange={handleSeriesChange} />
+				<div className="flex flex-col gap-2">
+					<CategoryBadgeList category={category} onChange={handleCategoryChange} />
+					<SeriesBadgeList series={series} onChange={handleSeriesChange} />
+				</div>
 			</div>
 			<div className="w-full">
 				<div className="hidden sm:block">
 					<ArticleSearchBar
 						series={series}
+						category={category}
 						keyword={keyword}
 						onChangeSeries={handleSeriesChange}
+						onChangeCategory={handleCategoryChange}
 						onChangeKeyword={handleKeywordChange}
-						onSubmitSearch={() => handleSearch(series, keyword)}
+						onSubmitSearch={() => handleSearch(series, category, keyword)}
 					/>
 				</div>
 			</div>

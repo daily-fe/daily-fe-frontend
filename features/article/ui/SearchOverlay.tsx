@@ -1,19 +1,22 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Category } from '@/entities/article/model/constants';
 import IconButton from '@/shared/ui/IconButton';
 import SearchInput from '../../../shared/ui/SearchInput';
 import { useArticleSearch } from '../hooks/use-article-search';
+import CategoryBadgeList from './CategoryBadgeList';
 import SeriesBadgeList from './SeriesBadgeList';
 
 export default function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { series, keyword, handleSeriesChange, handleKeywordChange, handleSearch } = useArticleSearch();
+	const [category, setCategory] = useState<'all' | Category>('all');
 
 	const onSubmit = useCallback(async () => {
-		await handleSearch(series, keyword);
+		await handleSearch(series, category, keyword);
 		onClose();
-	}, [series, keyword, handleSearch, onClose]);
+	}, [series, category, keyword, handleSearch, onClose]);
 
 	useEffect(() => {
 		if (open) {
@@ -48,7 +51,10 @@ export default function SearchOverlay({ open, onClose }: { open: boolean; onClos
 				<IconButton icon="magnifying-glass" onClick={onSubmit} className="w-6 h-6" />
 			</div>
 			<div className="flex-1 overflow-y-auto p-4 mt-2">
-				<SeriesBadgeList series={series} onChange={handleSeriesChange} />
+				<div className="flex flex-col gap-2">
+					<SeriesBadgeList series={series} onChange={handleSeriesChange} />
+					<CategoryBadgeList category={category} onChange={setCategory} />
+				</div>
 			</div>
 		</div>
 	);

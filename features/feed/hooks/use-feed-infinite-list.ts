@@ -38,7 +38,10 @@ export function useFeedInfiniteList({
 
 	const fetchedFeeds = data ? data.pages.flatMap((page) => page.data) : [];
 	const feeds = useMemo(
-		() => (initialFeeds ? [...initialFeeds, ...fetchedFeeds] : fetchedFeeds),
+		() =>
+			initialFeeds
+				? [...initialFeeds, ...fetchedFeeds.filter((feed) => !initialFeeds.includes(feed))]
+				: fetchedFeeds,
 		[initialFeeds, fetchedFeeds],
 	);
 

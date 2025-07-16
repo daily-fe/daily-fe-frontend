@@ -1,7 +1,8 @@
-import { SERIES_LIST } from './constants';
+import { CATEGORY_LIST, Category, SERIES_LIST } from './constants';
 
 export type Series = (typeof SERIES_LIST)[number];
 export type SeriesSearch = Series | 'all';
+export type CategorySearch = Category | 'all';
 
 export interface Article {
 	readonly id: string;
@@ -13,6 +14,7 @@ export interface Article {
 	readonly createdAt: Date | null;
 	readonly likes: number;
 	readonly series: Series;
+	readonly category: Category;
 	readonly likedByMe: boolean;
 }
 
@@ -25,10 +27,8 @@ export interface AnalysisResult {
 	likes: number;
 	author: string | null;
 	series: Series;
+	category: Category;
 	likedByMe: boolean;
-	category?: string;
 }
-
-// ArticleFeed 제거됨
 
 export type ArticleCreateInput = Omit<Article, 'id' | 'likes' | 'createdAt' | 'likedByMe'>;

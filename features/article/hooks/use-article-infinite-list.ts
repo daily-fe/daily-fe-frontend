@@ -40,7 +40,10 @@ export function useArticleInfiniteList({
 
 	const fetchedArticles = data ? data.pages.flatMap((page) => page.data) : [];
 	const articles = useMemo(
-		() => (initialArticles ? [...initialArticles, ...fetchedArticles] : fetchedArticles),
+		() =>
+			initialArticles
+				? [...initialArticles, ...fetchedArticles.filter((article) => !initialArticles.includes(article))]
+				: fetchedArticles,
 		[initialArticles, fetchedArticles],
 	);
 

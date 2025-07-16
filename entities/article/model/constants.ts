@@ -8,3 +8,6 @@ export const SERIES_COLORS: Record<string, { bg: string; text: string; border: s
 	Others: { bg: 'bg-gray-100', text: 'text-gray-800', border: 'border-gray-300' },
 	default: { bg: 'bg-gray-100', text: 'text-gray-800', border: 'border-gray-300' },
 };
+
+export const CATEGORY_LIST = ['Frontend', 'Backend', 'AI', 'Mobile', 'DevOps', 'Others'] as const;
+export type Category = (typeof CATEGORY_LIST)[number];
