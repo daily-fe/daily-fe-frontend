@@ -9,16 +9,14 @@ export abstract class FeedRepositoryImpl {
 	abstract getAll(request: FeedListRequestDto): Promise<CursorPaginationResponseDto<Feed>>;
 }
 
-class FeedRepositoryWithServer implements FeedRepositoryImpl {
+abstract class BaseFeedRepository implements FeedRepositoryImpl {
+	protected abstract api: typeof serverApi | typeof clientApi;
+
 	async getAll(request: FeedListRequestDto): Promise<CursorPaginationResponseDto<Feed>> {
 		const { cursor, limit, order } = request;
 		const response = await apiCall(
-			serverApi.get('/feeds', {
-				params: {
-					cursor,
-					limit,
-					order,
-				},
+			this.api.get('/feeds', {
+				params: { cursor, limit, order },
 			}),
 			'피드 불러오기 실패',
 		);
@@ -26,25 +24,12 @@ class FeedRepositoryWithServer implements FeedRepositoryImpl {
 	}
 }
 
-class FeedRepositoryWithClient implements FeedRepositoryImpl {
-	async getAll(request: {
-		cursor?: string | null;
-		limit?: number;
-		order?: string;
-	}): Promise<CursorPaginationResponseDto<Feed>> {
-		const { cursor, limit, order } = request;
-		const response = await apiCall(
-			clientApi.get('/feeds', {
-				params: {
-					cursor,
-					limit,
-					order,
-				},
-			}),
-			'피드 불러오기 실패',
-		);
-		return response.data;
-	}
+class FeedRepositoryWithServer extends BaseFeedRepository {
+	protected api = serverApi;
+}
+
+class FeedRepositoryWithClient extends BaseFeedRepository {
+	protected api = clientApi;
 }
 
 export const feedRepositoryWithServer = new FeedRepositoryWithServer();
