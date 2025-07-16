@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import { Article } from '@/entities/article/model/types';
 import { articleRepositoryWithServer } from '@/entities/article/repositories/article.repository';
 import ArticleSection from '@/features/article/ui/ArticleSection';
 import { getLikedArticlesUseCase } from '@/features/article/usecases/article.usecase';
@@ -15,9 +14,14 @@ import ErrorMessage from '@/shared/ui/ErrorMessage';
 
 export default async function LikedArticlesPage() {
 	try {
-		const articles: Article[] = await getLikedArticlesUseCase({
-			articleRepository: articleRepositoryWithServer,
-		});
+		const initialArticles = await getLikedArticlesUseCase(
+			{
+				articleRepository: articleRepositoryWithServer,
+			},
+			{
+				limit: 10,
+			},
+		);
 		return (
 			<main className="h-full w-full">
 				<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
@@ -33,7 +37,11 @@ export default async function LikedArticlesPage() {
 						</BreadcrumbList>
 					</Breadcrumb>
 					<Suspense fallback={<ArticleSection initialArticles={[]} loading />}>
-						<ArticleSection initialArticles={articles} />
+						<ArticleSection
+							initialArticles={initialArticles.data}
+							initialCursor={initialArticles.nextCursor}
+							onlyLiked={true}
+						/>
 					</Suspense>
 				</div>
 			</main>

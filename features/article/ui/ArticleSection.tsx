@@ -12,9 +12,10 @@ interface ArticleSectionProps {
 	initialArticles: Article[];
 	loading?: boolean;
 	initialCursor?: string;
+	onlyLiked?: boolean;
 }
 
-export default function ArticleSection({ initialArticles, loading, initialCursor }: ArticleSectionProps) {
+export default function ArticleSection({ initialArticles, loading, initialCursor, onlyLiked }: ArticleSectionProps) {
 	const dialog = useArticleDialog(initialArticles);
 	const { iframeAllowed } = useIframeAllowed(dialog.selectedArticle?.url ?? null);
 	const openInNewWindow = useOpenInNewWindow(dialog.selectedArticle?.url);
@@ -31,6 +32,7 @@ export default function ArticleSection({ initialArticles, loading, initialCursor
 				initialArticles={initialArticles}
 				initialCursor={initialCursor}
 				loading={loading}
+				onlyLiked={onlyLiked}
 			/>
 			<ArticleDialogLayer
 				iframeAllowed={iframeAllowed}

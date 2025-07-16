@@ -9,16 +9,24 @@ interface ArticleListProps {
 	initialArticles: Article[];
 	initialCursor?: string | null;
 	loading?: boolean;
+	onlyLiked?: boolean;
 }
 
-export default function ArticleList({ initialArticles, initialCursor, loading, onCardClick }: ArticleListProps) {
+export default function ArticleList({
+	initialArticles,
+	initialCursor,
+	loading,
+	onCardClick,
+	onlyLiked,
+}: ArticleListProps) {
 	const { articles, ref, hasNextPage, isFetchingNextPage, isFetching } = useArticleInfiniteList({
 		initialArticles,
 		initialCursor,
+		onlyLiked,
 	});
 
-	const skeletonItems = Array.from({ length: 12 });
-	const showSkeleton = loading || isFetchingNextPage;
+	const skeletonItems = Array.from({ length: initialArticles ? 3 : 6 });
+	const showSkeleton = loading || isFetchingNextPage || isFetching;
 	const showEmpty = !loading && !hasNextPage && !isFetching && articles.length === 0;
 
 	return (

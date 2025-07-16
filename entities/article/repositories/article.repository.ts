@@ -16,7 +16,7 @@ export abstract class ArticleRepositoryImpl {
 	abstract get(id: string): Promise<Article>;
 	abstract getAll(request: ArticleListRequestDto): Promise<CursorPaginationResponseDto<Article>>;
 	abstract create(article: ArticleCreateInput): Promise<Article>;
-	abstract getAllLiked(): Promise<Article[]>;
+	abstract getAllLiked(request: ArticleListRequestDto): Promise<CursorPaginationResponseDto<Article>>;
 }
 
 abstract class BaseArticleRepository implements ArticleRepositoryImpl {
@@ -58,16 +58,18 @@ abstract class BaseArticleRepository implements ArticleRepositoryImpl {
 	}
 
 	async getAll(request: ArticleListRequestDto): Promise<CursorPaginationResponseDto<Article>> {
+		await new Promise((resolve) => setTimeout(resolve, 2000));
 		const response = await apiCall(
 			this.api.get('/article', { params: request }),
 			'아티클 목록 조회 중 오류가 발생했습니다.',
 		);
+		console.log('response', response);
 		return response.data;
 	}
 
-	async getAllLiked(): Promise<Article[]> {
+	async getAllLiked(request: ArticleListRequestDto): Promise<CursorPaginationResponseDto<Article>> {
 		const response = await apiCall(
-			this.api.get<Article[]>('/article/liked'),
+			this.api.get<CursorPaginationResponseDto<Article>>('/article/liked', { params: request }),
 			'좋아요한 아티클 목록 조회 중 오류가 발생했습니다.',
 		);
 		return response.data;

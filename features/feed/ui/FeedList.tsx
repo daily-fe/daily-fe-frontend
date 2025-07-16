@@ -19,7 +19,7 @@ export function FeedList({ initialFeeds, initialCursor, loading }: FeedListProps
 		initialCursor,
 	});
 
-	const skeletonItems = Array.from({ length: 12 });
+	const skeletonItems = Array.from({ length: initialFeeds ? 3 : 12 });
 	const showSkeleton = loading || isFetchingNextPage || isFetching;
 	const showEmpty = !loading && !hasNextPage && !isFetching && feeds.length === 0;
 
