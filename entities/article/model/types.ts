@@ -1,7 +1,7 @@
-import { CATEGORIES } from './constants';
+import { SERIES_LIST } from './constants';
 
-export type Category = (typeof CATEGORIES)[number];
-export type CategorySearch = Category | 'all';
+export type Series = (typeof SERIES_LIST)[number];
+export type SeriesSearch = Series | 'all';
 
 export interface Article {
 	readonly id: string;
@@ -12,7 +12,7 @@ export interface Article {
 	readonly author: string | null;
 	readonly createdAt: Date | null;
 	readonly likes: number;
-	readonly category: Category;
+	readonly series: Series;
 	readonly likedByMe: boolean;
 }
 
@@ -24,8 +24,9 @@ export interface AnalysisResult {
 	createdAt: Date | null;
 	likes: number;
 	author: string | null;
-	category: Category;
+	series: Series;
 	likedByMe: boolean;
+	category?: string;
 }
 
 // ArticleFeed 제거됨

@@ -1,35 +1,35 @@
 'use client';
-import { CATEGORIES } from '@/entities/article/model/constants';
-import { CategorySearch } from '@/entities/article/model/types';
+import { SERIES_LIST } from '@/entities/article/model/constants';
+import { SeriesSearch } from '@/entities/article/model/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/ui/select';
 import ArticleKeywordSearch from './ArticleKeywordSearch';
 
 interface ArticleSearchBarProps {
-	category: CategorySearch;
+	series: SeriesSearch;
 	keyword: string;
-	onChangeCategory: (category: CategorySearch) => void;
+	onChangeSeries: (series: SeriesSearch) => void;
 	onChangeKeyword: (keyword: string) => void;
-	onSubmitSearch: (category: CategorySearch, keyword: string) => void;
+	onSubmitSearch: (series: SeriesSearch, keyword: string) => void;
 }
 
 export default function ArticleSearchBar({
-	category,
+	series,
 	keyword,
-	onChangeCategory,
+	onChangeSeries,
 	onChangeKeyword,
 	onSubmitSearch,
 }: ArticleSearchBarProps) {
 	return (
 		<div className="w-full flex flex-col gap-2 sm:flex-row sm:items-end">
-			<Select value={category} onValueChange={onChangeCategory}>
-				<SelectTrigger className="w-40 h-10!" aria-label="카테고리">
-					<SelectValue placeholder="카테고리 선택" />
+			<Select value={series} onValueChange={onChangeSeries}>
+				<SelectTrigger className="w-40 h-10!" aria-label="시리즈">
+					<SelectValue placeholder="시리즈 선택" />
 				</SelectTrigger>
 				<SelectContent>
-					<SelectItem value="all">전체 카테고리</SelectItem>
-					{CATEGORIES.map((cat) => (
-						<SelectItem key={cat} value={cat}>
-							{cat}
+					<SelectItem value="all">all</SelectItem>
+					{SERIES_LIST.map((ser: string) => (
+						<SelectItem key={ser} value={ser}>
+							{ser}
 						</SelectItem>
 					))}
 				</SelectContent>
@@ -38,7 +38,7 @@ export default function ArticleSearchBar({
 				<ArticleKeywordSearch
 					keyword={keyword}
 					onChangeKeyword={onChangeKeyword}
-					onSubmit={() => onSubmitSearch(category, keyword)}
+					onSubmit={() => onSubmitSearch(series, keyword)}
 				/>
 			</div>
 		</div>

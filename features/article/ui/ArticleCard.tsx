@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CATEGORY_COLORS } from '@/entities/article/model/constants';
+import { SERIES_COLORS } from '@/entities/article/model/constants';
 import type { Article } from '@/entities/article/model/types';
 import { Badge } from '@/shared/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/ui/card';
@@ -23,7 +23,7 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 		}
 	});
 
-	const categoryColor = CATEGORY_COLORS[article.category] || CATEGORY_COLORS.default;
+	const seriesColor = SERIES_COLORS[article.series] || SERIES_COLORS.default;
 
 	return (
 		<Card
@@ -41,8 +41,8 @@ export default function ArticleCard({ article, onCardClick }: ArticleCardProps) 
 			<CardContent className="flex flex-col gap-2 flex-grow pb-4 justify-between">
 				<p className="text-sm sm:text-base text-muted-foreground whitespace-pre-wrap">{article.summary}</p>
 				<div className="flex flex-wrap gap-2">
-					<Badge className={`${categoryColor.bg} ${categoryColor.text} ${categoryColor.border}`}>
-						{article.category}
+					<Badge className={`${seriesColor.bg} ${seriesColor.text} ${seriesColor.border}`}>
+						{article.series}
 					</Badge>
 					{(article?.tags ?? []).map((tag) => (
 						<Badge key={tag} variant="secondary">

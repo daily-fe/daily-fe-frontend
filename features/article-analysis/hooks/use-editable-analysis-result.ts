@@ -1,5 +1,5 @@
 import { KeyboardEvent, useCallback, useState } from 'react';
-import type { AnalysisResult, ArticleCreateInput, Category } from '@/entities/article/model/types';
+import type { AnalysisResult, ArticleCreateInput, Series } from '@/entities/article/model/types';
 
 interface UseEditableAnalysisResultProps {
 	result: AnalysisResult;
@@ -11,7 +11,7 @@ export function useEditableAnalysisResult({ result, onAddArticle }: UseEditableA
 	const [summary, setSummary] = useState(result.summary);
 	const [tags, setTags] = useState(result.tags);
 	const [newTag, setNewTag] = useState('');
-	const [category, setCategory] = useState<Category>(result.category);
+	const [series, setSeries] = useState<Series>(result.series ?? result.category);
 
 	const handleTagRemove = useCallback((tagToRemove: string) => {
 		setTags((prev) => prev.filter((tag) => tag !== tagToRemove));
@@ -40,11 +40,11 @@ export function useEditableAnalysisResult({ result, onAddArticle }: UseEditableA
 			title,
 			summary,
 			tags,
-			category,
+			series,
 			url: result.url,
 			author: result.author,
 		});
-	}, [onAddArticle, title, summary, tags, category, result.url, result.author]);
+	}, [onAddArticle, title, summary, tags, series, result.url, result.author]);
 
 	return {
 		title,
@@ -55,8 +55,8 @@ export function useEditableAnalysisResult({ result, onAddArticle }: UseEditableA
 		setTags,
 		newTag,
 		setNewTag,
-		category,
-		setCategory,
+		series,
+		setSeries,
 		handleTagRemove,
 		handleTagAdd,
 		handleTagInputKeyDown,

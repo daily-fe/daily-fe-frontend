@@ -1,19 +1,19 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import type { Category, CategorySearch } from '@/entities/article/model/types';
+import type { Series, SeriesSearch } from '@/entities/article/model/types';
 
 export function useArticleSearch() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 
-	const [category, setCategory] = useState<CategorySearch>('all');
+	const [series, setSeries] = useState<SeriesSearch>('all');
 	const [keyword, setKeyword] = useState<string>('');
 
 	useEffect(() => {
-		const categoryParam = searchParams.get('category') as Category;
+		const seriesParam = searchParams.get('series') as Series;
 		const keywordParam = searchParams.get('keyword');
 
-		setCategory(categoryParam ?? 'all');
+		setSeries(seriesParam ?? 'all');
 		setKeyword(keywordParam ?? '');
 	}, [searchParams]);
 
@@ -22,29 +22,29 @@ export function useArticleSearch() {
 	}, []);
 
 	const handleSearch = useCallback(
-		async (category: CategorySearch, keyword: string) => {
+		async (series: SeriesSearch, keyword: string) => {
 			const params = new URLSearchParams();
-			if (category && category !== 'all') params.set('category', category);
+			if (series && series !== 'all') params.set('series', series);
 			if (keyword) params.set('keyword', keyword);
 			router.replace(`?${params.toString()}`);
 		},
 		[router],
 	);
 
-	const handleCategoryChange = useCallback(
-		(newCategory: CategorySearch) => {
-			setCategory(newCategory);
-			handleSearch(newCategory, keyword);
+	const handleSeriesChange = useCallback(
+		(newSeries: SeriesSearch) => {
+			setSeries(newSeries);
+			handleSearch(newSeries, keyword);
 		},
 		[handleSearch, keyword],
 	);
 
 	return {
-		category,
+		series,
 		keyword,
-		setCategory,
+		setSeries,
 		setKeyword,
-		handleCategoryChange,
+		handleSeriesChange,
 		handleKeywordChange,
 		handleSearch,
 	};

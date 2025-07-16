@@ -4,16 +4,16 @@ import { useCallback, useEffect, useRef } from 'react';
 import IconButton from '@/shared/ui/IconButton';
 import SearchInput from '../../../shared/ui/SearchInput';
 import { useArticleSearch } from '../hooks/use-article-search';
-import CategoryBadgeList from './CategoryBadgeList';
+import SeriesBadgeList from './SeriesBadgeList';
 
 export default function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
 	const inputRef = useRef<HTMLInputElement>(null);
-	const { category, keyword, handleCategoryChange, handleKeywordChange, handleSearch } = useArticleSearch();
+	const { series, keyword, handleSeriesChange, handleKeywordChange, handleSearch } = useArticleSearch();
 
 	const onSubmit = useCallback(async () => {
-		await handleSearch(category, keyword);
+		await handleSearch(series, keyword);
 		onClose();
-	}, [category, keyword, handleSearch, onClose]);
+	}, [series, keyword, handleSearch, onClose]);
 
 	useEffect(() => {
 		if (open) {
@@ -48,7 +48,7 @@ export default function SearchOverlay({ open, onClose }: { open: boolean; onClos
 				<IconButton icon="magnifying-glass" onClick={onSubmit} className="w-6 h-6" />
 			</div>
 			<div className="flex-1 overflow-y-auto p-4 mt-2">
-				<CategoryBadgeList category={category} onChange={handleCategoryChange} />
+				<SeriesBadgeList series={series} onChange={handleSeriesChange} />
 			</div>
 		</div>
 	);

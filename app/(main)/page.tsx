@@ -16,15 +16,15 @@ export default async function HomePage({
 }: {
 	searchParams: { [key: string]: string | string[] | undefined };
 }) {
-	const { category, keyword } = await searchParams;
-	const categoryParam = Array.isArray(category) ? category[0] : category;
+	const { series, keyword } = await searchParams;
+	const seriesParam = Array.isArray(series) ? series[0] : series;
 	const keywordParam = Array.isArray(keyword) ? keyword[0] : keyword;
 
 	try {
 		const initialArticles = await getArticlesUseCase(
 			{ articleRepository: articleRepositoryWithServer },
 			{
-				category: categoryParam,
+				series: seriesParam,
 				keyword: keywordParam,
 				limit: 2,
 			},

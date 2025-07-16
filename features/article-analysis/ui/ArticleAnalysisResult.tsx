@@ -1,6 +1,6 @@
 'use client';
 
-import { CATEGORIES } from '@/entities/article/model/constants';
+import { SERIES_LIST } from '@/entities/article/model/constants';
 import type { AnalysisResult, ArticleCreateInput } from '@/entities/article/model/types';
 import { useEditableAnalysisResult } from '@/features/article-analysis/hooks/use-editable-analysis-result';
 import { EditableTags } from '@/features/article-analysis/ui/EditableTags';
@@ -26,8 +26,8 @@ export default function ArticleAnalysisResult({ result, onReset, onAddArticle }:
 		setTags,
 		newTag,
 		setNewTag,
-		category,
-		setCategory,
+		series,
+		setSeries,
 		handleAddArticle,
 	} = useEditableAnalysisResult({ result, onAddArticle });
 
@@ -55,13 +55,13 @@ export default function ArticleAnalysisResult({ result, onReset, onAddArticle }:
 						/>
 					</CardDescription>
 					<div className="flex gap-2 mt-6 flex-wrap">
-						{CATEGORIES.map((cat) => (
+						{SERIES_LIST.map((ser) => (
 							<Badge
-								key={cat}
-								onClick={() => setCategory(cat)}
-								className={`cursor-pointer border transition-all ${cat === category ? 'ring-2 ring-offset-2 ring-gray-600 font-bold scale-105' : 'opacity-60 hover:opacity-100'}`}
+								key={ser}
+								onClick={() => setSeries(ser)}
+								className={`cursor-pointer border transition-all ${ser === series ? 'ring-2 ring-offset-2 ring-gray-600 font-bold scale-105' : 'opacity-60 hover:opacity-100'}`}
 							>
-								{cat}
+								{ser}
 							</Badge>
 						))}
 					</div>
