@@ -9,12 +9,13 @@ import ArticleDialogLayer from './ArticleDialogLayer';
 import ArticleList from './ArticleList';
 
 interface ArticleSectionProps {
-	articles: Article[];
+	initialArticles: Article[];
 	loading?: boolean;
+	initialCursor?: string;
 }
 
-export default function ArticleSection({ articles, loading }: ArticleSectionProps) {
-	const dialog = useArticleDialog(articles);
+export default function ArticleSection({ initialArticles, loading, initialCursor }: ArticleSectionProps) {
+	const dialog = useArticleDialog(initialArticles);
 	const { iframeAllowed } = useIframeAllowed(dialog.selectedArticle?.url ?? null);
 	const openInNewWindow = useOpenInNewWindow(dialog.selectedArticle?.url);
 	const router = useRouter();
@@ -25,7 +26,13 @@ export default function ArticleSection({ articles, loading }: ArticleSectionProp
 
 	return (
 		<>
-			<ArticleList articles={articles} onCardClick={dialog.handleCardClick} loading={loading} />
+			<ArticleList
+				onCardClick={dialog.handleCardClick}
+				initialArticles={[]}
+				// initialArticles={initialArticles}
+				// initialCursor={initialCursor}
+				loading={loading}
+			/>
 			<ArticleDialogLayer
 				iframeAllowed={iframeAllowed}
 				selectedArticle={dialog.selectedArticle}

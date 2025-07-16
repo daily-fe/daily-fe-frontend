@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import type { Article, ArticleCreateInput } from '@/entities/article/model/types';
-import { articleRepository } from '@/entities/article/repositories/article.repository';
+import { articleRepositoryWithServer } from '@/entities/article/repositories/article.repository';
 import {
 	analyzeArticleUseCase,
 	createArticleUseCase,
@@ -23,7 +23,7 @@ export async function analyzeArticleAction(prevState: ArticleFormState, formData
 		return { success: false, message: 'ID를 입력해주세요.' };
 	}
 	try {
-		const result = await analyzeArticleUseCase(url, { articleRepository });
+		const result = await analyzeArticleUseCase(url, { articleRepository: articleRepositoryWithServer });
 		revalidatePath('/');
 		return { success: true, message: '분석에 성공했습니다.', data: result };
 	} catch (error) {
@@ -31,18 +31,18 @@ export async function analyzeArticleAction(prevState: ArticleFormState, formData
 	}
 }
 export async function likeArticleAction(id: string): Promise<void> {
-	await likeArticleUseCase(id, { articleRepository });
+	await likeArticleUseCase(id, { articleRepository: articleRepositoryWithServer });
 	revalidatePath('/');
 }
 
 export async function unlikeArticleAction(id: string): Promise<void> {
-	await unlikeArticleUseCase(id, { articleRepository });
+	await unlikeArticleUseCase(id, { articleRepository: articleRepositoryWithServer });
 	revalidatePath('/');
 }
 
 export async function getArticleAction(id: string): Promise<Article | null> {
 	try {
-		return await getArticleUseCase(id, { articleRepository });
+		return await getArticleUseCase(id, { articleRepository: articleRepositoryWithServer });
 	} catch {
 		return null;
 	}
@@ -50,7 +50,7 @@ export async function getArticleAction(id: string): Promise<Article | null> {
 
 export async function createArticleAction(article: ArticleCreateInput): Promise<Article | null> {
 	try {
-		const result = await createArticleUseCase(article, { articleRepository });
+		const result = await createArticleUseCase(article, { articleRepository: articleRepositoryWithServer });
 		return result;
 	} catch (error) {
 		return null;

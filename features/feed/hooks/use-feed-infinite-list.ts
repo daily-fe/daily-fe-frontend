@@ -9,7 +9,6 @@ import { CursorPaginationRequestDto } from '@/shared/lib/dto/cursor-pagination.d
 interface UseFeedInfiniteListProps {
 	initialFeeds: Feed[];
 	initialCursor?: string | null;
-	loading?: boolean;
 	limit?: number;
 	order?: string;
 }
@@ -17,7 +16,6 @@ interface UseFeedInfiniteListProps {
 export function useFeedInfiniteList({
 	initialFeeds,
 	initialCursor,
-	loading = false,
 	limit = 10,
 	order = 'DESC',
 }: UseFeedInfiniteListProps) {

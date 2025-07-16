@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { articleRepository } from '@/entities/article/repositories/article.repository';
+import { articleRepositoryWithServer } from '@/entities/article/repositories/article.repository';
 import { checkIframeAllowed } from '@/features/article/usecases/check-iframe-allowed.usecase';
 
 export async function POST(req: NextRequest) {
@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 		}
 
 		const { iframeAllowed, reason } = await checkIframeAllowed(url, {
-			articleRepository: articleRepository,
+			articleRepository: articleRepositoryWithServer,
 		});
 		return NextResponse.json({ iframeAllowed, reason });
 	} catch {

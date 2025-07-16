@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
-import type { Article } from '@/entities/article/model/types';
-import { articleRepository } from '@/entities/article/repositories/article.repository';
+import { articleRepositoryWithServer } from '@/entities/article/repositories/article.repository';
 import ArticleSection from '@/features/article/ui/ArticleSection';
 import ArticleSectionHeader from '@/features/article/ui/ArticleSectionHeader';
 import { getArticlesUseCase } from '@/features/article/usecases/article.usecase';
@@ -12,24 +11,28 @@ export default async function ArticlePage({
 }: {
 	searchParams: { [key: string]: string | string[] | undefined };
 }) {
-	const { category, keyword } = await searchParams;
+	const { category, keyword } = searchParams;
 	const categoryParam = Array.isArray(category) ? category[0] : category;
 	const keywordParam = Array.isArray(keyword) ? keyword[0] : keyword;
 
 	try {
-		const articles: Article[] = await getArticlesUseCase(
-			{ articleRepository },
+		const initialArticles = await getArticlesUseCase(
+			{ articleRepository: articleRepositoryWithServer },
 			{
 				category: categoryParam,
 				keyword: keywordParam,
+				limit: 2,
 			},
 		);
 		return (
 			<main className="h-full w-full">
 				<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
 					<ArticleSectionHeader />
-					<Suspense fallback={<ArticleSection articles={[]} loading />}>
-						<ArticleSection articles={articles} />
+					<Suspense fallback={<ArticleSection initialArticles={[]} loading />}>
+						<ArticleSection
+							initialArticles={initialArticles.data}
+							initialCursor={initialArticles.nextCursor}
+						/>
 					</Suspense>
 					{/* // TODO */}
 					{/* <div className="lg:col-span-1">

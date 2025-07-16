@@ -1,5 +1,7 @@
 import type { Article, ArticleCreateInput } from '@/entities/article/model/types';
 import { ArticleRepositoryImpl } from '@/entities/article/repositories/article.repository';
+import { ArticleListRequestDto } from '@/entities/article/model/dto';
+import { CursorPaginationResponseDto } from '@/shared/lib/dto/cursor-pagination.dto';
 
 interface Dependencies {
 	articleRepository: ArticleRepositoryImpl;
@@ -23,15 +25,9 @@ export async function getArticleUseCase(id: string, deps: Dependencies): Promise
 
 export async function getArticlesUseCase(
 	deps: Dependencies,
-	{
-		category,
-		keyword,
-	}: {
-		category?: string;
-		keyword?: string;
-	},
-): Promise<Article[]> {
-	return deps.articleRepository.getAll(category, keyword);
+	request: ArticleListRequestDto,
+): Promise<CursorPaginationResponseDto<Article>> {
+	return deps.articleRepository.getAll(request);
 }
 
 export async function getLikedArticlesUseCase(deps: Dependencies): Promise<Article[]> {
