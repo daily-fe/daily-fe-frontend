@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Category } from '@/entities/article/model/constants';
+import { Category } from '@/entities/article/model/types';
 import IconButton from '@/shared/ui/IconButton';
 import SearchInput from '../../../shared/ui/SearchInput';
 import { useArticleSearch } from '../hooks/use-article-search';

@@ -24,6 +24,7 @@ export default async function HomePage({
 		const initialArticles = await getArticlesUseCase(
 			{ articleRepository: articleRepositoryWithServer },
 			{
+				// TODO
 				series: seriesParam,
 				keyword: keywordParam,
 				limit: 2,

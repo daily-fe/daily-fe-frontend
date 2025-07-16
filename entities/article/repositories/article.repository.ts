@@ -62,7 +62,6 @@ abstract class BaseArticleRepository implements ArticleRepositoryImpl {
 			this.api.get('/article', { params: request }),
 			'아티클 목록 조회 중 오류가 발생했습니다.',
 		);
-		console.log('response', response);
 		return response.data;
 	}
 

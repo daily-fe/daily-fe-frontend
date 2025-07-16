@@ -10,4 +10,3 @@ export const SERIES_COLORS: Record<string, { bg: string; text: string; border: s
 };
 
 export const CATEGORY_LIST = ['Frontend', 'Backend', 'AI', 'Mobile', 'DevOps', 'Others'] as const;
-export type Category = (typeof CATEGORY_LIST)[number];

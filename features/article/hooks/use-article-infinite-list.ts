@@ -1,3 +1,4 @@
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { ArticleListRequestDto } from '@/entities/article/model/dto';
@@ -19,8 +20,11 @@ export function useArticleInfiniteList({
 	limit = 10,
 	onlyLiked,
 }: UseArticleInfiniteListProps) {
-	console.log('initialArticles', initialArticles, initialCursor, limit);
 	const { ref, inView } = useInView();
+	const searchParams = useSearchParams();
+	const series = searchParams.get('series') ?? undefined;
+	const category = searchParams.get('category') ?? undefined;
+	const keyword = searchParams.get('keyword') ?? undefined;
 
 	const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = useCursorPagination<
 		Article,
@@ -33,7 +37,7 @@ export function useArticleInfiniteList({
 				: getArticlesUseCase({ articleRepository: articleRepositoryWithClient }, params));
 			return res;
 		},
-		{ limit },
+		{ limit, series, category, keyword },
 		initialCursor ?? null,
 		!!initialCursor,
 	);

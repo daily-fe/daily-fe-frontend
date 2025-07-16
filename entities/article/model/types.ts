@@ -1,6 +1,8 @@
-import { CATEGORY_LIST, Category, SERIES_LIST } from './constants';
+import { CATEGORY_LIST, SERIES_LIST } from './constants';
 
 export type Series = (typeof SERIES_LIST)[number];
+export type Category = (typeof CATEGORY_LIST)[number];
+
 export type SeriesSearch = Series | 'all';
 export type CategorySearch = Category | 'all';
 

@@ -1,6 +1,6 @@
 'use client';
-import { CATEGORY_LIST, Category, SERIES_LIST } from '@/entities/article/model/constants';
-import { CategorySearch, Series, SeriesSearch } from '@/entities/article/model/types';
+import { CATEGORY_LIST, SERIES_LIST } from '@/entities/article/model/constants';
+import { Category, CategorySearch, Series, SeriesSearch } from '@/entities/article/model/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/ui/select';
 import ArticleKeywordSearch from './ArticleKeywordSearch';
 

@@ -1,4 +1,3 @@
-import { ArticleListRequestDto } from '@/entities/article/model/dto';
 import type { Article } from '@/entities/article/model/types';
 import { Skeleton } from '@/shared/ui/skeleton';
 import { useArticleInfiniteList } from '../hooks/use-article-infinite-list';
