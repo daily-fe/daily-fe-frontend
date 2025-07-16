@@ -16,12 +16,13 @@ interface UseFeedInfiniteListProps {
 export function useFeedInfiniteList({
 	initialFeeds,
 	initialCursor,
+
 	limit = 10,
 	order = 'DESC',
 }: UseFeedInfiniteListProps) {
 	const { ref, inView } = useInView();
 
-	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useCursorPagination<
+	const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = useCursorPagination<
 		Feed,
 		CursorPaginationRequestDto & { order: string }
 	>(
@@ -54,5 +55,6 @@ export function useFeedInfiniteList({
 		ref,
 		hasNextPage,
 		isFetchingNextPage,
+		isFetching,
 	};
 }

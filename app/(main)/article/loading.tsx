@@ -6,7 +6,7 @@ export default function ArticleLoading() {
 		<main className="h-full w-full">
 			<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
 				<ArticleSectionHeader />
-				<ArticleSection articles={[]} loading />
+				<ArticleSection initialArticles={[]} loading />
 			</div>
 		</main>
 	);

@@ -1,7 +1,13 @@
 {
 	"$schema": "https://biomejs.dev/schemas/stable/schema.json",
 	"files": {
-		"includes": ["app/**/*.*"]
+		"includes": [
+			"app/**/*.*",
+			"entities/**/*.*",
+			"features/**/*.*",
+			"shared/**/*.*",
+			"widgets/**/*.*"
+		]
 	},
 	"vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
 	"formatter": { "enabled": true, "indentStyle": "tab" },

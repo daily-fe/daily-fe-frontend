@@ -4,7 +4,7 @@ export default function LikedArticlesLoading() {
 	return (
 		<main className="h-full w-full">
 			<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
-				<ArticleSection articles={[]} loading />
+				<ArticleSection initialArticles={[]} loading />
 			</div>
 		</main>
 	);

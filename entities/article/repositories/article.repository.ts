@@ -57,7 +57,8 @@ abstract class BaseArticleRepository implements ArticleRepositoryImpl {
 		return response.data;
 	}
 
-	async getAll(request: ArticleListRequestDto): Promise<CursorPaginationResponseDto<Article>> {;
+	async getAll(request: ArticleListRequestDto): Promise<CursorPaginationResponseDto<Article>> {
+		await new Promise((resolve) => setTimeout(resolve, 2000));
 		const response = await apiCall(
 			this.api.get('/article', { params: request }),
 			'아티클 목록 조회 중 오류가 발생했습니다.',
@@ -92,5 +93,3 @@ class ArticleRepositoryWithClient extends BaseArticleRepository {
 
 export const articleRepositoryWithServer = new ArticleRepositoryWithServer();
 export const articleRepositoryWithClient = new ArticleRepositoryWithClient();
-
-

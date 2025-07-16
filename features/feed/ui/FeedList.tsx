@@ -14,10 +14,9 @@ interface FeedListProps {
 }
 
 export function FeedList({ initialFeeds, initialCursor, loading }: FeedListProps) {
-	const { feeds, ref, hasNextPage, isFetchingNextPage } = useFeedInfiniteList({
+	const { feeds, ref, hasNextPage, isFetchingNextPage, isFetching } = useFeedInfiniteList({
 		initialFeeds,
 		initialCursor,
-		loading,
 	});
 
 	const skeletonItems = Array.from({ length: 12 });
