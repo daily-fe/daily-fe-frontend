@@ -1,12 +1,14 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { CATEGORY_LIST, SERIES_LIST } from '@/entities/article/model/constants';
+import type { CategorySearch, SeriesSearch } from '@/entities/article/model/types';
 import { Category } from '@/entities/article/model/types';
 import IconButton from '@/shared/ui/IconButton';
 import SearchInput from '../../../shared/ui/SearchInput';
 import { useArticleSearch } from '../hooks/use-article-search';
-import CategoryBadgeList from './CategoryBadgeList';
-import SeriesBadgeList from './SeriesBadgeList';
+import SelectBadgeList from './SelectBadgeList';
+import { selectBadgeClass } from './utils/select-badge-class';
 
 export default function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -52,8 +54,20 @@ export default function SearchOverlay({ open, onClose }: { open: boolean; onClos
 			</div>
 			<div className="flex-1 overflow-y-auto p-4 mt-2">
 				<div className="flex flex-col gap-3">
-					<CategoryBadgeList category={category} onChange={setCategory} />
-					<SeriesBadgeList series={series} onChange={handleSeriesChange} />
+					<SelectBadgeList<CategorySearch>
+						items={[...CATEGORY_LIST] as CategorySearch[]}
+						value={category}
+						onChange={setCategory}
+						allLabel="전체 카테고리"
+						selectBadgeClass={selectBadgeClass}
+					/>
+					<SelectBadgeList<SeriesSearch>
+						items={[...SERIES_LIST] as SeriesSearch[]}
+						value={series}
+						onChange={handleSeriesChange}
+						allLabel="전체 시리즈"
+						selectBadgeClass={selectBadgeClass}
+					/>
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,15 @@
 'use client';
 
 import { CATEGORY_LIST, SERIES_LIST } from '@/entities/article/model/constants';
-import type { AnalysisResult, ArticleCreateInput } from '@/entities/article/model/types';
+import type {
+	AnalysisResult,
+	ArticleCreateInput,
+	Category,
+	Series,
+	SeriesSearch,
+} from '@/entities/article/model/types';
+import SelectBadgeList from '@/features/article/ui/SelectBadgeList';
+import { selectBadgeClass } from '@/features/article/ui/utils/select-badge-class';
 import { useEditableAnalysisResult } from '@/features/article-analysis/hooks/use-editable-analysis-result';
 import { EditableTags } from '@/features/article-analysis/ui/EditableTags';
 import { Badge } from '@/shared/ui/badge';
@@ -33,6 +41,14 @@ export default function ArticleAnalysisResult({ result, onReset, onAddArticle }:
 		handleAddArticle,
 	} = useEditableAnalysisResult({ result, onAddArticle });
 
+	const handleSeriesChange = (value: Series) => {
+		setSeries(value);
+	};
+
+	const handleCategoryChange = (value: Category) => {
+		setCategory(value);
+	};
+
 	return (
 		<div>
 			<Card className="overflow-y-auto max-h-[60dvh] sm:max-h-none">
@@ -56,27 +72,23 @@ export default function ArticleAnalysisResult({ result, onReset, onAddArticle }:
 							placeholder="요약을 입력하세요"
 						/>
 					</CardDescription>
-					<div className="flex gap-2 mt-6 flex-wrap">
-						{SERIES_LIST.map((ser) => (
-							<Badge
-								key={ser}
-								onClick={() => setSeries(ser)}
-								className={`cursor-pointer border transition-all ${ser === series ? 'ring-2 ring-offset-2 ring-gray-600 font-bold scale-105' : 'opacity-60 hover:opacity-100'}`}
-							>
-								{ser}
-							</Badge>
-						))}
-					</div>
-					<div className="flex gap-2 mt-6 flex-wrap">
-						{CATEGORY_LIST.map((cat) => (
-							<Badge
-								key={cat}
-								onClick={() => setCategory(cat)}
-								className={`cursor-pointer border transition-all ${cat === category ? 'ring-2 ring-offset-2 ring-gray-600 font-bold scale-105' : 'opacity-60 hover:opacity-100'}`}
-							>
-								{cat}
-							</Badge>
-						))}
+					<div className="flex flex-col gap-3 mt-4">
+						<SelectBadgeList<Series>
+							items={[...SERIES_LIST]}
+							value={series}
+							onChange={handleSeriesChange}
+							allLabel="전체 시리즈"
+							selectBadgeClass={selectBadgeClass}
+							includeAll={false}
+						/>
+						<SelectBadgeList<Category>
+							items={[...CATEGORY_LIST]}
+							value={category}
+							onChange={handleCategoryChange}
+							allLabel="전체 카테고리"
+							selectBadgeClass={selectBadgeClass}
+							includeAll={false}
+						/>
 					</div>
 				</CardContent>
 				<CardFooter className="flex-col items-start gap-2 p-2">

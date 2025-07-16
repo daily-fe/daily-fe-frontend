@@ -1,12 +1,14 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import { CATEGORY_LIST, SERIES_LIST } from '@/entities/article/model/constants';
+import { CategorySearch, SeriesSearch } from '@/entities/article/model/types';
 import { AddArticleDialog } from '@/features/article/ui/AddArticleDialog';
 import { useArticleSearch } from '../hooks/use-article-search';
 import ArticleKeywordSearch from './ArticleKeywordSearch';
 import ArticleSearchBar from './ArticleSearchBar';
-import CategoryBadgeList from './CategoryBadgeList';
-import SeriesBadgeList from './SeriesBadgeList';
+import SelectBadgeList from './SelectBadgeList';
+import { selectBadgeClass } from './utils/select-badge-class';
 
 export default function ArticleSectionHeader() {
 	const searchParams = useSearchParams();
@@ -37,8 +39,20 @@ export default function ArticleSectionHeader() {
 					/>
 				)}
 				<div className="flex flex-col gap-3">
-					<CategoryBadgeList category={category} onChange={handleCategoryChange} />
-					<SeriesBadgeList series={series} onChange={handleSeriesChange} />
+					<SelectBadgeList<CategorySearch>
+						items={[...CATEGORY_LIST] as CategorySearch[]}
+						value={category}
+						onChange={handleCategoryChange}
+						allLabel="전체 카테고리"
+						selectBadgeClass={selectBadgeClass}
+					/>
+					<SelectBadgeList<SeriesSearch>
+						items={[...SERIES_LIST] as SeriesSearch[]}
+						value={series}
+						onChange={handleSeriesChange}
+						allLabel="전체 시리즈"
+						selectBadgeClass={selectBadgeClass}
+					/>
 				</div>
 			</div>
 			<div className="w-full">
