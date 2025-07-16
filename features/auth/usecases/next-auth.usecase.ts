@@ -34,7 +34,6 @@ async function handleJwtCallback(
 			token.name = response.data.user.nickname;
 			token.email = response.data.user.email;
 			token.image = response.data.user.avatarUrl;
-			console.log('token', response.data.user.avatarUrl);
 		} catch (e) {
 			console.error('next-auth callback error', e);
 		}

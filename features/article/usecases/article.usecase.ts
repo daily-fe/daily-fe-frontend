@@ -1,6 +1,6 @@
+import { ArticleListRequestDto } from '@/entities/article/model/dto';
 import type { Article, ArticleCreateInput } from '@/entities/article/model/types';
 import { ArticleRepositoryImpl } from '@/entities/article/repositories/article.repository';
-import { ArticleListRequestDto } from '@/entities/article/model/dto';
 import { CursorPaginationResponseDto } from '@/shared/lib/dto/cursor-pagination.dto';
 
 interface Dependencies {

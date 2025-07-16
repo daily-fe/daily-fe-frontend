@@ -20,8 +20,8 @@ export function FeedList({ initialFeeds, initialCursor, loading }: FeedListProps
 	});
 
 	const skeletonItems = Array.from({ length: 12 });
-	const showSkeleton = loading || isFetchingNextPage;
-	const showEmpty = !loading && !hasNextPage && feeds.length === 0;
+	const showSkeleton = loading || isFetchingNextPage || isFetching;
+	const showEmpty = !loading && !hasNextPage && !isFetching && feeds.length === 0;
 
 	return (
 		<div className={GRID_CLASS}>

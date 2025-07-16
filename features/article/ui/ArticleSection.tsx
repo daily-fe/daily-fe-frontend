@@ -28,9 +28,8 @@ export default function ArticleSection({ initialArticles, loading, initialCursor
 		<>
 			<ArticleList
 				onCardClick={dialog.handleCardClick}
-				initialArticles={[]}
-				// initialArticles={initialArticles}
-				// initialCursor={initialCursor}
+				initialArticles={initialArticles}
+				initialCursor={initialCursor}
 				loading={loading}
 			/>
 			<ArticleDialogLayer

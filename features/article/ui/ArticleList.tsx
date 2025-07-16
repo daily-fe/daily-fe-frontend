@@ -1,7 +1,7 @@
 import { ArticleListRequestDto } from '@/entities/article/model/dto';
 import type { Article } from '@/entities/article/model/types';
-import { useArticleInfiniteList } from '../hooks/use-article-infinite-list';
 import { Skeleton } from '@/shared/ui/skeleton';
+import { useArticleInfiniteList } from '../hooks/use-article-infinite-list';
 import ArticleCard from './ArticleCard';
 
 interface ArticleListProps {

@@ -33,14 +33,12 @@ export function useFeedInfiniteList({
 		},
 		{ limit, order },
 		initialCursor,
+		!!initialCursor,
 	);
 
 	const fetchedFeeds = data ? data.pages.flatMap((page) => page.data) : [];
 	const feeds = useMemo(
-		() =>
-			initialFeeds && initialFeeds.length > 0
-				? [...initialFeeds, ...fetchedFeeds.filter((feed) => !initialFeeds.some((f) => f.url === feed.url))]
-				: fetchedFeeds,
+		() => (initialFeeds ? [...initialFeeds, ...fetchedFeeds] : fetchedFeeds),
 		[initialFeeds, fetchedFeeds],
 	);
 

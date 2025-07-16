@@ -11,7 +11,7 @@ export default async function ArticlePage({
 }: {
 	searchParams: { [key: string]: string | string[] | undefined };
 }) {
-	const { category, keyword } = searchParams;
+	const { category, keyword } = await searchParams;
 	const categoryParam = Array.isArray(category) ? category[0] : category;
 	const keywordParam = Array.isArray(keyword) ? keyword[0] : keyword;
 

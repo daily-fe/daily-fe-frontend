@@ -1,9 +1,9 @@
 import { apiCall } from '@/shared/lib/api-call';
-import { serverApi } from '@/shared/lib/server/api';
 import clientApi from '@/shared/lib/client/api';
-import type { Article, ArticleCreateInput } from '../model/types';
 import { CursorPaginationResponseDto } from '@/shared/lib/dto/cursor-pagination.dto';
+import { serverApi } from '@/shared/lib/server/api';
 import { ArticleListRequestDto } from '../model/dto';
+import type { Article, ArticleCreateInput } from '../model/types';
 
 export abstract class ArticleRepositoryImpl {
 	abstract fetchArticleFrameHeadersOptions(url: string): Promise<{
@@ -58,7 +58,6 @@ abstract class BaseArticleRepository implements ArticleRepositoryImpl {
 	}
 
 	async getAll(request: ArticleListRequestDto): Promise<CursorPaginationResponseDto<Article>> {
-		await new Promise((resolve) => setTimeout(resolve, 2000));
 		const response = await apiCall(
 			this.api.get('/article', { params: request }),
 			'아티클 목록 조회 중 오류가 발생했습니다.',
