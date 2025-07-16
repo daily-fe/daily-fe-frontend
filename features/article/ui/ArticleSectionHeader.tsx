@@ -20,7 +20,7 @@ export default function ArticleSectionHeader() {
 	return (
 		<header className="flex flex-col gap-2">
 			<div className="flex items-center justify-between gap-2">
-				<p className="text-gray-500">매일매일 공유되는 프론트엔드 개발자를 위한 아티클</p>
+				<h2>기술 블로그 아티클</h2>
 				<div className="hidden sm:block">
 					<AddArticleDialog onArticleAdded={handleArticleAdded} />
 				</div>

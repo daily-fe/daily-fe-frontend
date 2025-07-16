@@ -34,11 +34,11 @@ export default async function FeedPage() {
 						</BreadcrumbItem>
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
-							<BreadcrumbLink href="/feed">기술 블로그 피드</BreadcrumbLink>
+							<BreadcrumbLink href="/feed">테크 기업 피드</BreadcrumbLink>
 						</BreadcrumbItem>
 					</BreadcrumbList>
 				</Breadcrumb>
-				<h1 className="text-2xl font-bold hidden sm:block">최신 기술 블로그 피드</h1>
+				<h1 className="text-2xl font-bold hidden sm:block">최신 테크 기업 피드</h1>
 				<Suspense fallback={<FeedList initialFeeds={[]} loading />}>
 					<FeedList initialFeeds={initialFeeds.data} initialCursor={initialFeeds.nextCursor} />
 				</Suspense>
