@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import { CATEGORY_LIST, SERIES_LIST } from '@/entities/article/model/constants';
 import { CategorySearch, SeriesSearch } from '@/entities/article/model/types';
 import { AddArticleDialog } from '@/features/article/ui/AddArticleDialog';
@@ -27,7 +28,9 @@ export default function ArticleSectionHeader() {
 			<div className="flex items-center justify-between gap-2">
 				<h2>기술 블로그 아티클</h2>
 				<div className="hidden sm:block">
-					<AddArticleDialog onArticleAdded={handleArticleAdded} />
+					<Suspense>
+						<AddArticleDialog onArticleAdded={handleArticleAdded} />
+					</Suspense>
 				</div>
 			</div>
 			<div className="flex flex-col sm:hidden mt-2 gap-4">

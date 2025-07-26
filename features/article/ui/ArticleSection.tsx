@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { Suspense } from 'react';
 import type { Article } from '@/entities/article/model/types';
 import { useArticleDialog } from '@/features/article/hooks/use-article-dialog';
 import { useOpenInNewWindow } from '@/features/article/hooks/use-open-in-new-window';
@@ -25,7 +26,7 @@ export default function ArticleSection({ initialArticles, loading, onlyLiked }: 
 	};
 
 	return (
-		<>
+		<Suspense>
 			<ArticleList
 				onCardClick={dialog.handleCardClick}
 				initialArticles={initialArticles}
@@ -39,6 +40,6 @@ export default function ArticleSection({ initialArticles, loading, onlyLiked }: 
 				onArticleAdded={handleArticleAdded}
 				onOpenInNewWindow={openInNewWindow}
 			/>
-		</>
+		</Suspense>
 	);
 }

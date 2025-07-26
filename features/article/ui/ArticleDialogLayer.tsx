@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import type { Article } from '@/entities/article/model/types';
 import { AddArticleDialog } from '@/features/article/ui/AddArticleDialog';
 import { Icon } from '@/shared/ui/Icon';
@@ -38,15 +38,17 @@ export default function ArticleDialogLayer({
 			)}
 			<div className="sm:hidden">
 				<div className="fixed right-4 bottom-4 z-50">
-					<AddArticleDialog onArticleAdded={onArticleAdded}>
-						<button
-							type="button"
-							className="bg-black text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
-							aria-label="아티클 추가"
-						>
-							<Icon name="plus" className="w-6 h-6" />
-						</button>
-					</AddArticleDialog>
+					<Suspense>
+						<AddArticleDialog onArticleAdded={onArticleAdded}>
+							<button
+								type="button"
+								className="bg-black text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
+								aria-label="아티클 추가"
+							>
+								<Icon name="plus" className="w-6 h-6" />
+							</button>
+						</AddArticleDialog>
+					</Suspense>
 				</div>
 			</div>
 		</>

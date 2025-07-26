@@ -9,7 +9,7 @@ import ApiErrorNotice from '@/shared/ui/ApiErrorNotice';
 export default async function ArticlePage({
 	searchParams,
 }: {
-	searchParams: { [key: string]: string | string[] | undefined };
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
 	const { series, keyword } = await searchParams;
 	const seriesParam = Array.isArray(series) ? series[0] : series;
@@ -27,8 +27,8 @@ export default async function ArticlePage({
 		return (
 			<main className="h-full w-full">
 				<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
-					<ArticleSectionHeader />
-					<Suspense fallback={<ArticleSection initialArticles={[]} loading />}>
+					<Suspense>
+						<ArticleSectionHeader />
 						<ArticleSection initialArticles={initialArticles.data} />
 					</Suspense>
 					{/* // TODO */}

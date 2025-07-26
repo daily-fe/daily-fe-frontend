@@ -14,7 +14,7 @@ import ApiErrorNotice from '@/shared/ui/ApiErrorNotice';
 export default async function HomePage({
 	searchParams,
 }: {
-	searchParams: { [key: string]: string | string[] | undefined };
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
 	const { series, keyword } = await searchParams;
 	const seriesParam = Array.isArray(series) ? series[0] : series;
@@ -48,8 +48,8 @@ export default async function HomePage({
 							{initialFeeds.data.length > 0 && <FeedPreviewList initialFeeds={initialFeeds.data} />}
 						</Suspense>
 					</div>
-					<ArticleSectionHeader />
 					<Suspense fallback={<ArticleSection initialArticles={[]} loading />}>
+						<ArticleSectionHeader />
 						<ArticleSection initialArticles={initialArticles.data} />
 					</Suspense>
 					{/* // TODO */}
