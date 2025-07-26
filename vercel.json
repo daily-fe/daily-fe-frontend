@@ -1,0 +1,8 @@
+{
+  "env": {
+    "NEXTAUTH_URL": "https://your-domain.vercel.app",
+    "NEXTAUTH_SECRET": "@nextauth-secret",
+    "GITHUB_ID": "@github-client-id",
+    "GITHUB_SECRET": "@github-client-secret"
+  }
+} 
