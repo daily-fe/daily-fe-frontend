@@ -50,10 +50,6 @@ export default function MyPage() {
 		}
 	}, [user]);
 
-	// if (!session) {
-	// 	return <div>로그인이 필요합니다.</div>;
-	// }
-
 	const handleSubmit = (formData: FormData) => {
 		const nickname = formData.get('nickname') as string;
 		const profileImageUrl = previewRef.current || imageUrl;
