@@ -24,6 +24,7 @@ class UserRepository implements UserRepositoryImpl {
 		const res = await apiCall<AxiosResponse<UserUpdateResponse>>(
 			serverApi.patch('users/me', {
 				nickname: input.nickname,
+				// TODO
 				// profileImageUrl: input.profileImageUrl,
 			}),
 		);
