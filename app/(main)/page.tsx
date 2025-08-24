@@ -1,13 +1,12 @@
 import { Suspense } from 'react';
 import { articleRepositoryWithServer } from '@/entities/article/repositories/article.repository';
-import { Feed } from '@/entities/feed/model/types';
 import { feedRepositoryWithServer } from '@/entities/feed/repositories/feed.repository';
 import ArticleSection from '@/features/article/ui/ArticleSection';
 import ArticleSectionHeader from '@/features/article/ui/ArticleSectionHeader';
 import { getArticlesUseCase } from '@/features/article/usecases/article.usecase';
-import { FeedPreviewList } from '@/features/feed/ui/FeedPreviewList';
+import { FeedsPreview } from '@/features/feed/ui/FeedsPreview';
+import { FeedsPreviewLoading } from '@/features/feed/ui/FeedsPreviewLoading';
 import { getFeedsUsecase } from '@/features/feed/usecases/feed.usecase';
-import { CursorPaginationResponseDto } from '@/shared/lib/dto/cursor-pagination.dto';
 import { ApiError } from '@/shared/lib/errors/ApiError';
 import ApiErrorNotice from '@/shared/ui/ApiErrorNotice';
 
@@ -30,7 +29,7 @@ export default async function HomePage({
 				limit: 2,
 			},
 		);
-		const initialFeeds: CursorPaginationResponseDto<Feed> = await getFeedsUsecase(
+		const initialFeeds = getFeedsUsecase(
 			{
 				feedRepository: feedRepositoryWithServer,
 			},
@@ -44,8 +43,8 @@ export default async function HomePage({
 				<div className="flex flex-col gap-4 sm:px-0 container mx-auto">
 					<div className="flex flex-col gap-2">
 						<h2>테크 기업 피드</h2>
-						<Suspense fallback={<FeedPreviewList initialFeeds={[]} loading />}>
-							{initialFeeds.data.length > 0 && <FeedPreviewList initialFeeds={initialFeeds.data} />}
+						<Suspense fallback={<FeedsPreviewLoading />}>
+							<FeedsPreview initialFeeds={initialFeeds} />
 						</Suspense>
 					</div>
 					<Suspense fallback={<ArticleSection initialArticles={[]} loading />}>

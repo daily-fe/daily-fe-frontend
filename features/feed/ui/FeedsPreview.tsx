@@ -1,30 +1,27 @@
 'use client';
 
 import Link from 'next/link';
+import { use } from 'react';
 import { Feed } from '@/entities/feed/model/types';
+import { CursorPaginationResponseDto } from '@/shared/lib/dto/cursor-pagination.dto';
 import { Card } from '@/shared/ui/card';
 import { Icon } from '@/shared/ui/Icon';
-import { Skeleton } from '@/shared/ui/skeleton';
 import { FeedPreviewCard } from './FeedPreviewCard';
 
 interface FeedListProps {
-	initialFeeds: Feed[];
-	loading?: boolean;
+	initialFeeds: Promise<CursorPaginationResponseDto<Feed>>;
 }
 
-export function FeedPreviewList({ initialFeeds, loading }: FeedListProps) {
-	const skeletonItems = Array.from({ length: initialFeeds ? 3 : 12 });
-	const showSkeleton = loading;
+export function FeedsPreview({ initialFeeds }: FeedListProps) {
+	const allInitialFeeds = use(initialFeeds).data;
 
 	return (
 		<Card className="flex w-full p-4 overflow-y-scroll h-40 gap-4 scrollbar-hide">
-			{initialFeeds.map((feed: Feed) => (
+			{allInitialFeeds.map((feed: Feed) => (
 				<div key={feed.url} className="min-w-70 h-full w-full">
 					<FeedPreviewCard article={feed} />
 				</div>
 			))}
-			{showSkeleton &&
-				skeletonItems.map((_, i) => <Skeleton key={`skeleton-${i}`} className="min-h-24 h-full" />)}
 
 			<Link
 				href="/feed"
