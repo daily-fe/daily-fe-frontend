@@ -13,10 +13,11 @@ import {
 	BreadcrumbList,
 	BreadcrumbSeparator,
 } from '@/shared/ui/breadcrumb';
+import FeedLoading from './loading';
 
 export default async function FeedPage() {
 	try {
-		const initialFeeds: CursorPaginationResponseDto<Feed> = await getFeedsUsecase(
+		const initialFeeds: Promise<CursorPaginationResponseDto<Feed>> = getFeedsUsecase(
 			{
 				feedRepository: feedRepositoryWithServer,
 			},
@@ -39,8 +40,8 @@ export default async function FeedPage() {
 					</BreadcrumbList>
 				</Breadcrumb>
 				<h1 className="text-2xl font-bold hidden sm:block">최신 테크 기업 피드</h1>
-				<Suspense fallback={<FeedList initialFeeds={[]} loading />}>
-					<FeedList initialFeeds={initialFeeds.data} initialCursor={initialFeeds.nextCursor} />
+				<Suspense fallback={<FeedLoading mockFeedCount={3} />}>
+					<FeedList initialFeeds={initialFeeds} />
 				</Suspense>
 			</>
 		);

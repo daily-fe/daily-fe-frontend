@@ -1,26 +1,26 @@
 'use client';
 
+import { use } from 'react';
+import FeedLoading from '@/app/(main)/feed/loading';
 import { Feed } from '@/entities/feed/model/types';
 import { useFeedInfiniteList } from '@/features/feed/hooks/use-feed-infinite-list';
-import { Skeleton } from '@/shared/ui/skeleton';
+import { CursorPaginationResponseDto } from '@/shared/lib/dto/cursor-pagination.dto';
 import { FeedCard } from './FeedCard';
 
 const GRID_CLASS = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4';
 
 interface FeedListProps {
-	initialFeeds: Feed[];
-	initialCursor?: string | null;
-	loading?: boolean;
+	initialFeeds: Promise<CursorPaginationResponseDto<Feed>>;
 }
 
-export function FeedList({ initialFeeds, initialCursor, loading }: FeedListProps) {
+export function FeedList({ initialFeeds }: FeedListProps) {
+	const allInitialFeeds = use(initialFeeds);
 	const { feeds, ref, hasNextPage, isFetchingNextPage, isFetching } = useFeedInfiniteList({
-		initialFeeds,
-		initialCursor,
+		initialFeeds: allInitialFeeds.data,
+		initialCursor: allInitialFeeds.nextCursor,
 	});
 
-	const skeletonItems = Array.from({ length: initialFeeds ? 3 : 12 });
-	const showSkeleton = loading || isFetchingNextPage || isFetching;
+	const showSkeleton = isFetchingNextPage || isFetching;
 
 	return (
 		<div className={GRID_CLASS}>
@@ -29,8 +29,7 @@ export function FeedList({ initialFeeds, initialCursor, loading }: FeedListProps
 					<FeedCard article={feed} />
 				</div>
 			))}
-			{showSkeleton &&
-				skeletonItems.map((_, i) => <Skeleton key={`skeleton-${i}`} className="min-h-24 h-full" />)}
+			{showSkeleton && <FeedLoading mockFeedCount={3} />}
 			{hasNextPage && <div ref={ref} className="col-span-full" />}
 		</div>
 	);
