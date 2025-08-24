@@ -15,6 +15,8 @@ import {
 	BreadcrumbSeparator,
 } from '@/shared/ui/breadcrumb';
 
+export const dynamic = 'force-dynamic';
+
 export default function FeedPage() {
 	try {
 		const initialFeeds: Promise<CursorPaginationResponseDto<Feed>> = getFeedsUsecase(
