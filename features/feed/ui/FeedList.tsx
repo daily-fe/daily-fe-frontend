@@ -1,11 +1,11 @@
 'use client';
 
 import { use } from 'react';
-import FeedLoading from '@/app/(main)/feed/loading';
 import { Feed } from '@/entities/feed/model/types';
 import { useFeedInfiniteList } from '@/features/feed/hooks/use-feed-infinite-list';
 import { CursorPaginationResponseDto } from '@/shared/lib/dto/cursor-pagination.dto';
 import { FeedCard } from './FeedCard';
+import FeedLoading from './FeedLoading';
 
 const GRID_CLASS = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4';
 

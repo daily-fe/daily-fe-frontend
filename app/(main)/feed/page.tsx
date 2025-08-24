@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { Feed } from '@/entities/feed/model/types';
 import { feedRepositoryWithServer } from '@/entities/feed/repositories/feed.repository';
 import { FeedList } from '@/features/feed/ui/FeedList';
+import FeedLoading from '@/features/feed/ui/FeedLoading';
 import { getFeedsUsecase } from '@/features/feed/usecases/feed.usecase';
 import { CursorPaginationResponseDto } from '@/shared/lib/dto/cursor-pagination.dto';
 import { ApiError } from '@/shared/lib/errors/ApiError';
@@ -13,9 +14,8 @@ import {
 	BreadcrumbList,
 	BreadcrumbSeparator,
 } from '@/shared/ui/breadcrumb';
-import FeedLoading from './loading';
 
-export default async function FeedPage() {
+export default function FeedPage() {
 	try {
 		const initialFeeds: Promise<CursorPaginationResponseDto<Feed>> = getFeedsUsecase(
 			{
