@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Noto_Sans_KR } from 'next/font/google';
 import React from 'react';
 import { Toaster } from 'sonner';
 import Header from '@/widgets/header/ui/Header';
@@ -8,11 +8,15 @@ import SidebarPanel from '@/widgets/sidebar/ui/SidebarPanel';
 import './globals.css';
 import { Providers } from './providers';
 
-const inter = Inter({ subsets: ['latin'] });
+const notoSans = Noto_Sans_KR({
+	subsets: ['latin'],
+	weight: ['400', '500', '600', '700'],
+	display: 'swap',
+});
 
 export const metadata: Metadata = {
-	title: 'DEV-ing',
-	description: '개발자를 위한 아티클과 테크 소식이 매일 공유되는 피드 플랫폼',
+	title: 'Atelier of Code',
+	description: '프론트엔드 공예와 읽기의 기록을 담아내는 하이엔드 퍼스널 블로그',
 	icons: [
 		{ rel: 'icon', url: '/favicon.ico' },
 		{ rel: 'icon', type: 'image/png', sizes: '32x32', url: '/favicon-32x32.png' },
@@ -26,15 +30,18 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={inter.className}>
+		<html lang="ko">
+			<body className={notoSans.className}>
 				<Providers>
 					<SidebarPanel />
-					<div className="flex flex-col min-h-screen">
-						<Header />
-						<div className="flex flex-col w-full">
+					<div className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-50">
+						<div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%)]" />
+						<div className="relative z-10 flex min-h-screen flex-col">
+							<Header />
 							<NavigationMenu />
-							<div className="flex-1 overflow-y-auto p-4">{children}</div>
+							<main className="flex-1">
+								<div className="container mx-auto px-4 pb-24 pt-10 md:px-6 lg:px-10">{children}</div>
+							</main>
 						</div>
 					</div>
 				</Providers>
